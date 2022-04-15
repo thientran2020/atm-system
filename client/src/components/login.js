@@ -41,7 +41,9 @@ export default function Login() {
                     className="button-container" 
                     disabled={!validateForm()}
                 >LOGIN</Button>
+                 <p> Register for a  account? <a href=" Registration"> Register </a>.</p>
             </Form>
+           
         </div>
     );
 }
