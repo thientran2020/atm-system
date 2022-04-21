@@ -198,19 +198,38 @@ btn.a hover {
   text-align: center;
 }
 
-.profilex{
-  border: none;
-  outline: 0;
-  display: inline-block;
-  padding: 35px;
-  color: black;
-  background-color:rgb(247, 232, 232);
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  font-size: 18px;
-  border-radius: 12px;
+.profilex {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 35px;
+    color: black;
+    background-color: rgb(247, 232, 232);
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    border-radius: 12px;
+    font-family: sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
+
+.profilexFontsAdded {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 35px;
+    color: black;
+    background-color: rgb(247, 232, 232);
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    border-radius: 12px;
+    font-family: sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
 .logox{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 300px;

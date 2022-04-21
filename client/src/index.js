@@ -7,7 +7,7 @@ import Account from './routes/account.jsx';
 import Registration from './routes/registration.jsx';
 import CloseAccount from './routes/closeAccount.jsx';
 import OpenAccount from './routes/openAccount.jsx';
-import MoibleDeposit from './routes/moibleDeposit.jsx';
+import MobileDeposit from './routes/mobileDeposit.jsx';
 import Profile from './routes/profile.jsx';
 import TrasnferFunds from  './routes/transferFunds.jsx';
 import Home from './routes/home.jsx';
@@ -27,7 +27,7 @@ ReactDOM.render(
         <Route path="openAccount" element={<OpenAccount />}/>
         <Route path="profile" element={<Profile />}/>
 
-        <Route path="moibleDeposit" element={<MoibleDeposit />}/>
+        <Route path="mobileDeposit" element={<MobileDeposit />}/>
         <Route path="trasnferFunds" element={<TrasnferFunds />}/>
         <Route path="home" element={<Home />}/>
       </Routes>
