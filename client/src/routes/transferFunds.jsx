@@ -13,7 +13,7 @@ return(
    <body  className="profilex" >
 
 
-<h1>trasnsferFunds</h1>
+<h1>Transfer Funds</h1>
 
  </body>
  <footer>

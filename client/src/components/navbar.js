@@ -20,7 +20,7 @@ export default function NavBar() {
       <div class="dropdown-content">
         <a href="account">Open Account </a>
         <a href="closeAccount">Close Account</a>
-        <a href="moibleDeposit">Moible Deposit</a>
+        <a href="mobileDeposit">Mobile Deposit</a>
         <a href="trasnferFunds">Transfer Funds</a>
       
       </div>
@@ -39,5 +39,5 @@ export default function NavBar() {
 
 function LogOut() {
   
-  <a href="trasnferFunds">Transfer Funds</a>
+  <a href="trasnf   erFunds">Transfer Funds</a>
 }
