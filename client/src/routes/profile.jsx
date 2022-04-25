@@ -1,60 +1,69 @@
-import React from 'react';
+import React, { Component, useEffect } from 'react';
 import NavBar from '../components/navbar';
 import Foot from '../components/footer';
 import logo from '../img/logo.png';
+class profile extends Component {
+  constructor(){
+super();
+this.state={
+  //array to store data from server
+ profile:[]
 
-export default function Profile(){
+}
+  }
+    componentDidMount() {
+      //poxy on json or right thr whole link
+      fetch('http://localhost:4040/customer')
+        .then(res => res.json())
+        .then(profile => this.setState({ profile },()=> console.log ('data fench',profile)));
+    }
+
+render(){
+
+
 return(
-    
- 
+<div>
 
-    <div  >
-
-
-<script >
-ReactDOM.render(
-  <h1>john</h1>,
-  document.getElementById('id01'));
-</script>
-
-       <header className="App-header">
-        <h1> ATM SYSTEM PROJECT </h1>
-        <NavBar />
-      </header>
-      
-      <body  className="profilex" >
+<header className="App-header">
+     <h1> ATM SYSTEM PROJECT </h1>
+     <NavBar />
+   </header>
+   
+   <body  className="profilex" >
 <img src={logo} className='logo'/> 
+<h1>Customer Profile </h1>
+{this.state.profile.map(user =>
+  <h2>Name:{user.name}</h2>
+  )}
 
-    <h1>Customer Profile </h1>
-    <h2 >Customer Name:<Name/></h2>
-    <h2>Customer Address:<Add/></h2>
-    <h2>Customer Phone<Phone/></h2>
+{this.state.profile.map(user =>
+  <h2>Address:{user.add}<br/>
+  {user.add2}{user.add3}{user.add4}</h2>
+  )}
 
-
-    </body>
-    
-    <footer>
-  <Foot />
  
+ {this.state.profile.map(user =>
+  <h2> Phone:{user.phone}</h2>
+  )}
+ 
+ 
+
+ </body>
+ 
+ <footer>
+<Foot />
+
 </footer> 
+
+
+
+
+
+</div>
+
+);
+
+}
+ }       
+export default profile;
     
-    </div>
-
-
-
-)
-
-
-}
-function Name() {
-
-  
-  return <div>John Lopez</div>;   
-}
-
-function Add() {
-  return <div>1 Washington Sq, San Jose, CA 95192</div>;   
-}
-function Phone() {
-  return <div>408 999-999</div>;   
-}
