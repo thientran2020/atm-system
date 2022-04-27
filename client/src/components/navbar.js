@@ -1,43 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../img/sjsu.jpg'
+import React from 'react'
+
 export default function NavBar() {
     return (
-        <div class="navbar" id="navbar">
-        <img src={logo} className='logoNav'/> 
-  
-  
-  
-    <a href="home" class="active">Home</a>
-    <a href="profile">Profile</a>
-  
-  
-    <div class="dropdown" >
-      
-      <button class="dropbtn">    Account 
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-content">
-        <a href="account">Open Account </a>
-        <a href="closeAccount">Close Account</a>
-        <a href="moibleDeposit">Moible Deposit</a>
-        <a href="trasnferFunds">Transfer Funds</a>
-      
-      </div>
-  
-      
-  
-    </div> 
-   
-    <button class="btn"  ><a href="/"> LogOut  </a> </button>
-   
-    
-  </div>
-  
+      <nav id="navigation-bar">
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/profile">Profile</a></li>
+			<li>
+				<a href="/account">Account</a>
+				<ul>
+					<li><a href="/openAccount">Open New Account</a></li>
+					<li><a href="/closeAccount">Close Existing Account</a></li>
+					<li><a href="/mobileDeposit">Mobile Deposit</a></li>
+					<li><a href="/transferFunds">Pay &amp; Transfer</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#0">Services</a>
+				<ul>
+					<li><a href="#0">Statement</a></li>
+					<li><a href="/aboutUs">Contact Us</a></li>
+				</ul>
+			</li>
+			<li id="sign-on"><a href="#0">Sign On</a></li>
+		</ul>
+	</nav>
     )
-}
-
-function LogOut() {
-  
-  <a href="trasnferFunds">Transfer Funds</a>
 }
