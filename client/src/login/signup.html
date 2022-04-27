@@ -1,0 +1,103 @@
+<html>
+  <link rel="stylesheet" href="signon.css">
+  <head>
+    <title>Bank Of The Bank | Best Banking Online in the World</title>
+  </head>
+
+  <body>
+
+    <!--The very top blue section-->
+    <div class="main-section">
+      <div class = "first-line">
+        <div style="display:inline-block;vertical-align:top;">
+          <img src="image/logo2.jpg" class="logo"/>
+        </div>
+
+        <div class = "bar" style="display:inline-block;">
+          <h1 style = "font-family: Gill Sans ;color: yellow;"><b>&nbsp;&nbsp;Bank of the Bank</b></h1>
+
+        </div>
+
+        <div class="items" style="display:inline-block;">
+          <a style ="color: yellow; font-size: 160%;" href = "Login.html"><b> Login </b></a>
+          <a style="color: #DFF06B;" href = "aboutus.html">About Us</a>
+          <a style="color: #DFF06B;" href = "contact.html">Contact </a>
+        </div>
+
+      </div>
+      <br>
+
+      <!--Into the Sign Up section-->
+      <div class ="signup-box">
+        <h1 style="text-align: center; font-size: 290%;font-family:sans-serif; font-style: italic;;color: #42218E;">Sign Up</h1>
+        <h4 style="text-align: center ; font-size: 101%;"> It's totally free and only takes a minute to complete</h4> <br>
+
+        <!--Fill in the info to create account-->
+        <form class="fill-box" action="#" method="post" style="text-align: center;" >
+            <label>First Name</label>
+             <input type="text" placeholder="" required ="required">
+
+            <label>Last Name</label>
+             <input type="text" placeholder="" required ="required">
+
+
+            <label>Username</label>
+              <input type="text" placeholder="" required ="required">
+
+
+              <label>Password</label>
+              <input class ="password" type="password" placeholder="" required ="required">
+
+
+              <label>Confirm Password</label>
+                <input class ="confirmPassword"  type="password" placeholder="" required ="required">
+
+            <label>PIN number (4-digits)</label>
+              <input type="text" placeholder="" required ="required" maxlength="4">
+
+            <br>
+            <br>
+              <label>
+                  <input style="margin-left:-138px; margin-right: -130px;" type="checkbox"  name="remember">
+                  I agree the terms and conditions
+              </label>
+
+             <br>
+
+            <button  class="button" type="submit">SUBMIT</button>
+
+
+        </form>
+
+          <!--Script for confirm password-->
+          <script>
+            document.querySelector('.button').onclick = function(){
+             var password = document.querySelector('.password').value,
+                confirmPassword = document.querySelector('.confirmPassword').value;
+
+                if (password == ""){
+                  alert("The password field can not be empty!");
+                }
+                else if (password != confirmPassword){
+                  alert("Passwords don't match. Please try again");
+                  return false;
+
+                }
+                else if(password == confirmPassword){
+
+                    alert("Password match");
+
+                }
+                  return true
+            }
+
+          </script>
+          <!--End of script for confirm password-->
+
+      </div>
+      <p style="margin-top: 9%;" class="para"> Already have an account? <a href="Login.html">Login here</a></p>
+
+
+
+  </body>
+</html>
