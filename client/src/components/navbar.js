@@ -22,7 +22,12 @@ export default function NavBar() {
 					<li><a href="/aboutUs">Contact Us</a></li>
 				</ul>
 			</li>
-			<li id="sign-on"><a href="#0">Sign On</a></li>
+			<li id="sign-out">
+				<a href="/" onClick={() => {
+					localStorage.clear();
+					window.location.reload();
+				}}>Sign Out</a>
+			</li>
 		</ul>
 	</nav>
     )

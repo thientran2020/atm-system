@@ -1,34 +1,66 @@
-const express = require('express');
-const cors = require('cors');
-const fs = require('fs');
+const express = require('express')
+const cors = require('cors')
+const bcrypt = require('bcrypt')
+const fs = require('fs')
 const DAO = require('./dao')
 const UserRepository = require('./user_repository')
 const AccountRepository = require('./account_repository')
-require('dotenv').config();
+require('dotenv').config()
 
-const app = express();
-const port = process.env.PORT || 4040;
-let dbFile = '.data/database.db';
-let exists = fs.existsSync(dbFile);
-
-if (!exists) {
-    console.log("Database is not created yet...!")
-    console.log("Creating database...!")
-    
-}
-
-const dao = new DAO(dbFile)
-const userRepo = new UserRepository(dao)
-const accountRepo = new AccountRepository(dao)
+// Initialize app server
+const app = express()
+const port = process.env.PORT || 4040
 
 app.listen(port, () => {    
-    console.log(`Server is running at port: ${port}`);
+    console.log(`Server is running at port: ${port}`)
 });
 
 app.use(cors({
-    origin: "http://localhost:4040",
+    origin: "http://localhost:3000",
 }))
 
+app.use(express.json())
+
+
+// Check database exists --> then connect
+let dbFile = '.data/database.db'
+let exists = fs.existsSync(dbFile)
+if (!exists) {
+    console.log("Database is not created yet...!")
+    console.log("Creating database...!")
+}
+
+// Initialize Data Access Object
+const dao = new DAO(dbFile)
+const userRepo = new UserRepository(dao)        // users table
+const accountRepo = new AccountRepository(dao)  // accounts table
+
+dao.run(`
+    CREATE TABLE IF NOT EXISTS users (
+        userID INTEGER PRIMARY KEY,
+        username VARCHAR(255) NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        firstName VARCHAR(255),
+        lastName VARCHAR(255),
+        address VARCHAR(255),
+        city VARCHAR(255),
+        state VARCHAR(255),
+        zipCode INT, 
+        phoneNumber VARCHAR(255) 
+    );
+`)
+
+dao.run(`
+    CREATE TABLE IF NOT EXISTS accounts (
+        userID INT NOT NULL,
+        accountType VARCHAR(255) NOT NULL,
+        balance DOUBLE NOT NULL, 
+        lastTransactionDate VARCHAR(255)
+    );
+`)
+
+// GET API for data retrieval 
+// Users' data
 app.get("/showUserDatabase", (req, res) => {
     userRepo.getUsersData().then(data => {
         res.json(data)
@@ -42,20 +74,7 @@ app.get("/getUsernameByID", (req, res) => {
     })
 })
 
-app.get("/insertUser", (req, res) => {
-    let id = req.query.id
-    let username = req.query.username
-    let password = req.query.password
-    let firstName = req.query.firstName
-    let lastName = req.query.lastName
-    let phoneNumber = req.query.phoneNumber
-
-    userRepo.insertUser(id, username, password, firstName, lastName, phoneNumber)
-    .then(data => {
-        res.json({ "message": `${username} has been successfully added!`})
-    })
-})
-
+// Accounts' data
 app.get("/getAccountsData", (req, res) => {
     accountRepo.getAccountsData().then(data => {
         res.json(data)
@@ -80,13 +99,46 @@ app.get("/addAccount", (req, res) => {
     })
 })
 
-app.get("/showDate", (req, res) => {
-    var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    var dateTime = date+' '+time;
-    res.json(dateTime)
+// User authentication
+app.use('/auth/login', (req, res) => {
+    res.send({
+      token: 'sjsu'
+    })
+});
+
+app.post('/register', async (req, res) => {
+    try {
+        let hashedPassword = await bcrypt.hash(req.body.password, 10)
+        let username = req.body.username
+        let firstName = req.body.firstName
+        let lastName = req.body.lastName
+        let address = req.body.address
+        let phoneNumber = req.body.phoneNumber
+        userRepo.insertUser(username, hashedPassword, firstName, lastName, address, phoneNumber)
+        .then(data => res.json({data}))
+    } catch {
+        res.sendStatus(500)
+    }
 })
+
+app.post('/users/login', (req, res) => {
+    try {
+        userRepo.authenticateUser(req.body.username, req.body.password)
+        .then(data => {
+            console.log("....!!!")
+            console.log(data)
+            if (data == null) {
+                res.status(403).send()
+            }
+            res.json(data)
+        })
+        res.sendStatus(201)
+    } catch {
+        res.sendStatus(500)
+    }
+    
+})
+
 
 // showUserDatabase
 // getUsernameByID?id=2

@@ -78,6 +78,10 @@ ul li:hover ul {
 ul li:hover ul li a {
     color: #f9f8fd;
 }
+#sign-out {
+    position: fixed;
+    right: 1rem;
+}
 @keyframes slide-in {
     0% {
         top: -50px;
