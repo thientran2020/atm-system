@@ -121,22 +121,26 @@ app.post('/register', async (req, res) => {
     }
 })
 
-app.post('/users/login', (req, res) => {
-    try {
-        userRepo.authenticateUser(req.body.username, req.body.password)
+app.post('/users/login', async (req, res) => {
+    let password
+    await userRepo.getPasswordFromUsername(req.body.username)
         .then(data => {
-            console.log("....!!!")
-            console.log(data)
-            if (data == null) {
-                res.status(403).send()
-            }
-            res.json(data)
+            if (data != null)
+                password = data.password
         })
-        res.sendStatus(201)
-    } catch {
-        res.sendStatus(500)
+
+    if (!password) {
+        return res.send({ message: 'Invalid username' })
     }
-    
+    try {
+        if (await bcrypt.compare(req.body.password, password)) {
+            return res.send({ token: 'sjsu' })
+        } else {
+            return res.send({ message: 'Incorrect password' })
+        }
+    } catch {
+        return res.sendStatus(500)
+    }
 })
 
 

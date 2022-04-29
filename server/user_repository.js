@@ -20,9 +20,9 @@ class UserRepository {
         return this.dao.run(sql, [username, password, firstName, lastName, address, phoneNumber])
     }
 
-    authenticateUser(username, password) {
-        let sql = `SELECT * FROM users WHERE username = ? AND password = ?`
-        return this.dao.get(sql, [username, password])
+    getPasswordFromUsername(username) {
+        let sql = `SELECT password FROM users WHERE username = ? LIMIT 1`
+        return this.dao.get(sql, [username])
     }
 }
 
