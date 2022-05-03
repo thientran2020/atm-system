@@ -25,7 +25,7 @@ function closeAccount() {
          </thead>
  
          <tr>
-         /* Link to database and display account info here (account_id, balance, account_type)
+         /* Link to database and display account info here (account_id, balance, account_type) */
              <th>Account Number data</th>
              <th>Balance data</th>
              <th>Account Type data</th>
