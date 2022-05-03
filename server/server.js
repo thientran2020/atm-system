@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const fs = require('fs')
 const DAO = require('./dao')
 const UserRepository = require('./user_repository')
@@ -99,13 +100,7 @@ app.get("/addAccount", (req, res) => {
     })
 })
 
-// User authentication
-app.use('/auth/login', (req, res) => {
-    res.send({
-      token: 'sjsu'
-    })
-});
-
+// User registration
 app.post('/register', async (req, res) => {
     try {
         let hashedPassword = await bcrypt.hash(req.body.password, 10)
@@ -128,27 +123,16 @@ app.post('/register', async (req, res) => {
     }
 })
 
-const users = [
-    {
-        username: 'testuser22',
-        password: '123',
-    },
-    {
-        username: 'testuser',
-        password: '1414'
-    }
-]
-
-const jwt = require('jsonwebtoken')
-
+// User authentication & authorization
 app.get('/users', authenticateToken, (req, res) => {
-    // retrieve user's data from database and send back request
-    // res.json(req.user)
-    res.json(users.filter(user => user.username === req.user.name))
+    const username = req.user.name
+    userRepo.getUserByUsername(username)
+                    .then(data => res.json({ "user": data }))
 })
 
 app.post('/login', async (req, res) => {
     let username = req.body.username
+    let user = { name: username }
     let password
     await userRepo.getPasswordFromUsername(username)
         .then(data => {
@@ -156,17 +140,18 @@ app.post('/login', async (req, res) => {
                 password = data.password
         })
     if (!password) {
-        return res.send({ message: 'Invalid username' })
+        return res.sendStatus(401).send({ message: 'Invalid username' })
     }
+    
     try {
         if (await bcrypt.compare(req.body.password, password)) {
-            const accessToken = jwt.sign({name: username}, process.env.ACCESS_TOKEN_SECRET)
-            return res.json({ accessToken: accessToken, message: "Success" })
+            const accessToken = generateAccessToken(user)
+            res.json({ accessToken: accessToken, message: "Success" })
         } else {
-            return res.send({ message: 'Incorrect password' })
+            res.json({ message: 'Incorrect password' })
         }
     } catch {
-        return res.sendStatus(500)
+        res.sendStatus(500)
     }
 })
 
@@ -176,10 +161,17 @@ function authenticateToken(req, res, next) {
     if (token == null) return res.sendStatus(401)
     
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403)
+        if (err) {
+            console.log(err)
+            return res.sendStatus(403)
+        }
         req.user = user
         next()
     })
+}
+
+function generateAccessToken(user) {
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30m' })
 }
 
 // showUserDatabase
