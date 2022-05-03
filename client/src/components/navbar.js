@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function NavBar() {
+export default function NavBar({ setToken }) {
     return (
       <nav id="navigation-bar">
 		<ul>
@@ -24,8 +24,8 @@ export default function NavBar() {
 			</li>
 			<li id="sign-out">
 				<a href="/" onClick={() => {
-					localStorage.clear();
-					window.location.reload();
+					setToken(null)
+					window.location.reload()
 				}}>Sign Out</a>
 			</li>
 		</ul>

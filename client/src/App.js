@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import useToken from './components/useToken.js';
 import Login from './components/login.js';
 import AboutUs from './routes/about.jsx';
 import Account from './routes/account.jsx';
@@ -17,18 +16,19 @@ import './css/navbar.css';
 
 
 function App() {
-	const { token, setToken } = useToken();
+	const [token, setToken] = useState();
+	console.log("......" + token)
 	if (token == null) {
-		return <Login setToken={ setToken } />
+		return <Login setToken={setToken} />
 	}
 	return (
 		<div className="main">
 		<header className="app-header">
 			<h1> ATM SYSTEM PROJECT </h1>
-			<NavBar />
+			<NavBar setToken={setToken}/>
 		</header>
 		<Routes>
-			<Route path="/" element={<Welcome />}/>
+			<Route exact path="/" element={<Welcome />}/>
 			<Route path="/account" element={<Account />}/>
 			<Route path="/aboutUs" element={<AboutUs />}/>
 			<Route path="/closeAccount" element={<CloseAccount />}/>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import '../css/login.css';
 
 async function loginUser(credentials) {
-    return fetch('http://localhost:4040/users/login', {
+    return fetch('http://localhost:4040/login', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'
@@ -23,15 +23,11 @@ export default function Login({ setToken }) {
             "username": username,
             "password": password
         });
+        console.log("response...")
+        console.log(response)
 
-        if (response.message != null) {
-            alert(response.message)    
-            window.location.reload()
-        } else {
-            // token = response.token
-            setToken(response)
-            window.location.reload()
-        }
+        response.accessToken && setToken(response.accessToken)
+        // handle errors
     }
 
     return(

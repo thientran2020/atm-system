@@ -121,20 +121,39 @@ app.post('/register', async (req, res) => {
     }
 })
 
-app.post('/users/login', async (req, res) => {
+const users = [
+    {
+        username: 'testuser22',
+        password: '123',
+    },
+    {
+        username: 'testuser',
+        password: '1414'
+    }
+]
+
+const jwt = require('jsonwebtoken')
+
+app.get('/users', authenticateToken, (req, res) => {
+    // retrieve user's data from database and send back request
+    res.json(users.filter(user => user.username === req.user.name))
+})
+
+app.post('/login', async (req, res) => {
+    let username = req.body.username
     let password
-    await userRepo.getPasswordFromUsername(req.body.username)
+    await userRepo.getPasswordFromUsername(username)
         .then(data => {
             if (data != null)
                 password = data.password
         })
-
     if (!password) {
         return res.send({ message: 'Invalid username' })
     }
     try {
         if (await bcrypt.compare(req.body.password, password)) {
-            return res.send({ token: 'sjsu' })
+            const accessToken = jwt.sign({name: username}, process.env.ACCESS_TOKEN_SECRET)
+            return res.json({ accessToken: accessToken, message: "Success" })
         } else {
             return res.send({ message: 'Incorrect password' })
         }
@@ -143,6 +162,17 @@ app.post('/users/login', async (req, res) => {
     }
 })
 
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+    if (token == null) return res.sendStatus(401)
+    
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403)
+        req.user = user
+        next()
+    })
+}
 
 // showUserDatabase
 // getUsernameByID?id=2
