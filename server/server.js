@@ -112,10 +112,17 @@ app.post('/register', async (req, res) => {
         let username = req.body.username
         let firstName = req.body.firstName
         let lastName = req.body.lastName
-        let address = req.body.address
         let phoneNumber = req.body.phoneNumber
-        userRepo.insertUser(username, hashedPassword, firstName, lastName, address, phoneNumber)
-        .then(data => res.json({data}))
+
+        userRepo.getUserByUsername(username)
+            .then(user => {
+                if (user) {
+                    console.log(user)
+                    return res.send({ message: "Username already exists...!" })
+                }
+                userRepo.insertUser(username, hashedPassword, firstName, lastName, phoneNumber)
+                .then(data => res.send({ message: "Success" }))
+            })
     } catch {
         res.sendStatus(500)
     }
@@ -136,6 +143,7 @@ const jwt = require('jsonwebtoken')
 
 app.get('/users', authenticateToken, (req, res) => {
     // retrieve user's data from database and send back request
+    // res.json(req.user)
     res.json(users.filter(user => user.username === req.user.name))
 })
 

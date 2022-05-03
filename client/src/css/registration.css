@@ -1,3 +1,8 @@
+.div-container {
+    margin-top: 0;
+    padding-top: 15px;
+}
+
 .main-section { 
     padding: 0;
     box-shadow: 5px 20px 15px #0B607F;
@@ -31,14 +36,14 @@ h2 {
 .items > a {
     text-decoration: none;
     font-weight: 200;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     margin-left: 25px;
 }
 
 button {
-    width: 360px;
+    width: 320px;
     height: 40px;
-    margin-top: 20px;
+    margin-top: 10px;
     border: none;
     background: linear-gradient(to left, #4C5EFA, #050F61);
     box-shadow: 0 10px 25px;
@@ -58,15 +63,15 @@ button {
 }
 
 form.fill-box {
-    width: 360px;
+    width: 310px;
     margin-left: 20px;
     text-align: center;
 }
 
 form.fill-box label{
     display: flex;
-    margin-top: 15px;
-    font-size: 17px;
+    margin-top: 10px;
+    font-size: 14px;
 }
 
 form.fill-box input{
@@ -87,7 +92,7 @@ form.fill-box input{
 .signup-box p {
     text-align: center;
     color: blue;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .signup-box p a {

@@ -18,7 +18,7 @@ export default function Registration() {
 	const [confirmPassword, setConfirmPassword] = useState();
 	const [firstName, setFirstName] = useState();
 	const [lastName, setLastName] = useState();
-	const [adddress, setAddress] = useState();
+	// const [adddress, setAddress] = useState();
 	const [phoneNumber, setPhoneNumber] = useState();
 	const [checked, setChecked] = useState(false);
 
@@ -38,11 +38,10 @@ export default function Registration() {
 				"password": password,
 				"firstName": firstName,
 				"lastName": lastName,
-				"address": adddress,
 				"phoneNumber": phoneNumber
 			}	
-			await registerUser(user)
-			if (!alert("Congratulations...! You are successfully registered!")) {
+			const response = await registerUser(user)
+			if (!alert(response.message)) {
 				window.location.reload()
 			}		
 		}
@@ -78,11 +77,6 @@ export default function Registration() {
 			<label>Last Name</label>
 			<input type="text" required ="required"
 				onChange={e => setLastName(e.target.value)} />
-
-			<label>Home Address</label>
-			<input type="text" required ="required"
-				placeholder="Street Name - City - State - Zip Code"
-				onChange={e => setAddress(e.target.value)} />
 
 			<label>Phone Number</label>
 			<input type="text" required ="required"
