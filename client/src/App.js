@@ -11,13 +11,14 @@ import TrasnferFunds from  './routes/transferFunds.jsx';
 import Welcome from './routes/welcome.jsx';
 import NavBar from './components/navbar.js';
 import Footer from './components/footer.js';
+import useToken from './helper/helper.js';
 import './css/App.css';
 import './css/navbar.css';
 
 
 function App() {
-	const [token, setToken] = useState();
-	if (token == null) {
+	const { token, setToken } = useToken();
+	if (!token) {
 		return <Login setToken={setToken} />
 	}
 	return (

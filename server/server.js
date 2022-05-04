@@ -124,10 +124,10 @@ app.post('/register', async (req, res) => {
 })
 
 // User authentication & authorization
-app.get('/users', authenticateToken, (req, res) => {
+app.get('/user', authenticateToken, (req, res) => {
     const username = req.user.name
     userRepo.getUserByUsername(username)
-                    .then(data => res.json({ "user": data }))
+            .then(data => res.json({ "user": data }))
 })
 
 app.post('/login', async (req, res) => {

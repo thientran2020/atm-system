@@ -11,7 +11,6 @@ async function loginUser(credentials) {
         body: JSON.stringify(credentials)
     }).then(data => data.json())
 }
-   
 
 export default function Login({ setToken }) {
     const [username, setUserName] = useState();
@@ -23,13 +22,14 @@ export default function Login({ setToken }) {
             "username": username,
             "password": password
         });
-
-        console.log(response)
-        response.accessToken && setToken(response.accessToken)
-        if (!response.message == "Success") {
+        if (response.message !== "Success") {
             alert(response.message)
             window.location.reload()
-        }	
+        }
+        if (response.accessToken) {
+            setToken(response.accessToken)
+            window.location.reload()
+        }
         // handle errors
     }
 

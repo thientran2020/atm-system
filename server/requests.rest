@@ -1,0 +1,20 @@
+GET http://localhost:4040/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGhpZW50cmFuIiwiaWF0IjoxNjUxNzA0ODEyLCJleHAiOjE2NTE3MDY2MTJ9.N39VyHtbaS7TVD06L1bU3tHHQDKls_s2xBVS8UlMcwo
+
+
+###
+POST http://localhost:4040/login
+Content-Type: application/json
+
+{
+    "username": "thientran",
+    "password": "999999"
+}
+
+###
+POST http://localhost:4040/token
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdHVzZXIiLCJpYXQiOjE2NTE2MTgzNDJ9.wfIZeHFAdosYe_ivG73oQYWZpy-jUgvtJN0AgR2n2-Q"
+}
