@@ -180,3 +180,15 @@ function generateAccessToken(user) {
 // getAccountsData
 // getACcountByID?id=1
 // addAccount?id=4&accountType=Saving&balance2900
+
+// Testing credentials
+// users = [
+//     {
+//         "username": "thientran",
+//         "password": "999999"
+//     }, 
+//     {
+//         "username": "peter", 
+//         "password": "abc123"
+//     }
+// ]

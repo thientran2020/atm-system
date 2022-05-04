@@ -17,7 +17,6 @@ import './css/navbar.css';
 
 function App() {
 	const [token, setToken] = useState();
-	console.log("......" + token)
 	if (token == null) {
 		return <Login setToken={setToken} />
 	}
