@@ -1,49 +1,65 @@
-import React, { useReducer, useState } from 'react';
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import '../css/login.css';
 
-export default function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    
-    function validateForm() {
-        return email.length > 0 && password.length > 0;
+async function loginUser(credentials) {
+    return fetch('http://localhost:4040/login', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+    }).then(data => data.json())
+}
+   
+
+export default function Login({ setToken }) {
+    const [username, setUserName] = useState();
+    const [password, setPassword] = useState();
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+        const response = await loginUser({  
+            "username": username,
+            "password": password
+        });
+
+        console.log(response)
+        response.accessToken && setToken(response.accessToken)
+        if (!response.message == "Success") {
+            alert(response.message)
+            window.location.reload()
+        }	
+        // handle errors
     }
 
-    function onSubmit(event) {
-        console.log("Submitted...");
-        event.preventDefault();
-    }
-
-    return (
-        <div className="Login">
-            <Form onSubmit={onSubmit}>
-            <Form.Group size="lg" controlId="email" className="input-container">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                    autoFocus
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </Form.Group>
-            <Form.Group size="lg" controlId="password" className="input-container">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </Form.Group>
-                <Button 
-                    block size="lg" 
-                    type="submit" 
-                    className="button-container" 
-                    disabled={!validateForm()}
-                >LOGIN</Button>
-                 <p> Register for a  account? <a href=" Registration"> Register </a>.</p>
-            </Form>
-           
+    return(
+        <div className="login-container">
+            <div className="app-header">
+                <h1>Welcome to SJSU ONLINE BANKING</h1>
+            </div>
+            <div className="div-container">
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        <p>Username</p>
+                        <input type="text" 
+                            onChange={e => setUserName(e.target.value)} />
+                    </label>
+                    <label>
+                        <p>Password</p>
+                        <input type="password" 
+                            onChange={e => setPassword(e.target.value)}/>
+                    </label>
+                    <div>
+                        <button id="login_button" type="submit">LOG IN</button>
+                    </div>
+                </form>
+                <p><a href="/registration">Not registered yet? REGISTER!!!</a></p>
+            </div>
         </div>
-    );
+    )
+}
+
+Login.propTypes = {
+    setToken: PropTypes.func.isRequired
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function OpenAccount() {
+export default function Welcome() {
   return (
     <div className="div-container">
-      <h1>Open Account</h1>
+      <h1>Welcome</h1>
     </div>
   )
 }

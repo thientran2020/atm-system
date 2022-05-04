@@ -1,0 +1,17 @@
+.login-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#login_button {
+    margin: 40px 0 20px 0;
+    width: 180px;
+}
+a {
+    text-decoration: none;
+    color: blue;
+}
+
+a:hover {
+    text-decoration: underline
+}
