@@ -1,0 +1,36 @@
+#message {
+    text-align: left;
+    padding-left: 4%;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 600;
+    color: green;
+    text-transform: uppercase;
+}
+
+.account-info, h3 {
+    text-align: left;
+    padding-left: 4%;
+}
+
+.account-info h4 {
+    color: blue;
+    text-decoration: underline;
+}
+
+.account-info p, .account-info label {
+    display: flex;
+    direction: column;
+    margin-top: 10px;
+}
+
+.account-info p span {
+    width: 140px;
+}
+
+select {
+    float: left;
+    margin-left: 4%;
+    font-size: 14px;
+    color: blue;
+}

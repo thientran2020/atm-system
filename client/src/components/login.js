@@ -11,7 +11,6 @@ async function loginUser(credentials) {
         body: JSON.stringify(credentials)
     }).then(data => data.json())
 }
-   
 
 export default function Login({ setToken }) {
     const [username, setUserName] = useState();
@@ -24,13 +23,17 @@ export default function Login({ setToken }) {
             "password": password
         });
 
-        console.log(response)
-        response.accessToken && setToken(response.accessToken)
-        if (!response.message == "Success") {
+        if (response.message !== "Success") {
             alert(response.message)
             window.location.reload()
-        }	
-        // handle errors
+        }
+
+        if (response.accessToken) {
+            setToken(response.accessToken)
+            sessionStorage.setItem('username', username);
+            window.location.reload()
+        }
+        // handle errors messages without alerting
     }
 
     return(
@@ -43,7 +46,7 @@ export default function Login({ setToken }) {
                     <label>
                         <p>Username</p>
                         <input type="text" 
-                            onChange={e => setUserName(e.target.value)} />
+                            onChange={e => setUserName(e.target.value)}/>
                     </label>
                     <label>
                         <p>Password</p>

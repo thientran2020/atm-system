@@ -1,0 +1,26 @@
+#user-info, #update-info {
+    text-align: left;
+    padding-left: 4%;
+}
+
+#user-info img {
+    margin-top: 2%;
+}
+
+#update-info label, #user-info p {
+    display: flex;
+    direction: column;
+    margin-top: 20px;
+}
+
+span {
+    width: 140px;
+}
+
+#update-info label input {
+    width: 360px;
+}
+
+#update-info {
+    display: none;
+}

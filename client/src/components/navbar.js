@@ -1,11 +1,21 @@
 import React from 'react'
 
-export default function NavBar({ setToken }) {
+export default function NavBar() {
+	function handleOnClick() {
+		document.getElementById('user-info').style.display = 'none'
+		document.getElementById('update-info').style.display = 'block'
+	}
+
     return (
       <nav id="navigation-bar">
 		<ul>
 			<li><a href="/">Home</a></li>
-			<li><a href="/profile">Profile</a></li>
+			<li>
+				<a href="/profile">Profile</a>
+				<ul>
+					<li><a onClick={handleOnClick}>Update Profile</a></li>
+				</ul>
+			</li>
 			<li>
 				<a href="/account">Account</a>
 				<ul>
@@ -16,7 +26,7 @@ export default function NavBar({ setToken }) {
 				</ul>
 			</li>
 			<li>
-				<a href="#0">Services</a>
+				<a href="#">Services</a>
 				<ul>
 					<li><a href="#0">Statement</a></li>
 					<li><a href="/aboutUs">Contact Us</a></li>
@@ -24,7 +34,7 @@ export default function NavBar({ setToken }) {
 			</li>
 			<li id="sign-out">
 				<a href="/" onClick={() => {
-					setToken(null)
+					sessionStorage.clear()
 					window.location.reload()
 				}}>Sign Out</a>
 			</li>
