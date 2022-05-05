@@ -8,7 +8,7 @@
     text-transform: uppercase;
 }
 
-.account-info {
+.account-info, h3 {
     text-align: left;
     padding-left: 4%;
 }
@@ -26,4 +26,11 @@
 
 .account-info p span {
     width: 140px;
+}
+
+select {
+    float: left;
+    margin-left: 4%;
+    font-size: 14px;
+    color: blue;
 }

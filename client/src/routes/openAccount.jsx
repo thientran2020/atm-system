@@ -23,7 +23,7 @@ export default class OpenAccount extends Component {
 			fetch('http://localhost:4040/addAccount', {
 				method: 'POST',
 				headers: {
-					'Authorization': 'Bearer ' + JSON.parse(sessionStorage.getItem('accessToken')),
+					'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('accessToken')),
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify(account)

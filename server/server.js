@@ -31,6 +31,7 @@ if (!exists) {
     console.log("Creating database...!")
 }
 
+// DATABASE
 // Initialize Data Access Object
 const dao = new DAO(dbFile)
 const userRepo = new UserRepository(dao)        // users table
@@ -116,6 +117,12 @@ app.post("/addAccount", authenticateToken, async (req, res) => {
             )
         }
     )
+})
+
+app.post("/closeAccount", authenticateToken, async (req, res) => {
+    const accountID = req.body.accountID
+    await accountRepo.closeAccount(accountID)
+        .then(data => res.json(data))
 })
 
 // User registration

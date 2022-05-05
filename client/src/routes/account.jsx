@@ -10,11 +10,11 @@ export default class Account extends Component {
 		{
 			method: 'GET',
 			headers: {
-				'Authorization': 'Bearer ' + JSON.parse(sessionStorage.getItem('accessToken')),
+				'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('accessToken')),
 			}
 		}).then(res => {
 			if (res.status >= 403) {
-				sessionStorage.clear()
+				localStorage.clear()
 				window.location.reload()
 			}
 			return res.json()

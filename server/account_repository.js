@@ -20,6 +20,11 @@ class AccountRepository {
         return this.dao.run(sql, [userID, accountType, balance])
     }
 
+    closeAccount(accountID) {
+        let sql = `DELETE FROM accounts WHERE accountID = ?`
+        return this.dao.run(sql, [accountID])
+    }
+
     getTotalNumberOfAccounts() {
         let sql = `SELECT COUNT(*) FROM accounts`
         return this.dao.get(sql)

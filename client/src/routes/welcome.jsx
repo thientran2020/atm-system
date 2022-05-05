@@ -7,7 +7,7 @@ export default class Welcome extends Component {
 		fetch('http://localhost:4040/user', {
 		method: 'GET',
 		headers: {
-			'Authorization': 'Bearer ' + JSON.parse(sessionStorage.getItem('accessToken'))
+			'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('accessToken'))
 		}})
 		.then(response => response.json())
   		.then(data => {this.setState({ user: data.user })});
