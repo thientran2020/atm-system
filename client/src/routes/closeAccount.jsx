@@ -1,56 +1,97 @@
-import React from 'react';
-import NavBar from '../components/navbar';
-import Foot from '../components/footer';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import '../css/account.css'
 
-function closeAccount() {
-    return (
-      
-  <div>
-      <header className="App-header">
-         <h1> ATM SYSTEM PROJECT </h1>
-         <NavBar />
-      </header>
-       
+export default class CloseAccount extends Component {
+	state = {}
 
-      <body  className="profilex" >
-        <div class="container">
-         <table class="table">
-         <thead id="thead" style="background-color: #26a2af">
-         <tr>
-             <th scope="col">Account Number</th>
-             <th scope="col">Balance</th>
-             <th scope="col">Account Type</th>
-             <th scope="col"> Action </th>
-         </tr>
-         </thead>
- 
-         <tr>
-         /* Link to database and display account info here (account_id, balance, account_type) */
-             <th>Account Number data</th>
-             <th>Balance data</th>
-             <th>Account Type data</th>
-             <th>
-                 <a href='#' type='button' class="btn btn-danger"> Close </a>
+	fetchData() {
+		return fetch('http://localhost:4040/account', 
+		{
+			method: 'GET',
+			headers: {
+				'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('accessToken')),
+			}
+		}).then(res => {
+			if (res.status >= 403) {
+				localStorage.clear()
+				window.location.reload()
+			}
+			return res.json()
+		}).then(data => {this.setState({ account: data })})
+	}
 
-             </th>
-            <br></br>
-            /* Function for CLOSE button to ask to reenter password for verification before close account */
-            /* If balance > 0, ask user if they want to get a check or transfer to another account */
-         </tr>
+	handleSubmit() {
+		const accountID = document.querySelector('#account-id').value
+		fetch('http://localhost:4040/closeAccount', {
+			method: 'POST',
+			headers: {
+				'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('accessToken')),
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ "accountID": accountID })
+		}).then(data => {
+			if (!alert("Thank you! Your account has been successfully closed...!!!")) {
+				window.location.reload()
+			}		
+		}).catch(err => {
+			alert(err)
+		})
+	}
 
-        </table>
-        </div>
-      </body>
-     <footer>
-   <Foot />
- </footer> 
+	componentDidMount() {
+		this.fetchData()
+	}
 
-</div>
-
-
-
-        
-    )
+	render() {
+		const account = this.state.account
+		if (account) {
+			let message
+			if (account.length == 0) {
+				message = <h3>You don't have any account yet...!!!</h3>
+			} else {
+				message = <h3></h3>
+			}
+			return (
+			
+				<div className="div-container">
+				
+			
+					<table class="fl-table">
+						<thead>
+							<tr>
+								<th>Account ID</th>
+								<th>Account Type</th>
+								<th>Balance</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+						
+						{account.map((acc) => (
+						<tr>
+							<td>{acc.accountID}</td>
+							<td>{acc.accountType}</td>
+							<td>{acc.balance}</td>
+							<td>
+								<button 
+									id="close-account" 
+									type="submit" 
+									onClick={this.handleSubmit.bind(this)}>
+									CLOSE
+								</button>
+							</td>
+						
+						</tr>
+						))}
+						
+						
+					</tbody>
+				</table>
+					
+				</div>
+			)
+		}
+		return (<Link to="/" />)
+	}
 }
-
-export default closeAccount;
