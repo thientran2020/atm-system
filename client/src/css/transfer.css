@@ -1,0 +1,24 @@
+h3 {
+    text-align: center;
+}
+
+.container {
+    text-align: left;
+    margin-left: 4%;
+    padding: 10px;
+    display: flex;
+    direction: column;
+}
+
+.container span {
+    width: 100px;
+}
+
+.container select {
+    margin-left: 0;
+    width: 145px;
+}
+
+.container input {
+    width: 145px;
+}

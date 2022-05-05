@@ -231,21 +231,20 @@ function generateAccessToken(user) {
 
 // ************* API for Bank functionalities *************
 app.post("/updateAccount", authenticateToken, async (req, res) => {
-    const username = req.user.name
-    const accountID = req.body.accountID
-    const newBalance = req.body.newBalance
+    const sender = req.user.name
+    const receiver = req.user.name
+    const fromAccount = req.body.fromAccount
+    const toAccount = req.body.toAccount
+    const fromAccountNewBalance = req.body.fromAccountNewBalance
+    const toAccountNewBalance = req.body.toAccountNewBalance
     const transactionType = req.body.transactionType
 
-    await accountRepo.updateBalance(accountID, newBalance)
-        .then(() => 
-                transactionRepo.newTransaction(
-                    username, username, accountID, accountID, transactionType
-                ).then(data => res.json(data))
-            )
-})
-
-app.post("/transfer", authenticateToken, async (req, res) => {
-    
+    await transactionRepo.newTransaction(sender, receiver, fromAccount, toAccount, transactionType)
+        .then(() => {
+            accountRepo.updateBalance(fromAccount, fromAccountNewBalance)
+            accountRepo.updateBalance(toAccount, toAccountNewBalance)
+            res.send({ message: "Success" })
+        })
 })
 
 // showUserDatabase

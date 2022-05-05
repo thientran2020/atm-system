@@ -50,17 +50,16 @@ export default class MobileDeposit extends Component {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					"accountID": accountID,
-					"newBalance": newBalance, 
+					"fromAccount": accountID,
+					"toAccount": accountID,
+					"fromAccountNewBalance": newBalance,
+					"toAccountNewBalance": newBalance, 
 					"transactionType": action
 				})
-			}).then(data => {
+			}).then(() => {
 				if (!alert(`Thank you! ${action} successfully...!!!`)) {
 					window.location.reload()
 				}		
-			})
-			.catch(err => {
-				alert(err)
 			})
 		}
 	}
@@ -83,7 +82,7 @@ export default class MobileDeposit extends Component {
 					{message}
 					<select name="action" id="action">
 						<option value="Deposit">Deposit</option>
-						<option value="Withdraw">Withdraw</option>
+						{/* <option value="Withdraw">Withdraw</option> */}
 					</select>
 					<select name="account-id" id="account-id">
 						{account.map((acc) => 
