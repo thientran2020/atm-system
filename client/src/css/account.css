@@ -18,9 +18,10 @@
     text-decoration: underline;
 }
 
-.account-info p {
+.account-info p, .account-info label {
     display: flex;
     direction: column;
+    margin-top: 10px;
 }
 
 .account-info p span {

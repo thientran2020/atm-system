@@ -15,7 +15,6 @@ import useToken from './helper/helper.js';
 import './css/App.css';
 import './css/navbar.css';
 
-
 function App() {
 	const { token, setToken } = useToken();
 	if (!token) {
@@ -25,7 +24,7 @@ function App() {
 		<div className="main">
 		<header className="app-header">
 			<h1> ATM SYSTEM PROJECT </h1>
-			<NavBar setToken={setToken}/>
+			<NavBar/>
 		</header>
 		<Routes>
 			<Route exact path="/" element={<Welcome />}/>

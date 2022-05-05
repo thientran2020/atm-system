@@ -53,9 +53,20 @@ dao.run(`
 
 dao.run(`
     CREATE TABLE IF NOT EXISTS accounts (
+        accountID INTEGER PRIMARY KEY,
         userID INT NOT NULL,
         accountType VARCHAR(255) NOT NULL,
-        balance DOUBLE NOT NULL, 
+        balance DOUBLE NOT NULL
+    )
+`)
+
+dao.run(`
+    CREATE TABLE IF NOT EXISTS transactions (
+        transactionID INT NOT NULL,
+        sender VARCHAR(255) NOT NULL,
+        receiver VARCHAR(255) NOT NULL,
+        fromAccount VARCHAR(255) NOT NULL, 
+        toAccount VARCHAR(255) NOT NULL,
         lastTransactionDate VARCHAR(255)
     );
 `)
@@ -93,15 +104,18 @@ app.get("/account", authenticateToken, (req, res) => {
     )
 })
 
-app.get("/addAccount", (req, res) => {
-    let id = req.query.id
-    let accountType = req.query.accountType
-    let balance = req.query.balance
+app.post("/addAccount", authenticateToken, async (req, res) => {
+    const username = req.user.name
+    const accountType = req.body.accountType
+    const balance = parseFloat(req.body.balance)
 
-    accountRepo.addAccount(id, accountType, balance)
-    .then(data => {
-        res.json({ "message": `Account has been successfully added!`})
-    })
+    await userRepo.getIDByUsername(username).then(
+        user => {
+            accountRepo.addAccount(user.userID, accountType, balance).then(
+                data => res.json(data)
+            )
+        }
+    )
 })
 
 // User registration
@@ -156,8 +170,9 @@ app.post('/login', async (req, res) => {
             if (data != null)
                 password = data.password
         })
+
     if (!password) {
-        return res.sendStatus(401).send({ message: 'Invalid username' })
+        return res.status(401).send({ message: 'Invalid username' })
     }
     
     try {
@@ -168,7 +183,7 @@ app.post('/login', async (req, res) => {
             res.json({ message: 'Incorrect password' })
         }
     } catch {
-        res.sendStatus(500)
+        res.status(500)
     }
 })
 
@@ -191,12 +206,21 @@ function generateAccessToken(user) {
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5h' })
 }
 
+function generateAccountID() {
+    
+}
+
 // showUserDatabase
 // getUsernameByID?id=2
 // insertUser?id=5&username=testuser5&password=password&firstName=user5&lastName=group&phoneNumber=8317779999
 // getAccountsData
 // getAccountByID?id=1
 // addAccount?id=4&accountType=Saving&balance=2900
+
+// let today = new Date();
+// let date = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
+// let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+// let dateTime = date + ' ' + time;
 
 // Testing credentials
 // users = [

@@ -22,16 +22,18 @@ export default function Login({ setToken }) {
             "username": username,
             "password": password
         });
+
         if (response.message !== "Success") {
             alert(response.message)
             window.location.reload()
         }
+
         if (response.accessToken) {
             setToken(response.accessToken)
             sessionStorage.setItem('username', username);
             window.location.reload()
         }
-        // handle errors
+        // handle errors messages without alerting
     }
 
     return(

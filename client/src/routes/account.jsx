@@ -42,6 +42,7 @@ export default class Account extends Component {
 						{account.map((acc, i) => 
 							<div className="account-info">
 								<h4>Account #{i+1}</h4>
+								<p><span>Account Number:</span> {acc.accountID}</p>
 								<p><span>Account Type:</span> {acc.accountType}</p>
 								<p><span>Balance:</span> ${acc.balance}</p>
 							</div>	

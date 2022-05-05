@@ -14,15 +14,15 @@ class AccountRepository {
     }
 
     addAccount(userID, accountType, balance) {
-        let today = new Date();
-        let date = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
-        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        let dateTime = date + ' ' + time;
-
         let sql = `INSERT INTO accounts 
-            (userID, accountType, balance, lastTransactionDate) 
-            VALUES (?, ?, ?, ?)`
-        return this.dao.run(sql, [userID, accountType, balance, dateTime])
+            (userID, accountType, balance) 
+            VALUES (?, ?, ?)`
+        return this.dao.run(sql, [userID, accountType, balance])
+    }
+
+    getTotalNumberOfAccounts() {
+        let sql = `SELECT COUNT(*) FROM accounts`
+        return this.dao.get(sql)
     }
 }
 
