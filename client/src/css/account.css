@@ -34,3 +34,9 @@ select {
     font-size: 14px;
     color: blue;
 }
+
+.div-container button {
+    width: 140px;
+    margin-left: 20px;
+    position: relative;
+}

@@ -72,8 +72,8 @@ dao.run(`
     );
 `)
 
-// GET API for data retrieval 
-// Users' data
+// **************** API for data retrieval (development purpose) *************
+// Get all users' data
 app.get("/showUserDatabase", (req, res) => {
     userRepo.getUsersData().then(data => {
         res.json(data)
@@ -87,13 +87,35 @@ app.get("/getUsernameByID", (req, res) => {
     })
 })
 
-// Accounts' data
+// Get all accounts' data
 app.get("/getAccountsData", (req, res) => {
     accountRepo.getAccountsData().then(data => {
         res.json(data)
     })
 })
 
+
+// *********** API for frontend fetch ************
+// Get user data by username
+app.get('/user', authenticateToken, async (req, res) => {
+    const username = req.user.name
+    await userRepo.getUserByUsername(username)
+            .then(data => res.json({ "user": data }))
+})
+
+// Update user profile
+app.post('/user/update', authenticateToken, async (req, res) => {
+    const username = req.body.username
+    const address = req.body.address
+    const city = req.body.city
+    const state = req.body.state
+    const zipCode = req.body.zipCode
+    const phoneNumber = req.body.phoneNumber
+    await userRepo.updateUserData(username, address, city, state, zipCode, phoneNumber)
+        .then(data => res.json({ "messgge": "Successfully updated...!"}))
+})
+
+// Get account data of authorized user
 app.get("/account", authenticateToken, (req, res) => {
     const username = req.user.name
     userRepo.getIDByUsername(username).then(
@@ -105,6 +127,7 @@ app.get("/account", authenticateToken, (req, res) => {
     )
 })
 
+// Add new account for authorized user
 app.post("/addAccount", authenticateToken, async (req, res) => {
     const username = req.user.name
     const accountType = req.body.accountType
@@ -119,13 +142,14 @@ app.post("/addAccount", authenticateToken, async (req, res) => {
     )
 })
 
+// Close existing account of authorized user
 app.post("/closeAccount", authenticateToken, async (req, res) => {
     const accountID = req.body.accountID
     await accountRepo.closeAccount(accountID)
         .then(data => res.json(data))
 })
 
-// User registration
+// ************* User registration *************
 app.post('/register', async (req, res) => {
     try {
         let hashedPassword = await bcrypt.hash(req.body.password, 10)
@@ -148,26 +172,7 @@ app.post('/register', async (req, res) => {
     }
 })
 
-// Get user data by username
-app.get('/user', authenticateToken, async (req, res) => {
-    const username = req.user.name
-    await userRepo.getUserByUsername(username)
-            .then(data => res.json({ "user": data }))
-})
-
-// Update user profile
-app.post('/user/update', authenticateToken, async (req, res) => {
-    const username = req.body.username
-    const address = req.body.address
-    const city = req.body.city
-    const state = req.body.state
-    const zipCode = req.body.zipCode
-    const phoneNumber = req.body.phoneNumber
-    await userRepo.updateUserData(username, address, city, state, zipCode, phoneNumber)
-        .then(data => res.json({ "messgge": "Successfully updated...!"}))
-})
-
-// User authentication & authorization
+// ************* User Login - authentication & authorization *************
 app.post('/login', async (req, res) => {
     let username = req.body.username
     let user = { name: username }
@@ -209,13 +214,23 @@ function authenticateToken(req, res, next) {
     })
 }
 
+// Generate access token when user logs in - default expiration time is 5 hour
 function generateAccessToken(user) {
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5h' })
 }
 
-function generateAccountID() {
+// ************* API for Bank functionalities *************
+app.post("/updateAccount", authenticateToken, async (req, res) => {
+    const accountID = req.body.accountID
+    const newBalance = req.body.newBalance
+
+    await accountRepo.updateBalance(accountID, newBalance)
+        .then(data => res.json(data))
+})
+
+app.post("/transfer", authenticateToken, async (req, res) => {
     
-}
+})
 
 // showUserDatabase
 // getUsernameByID?id=2

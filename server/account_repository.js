@@ -8,9 +8,9 @@ class AccountRepository {
         return this.dao.all(sql)
     }
 
-    getAccountByID(id) {
+    getAccountByID(userID) {
         let sql = `SELECT * FROM accounts WHERE userID = ?`
-        return this.dao.all(sql, [id])
+        return this.dao.all(sql, [userID])
     }
 
     addAccount(userID, accountType, balance) {
@@ -23,6 +23,20 @@ class AccountRepository {
     closeAccount(accountID) {
         let sql = `DELETE FROM accounts WHERE accountID = ?`
         return this.dao.run(sql, [accountID])
+    }
+
+    updateBalance(accountID, newBalance) {
+        let sql = `UPDATE accounts SET balance = ? WHERE accountID = ?`
+        return this.dao.run(sql, [newBalance, accountID])
+    }
+
+    transfer(fromAccountID, toAccountID, amount) {
+
+    }
+
+    getCurrentBalance(accountID) {
+        let sql = `SELECT balance FROM accounts WHERE accountID = ?`
+        return this.dao.get(sql, [accountID])
     }
 
     getTotalNumberOfAccounts() {

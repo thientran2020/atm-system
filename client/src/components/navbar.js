@@ -34,7 +34,7 @@ export default function NavBar() {
 			</li>
 			<li id="sign-out">
 				<a href="/" onClick={() => {
-					sessionStorage.clear()
+					localStorage.clear()
 					window.location.reload()
 				}}>Sign Out</a>
 			</li>
