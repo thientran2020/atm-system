@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../img/logo.png';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import logo from '../img/logo.png'
+import '../css/profile.css'
 
 export default class Profile extends Component {
 	state = {}
 
 	fetchData() {
-		fetch('http://localhost:4040/user', 
+		return fetch('http://localhost:4040/user', 
 		{
 			method: 'GET',
 			headers: {
@@ -21,19 +22,79 @@ export default class Profile extends Component {
 		}).then(data => {this.setState({ user: data.user })})
 	}
 
+	handleSubmit() {
+		const user = {
+			"username": this.state.user.username,
+			"address": this.state.user.address,
+			"city": this.state.user.city,
+			"state": this.state.user.state,
+			"zipCode": this.state.user.zipCode,
+			"phoneNumber": this.state.user.phoneNumber
+		}
+		fetch('http://localhost:4040/user/update', {
+			method: 'POST',
+			headers: {
+				'Authorization': 'Bearer ' + JSON.parse(sessionStorage.getItem('accessToken')),
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(user)
+		}).then(data => data.json())
+		window.location.reload()
+	}
+
 	componentDidMount() {
 		this.fetchData()
 	}
 
 	render() {
-		if (this.state.user) {
+		const user = this.state.user
+		if (user) {
 			return (
 				<div className="div-container">
-					<img src={logo} className='logo' alt='profile'/> 
-					<h1>{this.state.user.firstName} {this.state.user.lastName}</h1>
-					<h2>Username: {this.state.user.username}</h2>
-					<h2>Address: {this.state.user.address} {this.state.user.state} {this.state.user.zipCode}</h2>
-					<h2>Phone number: {this.state.user.phonerNumber}</h2>  
+					<div id="user-info">
+						<img src={logo} className='logo' alt='profile'/> 
+						<h1>Hi {user.firstName} {user.lastName} !!!</h1>
+						<p><span>Username:</span> {user.username}</p>
+						<p><span>Address:</span> {user.address}, {user.state} {user.zipCode}</p>
+						<p><span>Phone Number:</span> {this.state.user.phoneNumber}</p>  
+					</div>
+
+					<div id="update-info">
+						<h1>Hi {user.firstName} {user.lastName} !!!</h1>
+						<form>
+							<label>
+								<span>Address</span>
+								<input type="text" 
+									onChange={e => this.state.user.address=e.target.value}/>
+							</label>
+							<label>
+								<span>City</span>
+								<input type="text"
+									onChange={e => this.state.user.city=e.target.value}/>
+							</label>
+							<label>
+								<span>State</span>
+								<input type="text"
+									onChange={e => this.state.user.state=e.target.value}/>
+							</label>
+							<label>
+								<span>Zip Code</span>
+								<input type="text"
+									onChange={e => this.state.user.zipCode=e.target.value}/>
+							</label>
+							<label>
+								<span>Phone Number</span>
+								<input type="text"
+									onChange={e => this.state.user.phoneNumber=e.target.value}/>
+							</label>
+						</form>
+						<button 
+							id="update-profile" 
+							type="submit" 
+							onClick={this.handleSubmit.bind(this)}>
+							Update Profile
+						</button>
+					</div>
 				</div>
 			)
 		}

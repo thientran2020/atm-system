@@ -1,6 +1,5 @@
 GET http://localhost:4040/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGhpZW50cmFuIiwiaWF0IjoxNjUxNzA0ODEyLCJleHAiOjE2NTE3MDY2MTJ9.N39VyHtbaS7TVD06L1bU3tHHQDKls_s2xBVS8UlMcwo
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGhpZW50cmFuIiwiaWF0IjoxNjUxNzI2NzA5LCJleHAiOjE2NTE3NDQ3MDl9.tSB-lno0anjZyz4lKuXswWypeOXPxw8VQ2tX8qLmNSk
 
 ###
 POST http://localhost:4040/login
@@ -17,4 +16,27 @@ Content-Type: application/json
 
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdHVzZXIiLCJpYXQiOjE2NTE2MTgzNDJ9.wfIZeHFAdosYe_ivG73oQYWZpy-jUgvtJN0AgR2n2-Q"
+}
+
+###
+POST http://localhost:4040/user/update
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGhpZW50cmFuIiwiaWF0IjoxNjUxNzE2MTkwLCJleHAiOjE2NTE3MTc5OTB9.5TSAgJWr1h4YYTYrjfL0FyGLfQCCE0DvyXUcnWd2UDQ
+Content-Type: application/json
+
+{
+    "username": "thientran",
+    "address": "10147 Singleton Rd",
+    "city": "San Jose",
+    "state": "CA",
+    "zipCode": "95111",
+    "phoneNumber": "8312583866"
+}
+
+###
+GET http://localhost:4040/user/getAccount
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGhpZW50cmFuIiwiaWF0IjoxNjUxNzI2NzA5LCJleHAiOjE2NTE3NDQ3MDl9.tSB-lno0anjZyz4lKuXswWypeOXPxw8VQ2tX8qLmNSk
+Content-Type: application/json
+
+{
+    "username": "peter"
 }

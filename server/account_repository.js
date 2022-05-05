@@ -9,8 +9,8 @@ class AccountRepository {
     }
 
     getAccountByID(id) {
-        let sql = `SELECT * FROM accounts WHERE user_id = ?`
-        return this.dao.get(sql, [id])
+        let sql = `SELECT * FROM accounts WHERE userID = ?`
+        return this.dao.all(sql, [id])
     }
 
     addAccount(userID, accountType, balance) {
@@ -20,7 +20,7 @@ class AccountRepository {
         let dateTime = date + ' ' + time;
 
         let sql = `INSERT INTO accounts 
-            (user_id, account_type, balance, last_transaction_date) 
+            (userID, accountType, balance, lastTransactionDate) 
             VALUES (?, ?, ?, ?)`
         return this.dao.run(sql, [userID, accountType, balance, dateTime])
     }

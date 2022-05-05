@@ -82,11 +82,15 @@ app.get("/getAccountsData", (req, res) => {
     })
 })
 
-app.get("/getAccountByID", (req, res) => {
-    let id = req.query.id
-    accountRepo.getAccountByID(id).then(data => {
-        res.json(data)
-    })
+app.get("/account", authenticateToken, (req, res) => {
+    const username = req.user.name
+    userRepo.getIDByUsername(username).then(
+        user => {
+            accountRepo.getAccountByID(user.userID).then(
+                data => res.json(data)
+            )
+        }
+    )
 })
 
 app.get("/addAccount", (req, res) => {
@@ -123,13 +127,26 @@ app.post('/register', async (req, res) => {
     }
 })
 
-// User authentication & authorization
-app.get('/user', authenticateToken, (req, res) => {
+// Get user data by username
+app.get('/user', authenticateToken, async (req, res) => {
     const username = req.user.name
-    userRepo.getUserByUsername(username)
+    await userRepo.getUserByUsername(username)
             .then(data => res.json({ "user": data }))
 })
 
+// Update user profile
+app.post('/user/update', authenticateToken, async (req, res) => {
+    const username = req.body.username
+    const address = req.body.address
+    const city = req.body.city
+    const state = req.body.state
+    const zipCode = req.body.zipCode
+    const phoneNumber = req.body.phoneNumber
+    await userRepo.updateUserData(username, address, city, state, zipCode, phoneNumber)
+        .then(data => res.json({ "messgge": "Successfully updated...!"}))
+})
+
+// User authentication & authorization
 app.post('/login', async (req, res) => {
     let username = req.body.username
     let user = { name: username }
@@ -171,15 +188,15 @@ function authenticateToken(req, res, next) {
 }
 
 function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30m' })
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5h' })
 }
 
 // showUserDatabase
 // getUsernameByID?id=2
 // insertUser?id=5&username=testuser5&password=password&firstName=user5&lastName=group&phoneNumber=8317779999
 // getAccountsData
-// getACcountByID?id=1
-// addAccount?id=4&accountType=Saving&balance2900
+// getAccountByID?id=1
+// addAccount?id=4&accountType=Saving&balance=2900
 
 // Testing credentials
 // users = [

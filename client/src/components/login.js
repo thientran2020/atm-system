@@ -28,6 +28,7 @@ export default function Login({ setToken }) {
         }
         if (response.accessToken) {
             setToken(response.accessToken)
+            sessionStorage.setItem('username', username);
             window.location.reload()
         }
         // handle errors
@@ -43,7 +44,7 @@ export default function Login({ setToken }) {
                     <label>
                         <p>Username</p>
                         <input type="text" 
-                            onChange={e => setUserName(e.target.value)} />
+                            onChange={e => setUserName(e.target.value)}/>
                     </label>
                     <label>
                         <p>Password</p>
