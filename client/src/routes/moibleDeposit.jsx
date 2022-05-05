@@ -51,7 +51,8 @@ export default class MobileDeposit extends Component {
 				},
 				body: JSON.stringify({
 					"accountID": accountID,
-					"newBalance": newBalance
+					"newBalance": newBalance, 
+					"transactionType": action
 				})
 			}).then(data => {
 				if (!alert(`Thank you! ${action} successfully...!!!`)) {

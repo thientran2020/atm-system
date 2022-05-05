@@ -6,6 +6,7 @@ const fs = require('fs')
 const DAO = require('./dao')
 const UserRepository = require('./user_repository')
 const AccountRepository = require('./account_repository')
+const TransactionRepository = require('./transaction_repository')
 require('dotenv').config()
 
 // Initialize app server
@@ -36,6 +37,7 @@ if (!exists) {
 const dao = new DAO(dbFile)
 const userRepo = new UserRepository(dao)        // users table
 const accountRepo = new AccountRepository(dao)  // accounts table
+const transactionRepo = new TransactionRepository(dao) // transactions table
 
 dao.run(`
     CREATE TABLE IF NOT EXISTS users (
@@ -63,18 +65,19 @@ dao.run(`
 
 dao.run(`
     CREATE TABLE IF NOT EXISTS transactions (
-        transactionID INT NOT NULL,
+        transactionID INTEGER PRIMARY KEY,
         sender VARCHAR(255) NOT NULL,
         receiver VARCHAR(255) NOT NULL,
         fromAccount VARCHAR(255) NOT NULL, 
         toAccount VARCHAR(255) NOT NULL,
-        lastTransactionDate VARCHAR(255)
+        transactionType VARCHAR(255) NOT NULL,
+        transactionDate VARCHAR(255)
     );
 `)
 
 // **************** API for data retrieval (development purpose) *************
 // Get all users' data
-app.get("/showUserDatabase", (req, res) => {
+app.get("/getUsersData", (req, res) => {
     userRepo.getUsersData().then(data => {
         res.json(data)
     })
@@ -90,6 +93,13 @@ app.get("/getUsernameByID", (req, res) => {
 // Get all accounts' data
 app.get("/getAccountsData", (req, res) => {
     accountRepo.getAccountsData().then(data => {
+        res.json(data)
+    })
+})
+
+// Get all transactions' data
+app.get("/getTransactionsData", (req, res) => {
+    transactionRepo.getTransactionsData().then(data => {
         res.json(data)
     })
 })
@@ -221,11 +231,17 @@ function generateAccessToken(user) {
 
 // ************* API for Bank functionalities *************
 app.post("/updateAccount", authenticateToken, async (req, res) => {
+    const username = req.user.name
     const accountID = req.body.accountID
     const newBalance = req.body.newBalance
+    const transactionType = req.body.transactionType
 
     await accountRepo.updateBalance(accountID, newBalance)
-        .then(data => res.json(data))
+        .then(() => 
+                transactionRepo.newTransaction(
+                    username, username, accountID, accountID, transactionType
+                ).then(data => res.json(data))
+            )
 })
 
 app.post("/transfer", authenticateToken, async (req, res) => {
@@ -238,11 +254,6 @@ app.post("/transfer", authenticateToken, async (req, res) => {
 // getAccountsData
 // getAccountByID?id=1
 // addAccount?id=4&accountType=Saving&balance=2900
-
-// let today = new Date();
-// let date = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
-// let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-// let dateTime = date + ' ' + time;
 
 // Testing credentials
 // users = [
