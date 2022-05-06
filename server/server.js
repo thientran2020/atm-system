@@ -122,7 +122,7 @@ app.post('/user/update', authenticateToken, async (req, res) => {
     const zipCode = req.body.zipCode
     const phoneNumber = req.body.phoneNumber
     await userRepo.updateUserData(username, address, city, state, zipCode, phoneNumber)
-        .then(data => res.json({ "messgge": "Successfully updated...!"}))
+        .then(() => res.json({ "messgge": "Successfully updated...!"}))
 })
 
 // Get account data of authorized user
@@ -226,7 +226,7 @@ function authenticateToken(req, res, next) {
 
 // Generate access token when user logs in - default expiration time is 5 hour
 function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5h' })
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30m' })
 }
 
 // ************* API for Bank functionalities *************

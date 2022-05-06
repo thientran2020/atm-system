@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import '../css/account.css'
+import '../css/transfer.css'
 
 export default class MobileDeposit extends Component {
 	state = {}
@@ -80,25 +80,34 @@ export default class MobileDeposit extends Component {
 			return (
 				<div className="div-container">
 					{message}
-					<select name="action" id="action">
-						<option value="Deposit">Deposit</option>
-						{/* <option value="Withdraw">Withdraw</option> */}
-					</select>
-					<select name="account-id" id="account-id">
-						{account.map((acc) => 
-							<option value={acc.accountID}>{acc.accountType} ending in {acc.accountID}</option>
-						)}
-					</select>
-					<label>
-						<span>Balance</span>
+					<div className='container'>
+						<select name="action" id="action">
+							<option value="Deposit">Deposit</option>
+							{/* <option value="Withdraw">Withdraw</option> */}
+						</select>
+						<select name="account-id" id="account-id">
+							{account.map((acc) => 
+								<option value={acc.accountID}>{acc.accountType} ending in {acc.accountID}</option>
+							)}
+						</select>
+					</div>
+					<div className='container'>
+						<span>Deposit amount</span>
 						<input type="text" id="amount"/>
-					</label>
+					</div>
+					
+					<div className='container'>
+						<form>
+							<label for="img">Select image:</label>
+							<input type="file" id="img" name="img" accept="image/*"/>	
+						</form>
+					</div>
 					<button 
 						id="execute" 
 						type="submit" 
 						onClick={this.handleSubmit.bind(this)}>
 						EXECUTE
-					</button>	
+					</button>
 				</div>
 			)
 		}
