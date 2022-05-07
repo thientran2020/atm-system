@@ -247,15 +247,31 @@ app.post("/updateAccount", authenticateToken, async (req, res) => {
             res.send({ message: "Success" })
         })
 })
-
-app.post("/DepoAccount", authenticateToken, async (req, res) => {
+// atm new function 
+app.post("/depoAccount", authenticateToken, async (req, res) => {
     const sender = req.user.name
     const receiver = req.user.name
     const toAccount = req.body.toAccount
+    const fromAccount = "none"
     const toAccountNewBalance = req.body.toAccountNewBalance
     const transactionType = req.body.transactionType
 
-    await transactionRepo.atmDepositeNewTransaction(sender, receiver, toAccount, transactionType)
+    await transactionRepo.atmDepositeNewTransaction(sender, receiver, fromAccount,toAccount, transactionType)
+        .then(() => {
+            accountRepo.updateBalance(toAccount, toAccountNewBalance)
+            res.send({ message: "Success" })
+        })
+})
+
+app.post("/winAccount", authenticateToken, async (req, res) => {
+    const sender = req.user.name
+    const receiver = req.user.name
+    const toAccount = req.body.toAccount
+    const fromAccount = "none"
+    const toAccountNewBalance = req.body.toAccountNewBalance
+    const transactionType = req.body.transactionType
+
+    await transactionRepo.atmWindrawNewTransaction(sender, receiver, fromAccount, toAccount, transactionType)
         .then(() => {
             accountRepo.updateBalance(toAccount, toAccountNewBalance)
             res.send({ message: "Success" })

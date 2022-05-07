@@ -21,7 +21,7 @@ class TransactionRepository {
     }
 
 
-    atmDepositeNewTransaction(sender, receiver, toAccount, transactionType) {
+    atmDepositeNewTransaction(sender, receiver,fromAccount, toAccount, transactionType) {
         let today = new Date();
         let date = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
         let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -30,8 +30,23 @@ class TransactionRepository {
         let sql = `INSERT INTO transactions 
             (sender, receiver, fromAccount, toAccount, transactionType, transactionDate) 
             VALUES (?, ?, ?, ?, ?, ?)`
-        return this.dao.run(sql, [sender, receiver, toAccount, transactionType, dateTime])
+        return this.dao.run(sql, [sender, receiver,fromAccount, toAccount, transactionType, dateTime])
     }
+
+    atmWindrawNewTransaction(sender, receiver,fromAccount, toAccount, transactionType) {
+        let today = new Date();
+        let date = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date + ' ' + time;
+
+        let sql = `INSERT INTO transactions 
+            (sender, receiver, fromAccount, toAccount, transactionType, transactionDate) 
+            VALUES (?, ?, ?, ?, ?, ?)`
+        return this.dao.run(sql, [sender, receiver,fromAccount, toAccount, transactionType, dateTime])
+    }
+
+
+
 }
 
 module.exports = TransactionRepository
