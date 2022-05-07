@@ -18,7 +18,8 @@ app.listen(port, () => {
 });
 
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:4000",
+    
 }))
 
 app.use(express.json())
@@ -242,6 +243,20 @@ app.post("/updateAccount", authenticateToken, async (req, res) => {
     await transactionRepo.newTransaction(sender, receiver, fromAccount, toAccount, transactionType)
         .then(() => {
             accountRepo.updateBalance(fromAccount, fromAccountNewBalance)
+            accountRepo.updateBalance(toAccount, toAccountNewBalance)
+            res.send({ message: "Success" })
+        })
+})
+
+app.post("/DepoAccount", authenticateToken, async (req, res) => {
+    const sender = req.user.name
+    const receiver = req.user.name
+    const toAccount = req.body.toAccount
+    const toAccountNewBalance = req.body.toAccountNewBalance
+    const transactionType = req.body.transactionType
+
+    await transactionRepo.atmDepositeNewTransaction(sender, receiver, toAccount, transactionType)
+        .then(() => {
             accountRepo.updateBalance(toAccount, toAccountNewBalance)
             res.send({ message: "Success" })
         })
