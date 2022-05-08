@@ -1,27 +1,35 @@
 
 
-.button {
-  height: 60px;
- 
-  border-radius: 10px;
-  background-color: #fff;
-  font-size: 3rem;
-  color: #333;
-  
-}
-
-
-
-
 .keys {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20%;
   padding: 10% 15%;
- 
 }
-.boxGui{
 
+.box{
+  background-color: #282C34;
 position: center;
 
 }
+
+
+
+
+a{
+
+  border: none;
+  padding: 14px;
+  text-align: center;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 25px;
+  color: White;
+
+
+
+
+
+
+}
+

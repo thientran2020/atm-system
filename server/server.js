@@ -114,6 +114,18 @@ app.get('/user', authenticateToken, async (req, res) => {
             .then(data => res.json({ "user": data }))
 })
 
+// Get User Trasn 
+app.get("/UserTransactionsData", authenticateToken, (req, res) => {
+    const username = req.user.name
+    userRepo.getIDByUsername(username).then(
+        user => {
+            accountRepo.getAccountByID(user.userID).then(
+                data => res.json(data)
+            )
+        }
+    )
+})
+
 // Update user profile
 app.post('/user/update', authenticateToken, async (req, res) => {
     const username = req.body.username
@@ -295,4 +307,3 @@ app.post("/winAccount", authenticateToken, async (req, res) => {
 //         "username": "peter", 
 //         "password": "abc123"
 //     }
-// ]

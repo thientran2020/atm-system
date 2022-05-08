@@ -8,6 +8,7 @@ import OpenAccount from './routes/openAccount.jsx';
 import MoibleDeposit from './routes/moibleDeposit.jsx';
 import MoibleWindraw from './routes/moibleWindraw.jsx';
 import Profile from './routes/profile.jsx';
+import PrintStatement from './routes/printStatement.jsx';
 import TrasnferFunds from  './routes/transferFunds.jsx';
 import Welcome from './routes/welcome.jsx';
 import NavBar from './components/navbar.js';
@@ -24,7 +25,7 @@ function App() {
 	return (
 		<div className="main">
 	
-		
+	
 		
 		<Routes>
 			<Route exact path="/" element={<Welcome />}/>
@@ -36,9 +37,9 @@ function App() {
 			<Route path="/mobileDeposit" element={<MoibleDeposit />}/>
 			<Route path="/mobileWindraw" element={<MoibleWindraw />}/>
 			<Route path="/transferFunds" element={<TrasnferFunds />}/>
+			<Route path="/printStatement" element={<PrintStatement />}/>
 		</Routes>
-		
-		
+	
 
 		</div>
 

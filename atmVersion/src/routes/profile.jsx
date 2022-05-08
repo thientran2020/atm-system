@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../img/logo.png'
 import '../css/profile.css'
-
+import Footer from '../components/footer.js';
 export default class Profile extends Component {
 	state = {}
 
@@ -59,43 +59,12 @@ export default class Profile extends Component {
 						<p><span>Phone Number:</span> {this.state.user.phoneNumber}</p>  
 					</div>
 
-					<div id="update-info">
-						<h1>Hi {user.firstName} {user.lastName} !!!</h1>
-						<form>
-							<label>
-								<span>Address</span>
-								<input type="text" 
-									onChange={e => this.state.user.address=e.target.value}/>
-							</label>
-							<label>
-								<span>City</span>
-								<input type="text"
-									onChange={e => this.state.user.city=e.target.value}/>
-							</label>
-							<label>
-								<span>State</span>
-								<input type="text"
-									onChange={e => this.state.user.state=e.target.value}/>
-							</label>
-							<label>
-								<span>Zip Code</span>
-								<input type="text"
-									onChange={e => this.state.user.zipCode=e.target.value}/>
-							</label>
-							<label>
-								<span>Phone Number</span>
-								<input type="text"
-									onChange={e => this.state.user.phoneNumber=e.target.value}/>
-							</label>
-						</form>
-						<button 
-							id="update-profile" 
-							type="submit" 
-							onClick={this.handleSubmit.bind(this)}>
-							Update Profile
-						</button>
+				
+					<footer id="app-footer">
+			<Footer />
+		</footer>
 					</div>
-				</div>
+				
 			)
 		}
 		return (<Link to="/" />)

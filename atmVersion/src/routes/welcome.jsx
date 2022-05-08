@@ -16,20 +16,23 @@ export default class Welcome extends Component {
 	render() {
 	
 		return (
-			<div className='boxGui'>
-			<h1>Welcom</h1>
+			
+			<div className="box">
+			<h1>Welcome </h1>
 			<div className="keys">
 			
 			<button type="button" ><a href="/account">Account</a></button>
-			<button type="button" ><a href="/mobileDeposit">Deposit</a></button>
-			<button type="button" ><a href="/mobileWindraw">Deposit</a></button>
-			<button type="button" ><a href="/transferFunds">Transfert</a></button>
 			<button type="button" ><a href="/profile">Profile</a></button>
-			<button type="button" value="6"><a href="/aboutUs">About Us</a></button>
-			<button type="button" value="1">Log Out </button>
-			<button type="button" value="2">Print Stament </button>
-			<button type="button" value="2">Print Stament </button>
-		
+			<button type="button" ><a href="/mobileDeposit">Deposit</a></button>
+			<button type="button" ><a href="/mobileWindraw">Windraw</a></button>
+			<button type="button" ><a href="/transferFunds">Transfer</a></button>
+			<button type="button" ><a href="/printStatement">Print Statement</a> </button>
+			<button type="button" ><a href="/printStatement">Contact Us</a> </button>
+			<button type="button" ><a href="/aboutUs">About Us</a></button>
+			<button type="button"><a href="/" onClick={() => {
+					localStorage.clear()
+					window.location.reload()
+				}}>Sign Out</a></button>
 		
 		  </div>
 		  </div>

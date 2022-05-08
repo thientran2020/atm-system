@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import '../css/account.css'
-
+import Footer from '../components/footer.js';
 export default class Account extends Component {
 	state = {}
 
@@ -47,9 +47,17 @@ export default class Account extends Component {
 								<p><span>Balance:</span> ${acc.balance}</p>
 							</div>	
 						)}
+		<footer id="app-footer">
+			<Footer />
+		</footer>
 				</div>
+				
 			)
 		}
+			
+		
 		return (<Link to="/" />)
+		
 	}
+	
 }

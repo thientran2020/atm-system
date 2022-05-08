@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import '../css/transfer.css'
-
+import Footer from '../components/footer.js';
 export default class MobileDeposit extends Component {
 	state = {};
 	componentDidMount() {this.fetchData();}
@@ -120,6 +120,9 @@ export default class MobileDeposit extends Component {
 							</button>
 	          </div>
 	        </div>
+			<footer id="app-footer">
+			<Footer />
+		</footer>
 				</div>
 			)
 		}

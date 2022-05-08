@@ -1,9 +1,9 @@
 import React from 'react'
-
+import '../css/footer.css'
 export default function Footer() {
   return (
     <div id="footer">
-      <p>© Copyright 2022 ___ All Rights Reserved</p>
+    < button type="button" class="foot"><a href="/">Back</a></button>
     </div>
   )
 }
