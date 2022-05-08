@@ -8,6 +8,11 @@ class TransactionRepository {
         return this.dao.all(sql)
     }
 
+    getTransactionsByUsername(username) {
+        let sql = `SELECT * FROM transactions WHERE sender = ? OR receiver = ?`
+        return this.dao.all(sql, [username, username])
+    }
+
     newTransaction(sender, receiver, fromAccount, toAccount, transactionType) {
         let today = new Date();
         let date = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();

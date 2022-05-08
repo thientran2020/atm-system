@@ -7,6 +7,7 @@ import CloseAccount from './routes/closeAccount.jsx';
 import OpenAccount from './routes/openAccount.jsx';
 import MoibleDeposit from './routes/moibleDeposit.jsx';
 import Profile from './routes/profile.jsx';
+import Transaction from './routes/transaction.jsx';
 import TrasnferFunds from  './routes/transferFunds.jsx';
 import Welcome from './routes/welcome.jsx';
 import NavBar from './components/navbar.js';
@@ -33,6 +34,7 @@ function App() {
 			<Route path="/closeAccount" element={<CloseAccount />}/>
 			<Route path="/openAccount" element={<OpenAccount />}/>
 			<Route path="/profile" element={<Profile />}/>
+			<Route path="/transaction" element={<Transaction />}/>
 			<Route path="/mobileDeposit" element={<MoibleDeposit />}/>
 			<Route path="/transferFunds" element={<TrasnferFunds />}/>
 		</Routes>

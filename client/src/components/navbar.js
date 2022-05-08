@@ -14,10 +14,11 @@ export default function NavBar() {
 				<a href="/profile">Profile</a>
 				<ul>
 					<li><a onClick={handleOnClick}>Update Profile</a></li>
+					<li><a href="/transaction">Transactions</a></li>
 				</ul>
 			</li>
 			<li>
-				<a href="/account">Account</a>
+				<a href="/account">My Account</a>
 				<ul>
 					<li><a href="/openAccount">Open New Account</a></li>
 					<li><a href="/closeAccount">Close Existing Account</a></li>

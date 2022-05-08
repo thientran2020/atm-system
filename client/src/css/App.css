@@ -95,12 +95,13 @@ input[type="submit"]:hover {
   border-top: 4px solid;
   margin-top: 1rem;
   padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
   color: black;
   background-color:white;
   text-align: center;
   width: 100%; 
   font-size: 18px;
-  height: 90%;
+  min-height: 100%;
 }
 
 .div-container img {

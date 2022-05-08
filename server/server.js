@@ -152,6 +152,12 @@ app.post("/addAccount", authenticateToken, async (req, res) => {
     )
 })
 
+// Get account data of authorized user
+app.get("/transaction", authenticateToken, (req, res) => {
+    transactionRepo.getTransactionsByUsername(req.user.name)
+    .then(data => res.json(data))
+})
+
 // Close existing account of authorized user
 app.post("/closeAccount", authenticateToken, async (req, res) => {
     const accountID = req.body.accountID
@@ -224,9 +230,9 @@ function authenticateToken(req, res, next) {
     })
 }
 
-// Generate access token when user logs in - default expiration time is 5 hour
+// Generate access token when user logs in - default expiration time is 1 hour
 function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30m' })
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '24h' })
 }
 
 // ************* API for Bank functionalities *************
@@ -264,4 +270,9 @@ app.post("/updateAccount", authenticateToken, async (req, res) => {
 //         "username": "peter", 
 //         "password": "abc123"
 //     }
-// ]
+//
+//     {
+//         "username": "hello", 
+//         "password": "000000"
+//     }
+//
