@@ -2,7 +2,8 @@ body > #root > div {
   height: 100vh;
 }
 
-body { 
+body {
+  margin: auto;
   background-color: gold;
 }
 
@@ -80,7 +81,7 @@ input[type="submit"]:hover {
   padding: 8px;
 }
 
-/*  footer css style */ 
+/*  footer css style */
 #footer {
   position: fixed;
   bottom: 0;
@@ -99,7 +100,7 @@ input[type="submit"]:hover {
   color: black;
   background-color:white;
   text-align: center;
-  width: 100%; 
+  width: 100%;
   font-size: 18px;
   min-height: 100%;
 }

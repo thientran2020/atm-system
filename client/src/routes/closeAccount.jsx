@@ -50,22 +50,45 @@ export default class CloseAccount extends Component {
 			if (account.length == 0) {
 				message = <h3>You don't have any account yet...!!!</h3>
 			} else {
-				message = <h3>Choose account to close...!!!</h3>
+				message = <h3></h3>
 			}
 			return (
+			
 				<div className="div-container">
-					{message}
-					<select name="account-id" id="account-id">
-						{account.map((acc) => 
-							<option value={acc.accountID}>{acc.accountType} ending in {acc.accountID}</option>
-						)}
-					</select>
-					<button 
-						id="close-account" 
-						type="submit" 
-						onClick={this.handleSubmit.bind(this)}>
-						CLOSE
-					</button>
+				
+			
+					<table class="fl-table">
+						<thead>
+							<tr>
+								<th>Account ID</th>
+								<th>Account Type</th>
+								<th>Balance</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+						
+						{account.map((acc) => (
+						<tr>
+							<td>{acc.accountID}</td>
+							<td>{acc.accountType}</td>
+							<td>{acc.balance}</td>
+							<td>
+								<button 
+									id="close-account" 
+									type="submit" 
+									onClick={this.handleSubmit.bind(this)}>
+									CLOSE
+								</button>
+							</td>
+						
+						</tr>
+						))}
+						
+						
+					</tbody>
+				</table>
+					
 				</div>
 			)
 		}

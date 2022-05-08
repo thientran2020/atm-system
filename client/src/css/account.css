@@ -1,12 +1,4 @@
-#message {
-    text-align: left;
-    padding-left: 4%;
-    font-size: 18px;
-    font-style: italic;
-    font-weight: 600;
-    color: green;
-    text-transform: uppercase;
-}
+
 
 .account-info, h3 {
     text-align: left;
@@ -35,8 +27,49 @@ select {
     color: blue;
 }
 
-.div-container button {
-    width: 140px;
+.div-container {
+    box-shadow: 0px 35px 50px rgba(0,0,0,0.2);
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse ;
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+}
+
+.fl-table td, .fl-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+.fl-table td {
+    border-right: 1px solid #f8f8f8;
+    font-size: 18px;
+}
+
+.fl-table thead th {
+    color: #ffffff;
+    background: #4fc3a1;
+}
+
+.fl-table thead th:nth-child(odd) {
+    color: #ffffff;
+    background: #324690;
+}
+
+.fl-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.div-container
+ button {
+    width: 100px;
     margin-left: 20px;
     position: relative;
 }
+
