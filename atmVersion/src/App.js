@@ -11,6 +11,7 @@ import Profile from './routes/profile.jsx';
 import PrintStatement from './routes/printStatement.jsx';
 import TrasnferFunds from  './routes/transferFunds.jsx';
 import Welcome from './routes/welcome.jsx';
+import ContactUs from './routes/contactUs.jsx';
 import NavBar from './components/navbar.js';
 import Footer from './components/footer.js';
 import useToken from './helper/helper.js';
@@ -34,10 +35,11 @@ function App() {
 			<Route path="/closeAccount" element={<CloseAccount />}/>
 			<Route path="/openAccount" element={<OpenAccount />}/>
 			<Route path="/profile" element={<Profile />}/>
-			<Route path="/mobileDeposit" element={<MoibleDeposit />}/>
+			<Route path="/mobileDeposit" element={<MoibleDeposit/>}/>
 			<Route path="/mobileWindraw" element={<MoibleWindraw />}/>
 			<Route path="/transferFunds" element={<TrasnferFunds />}/>
-			<Route path="/printStatement" element={<PrintStatement />}/>
+			<Route path="/printStatement" element={<PrintStatement/>}/>
+			<Route path="/contactUs" element={<ContactUs />}/>
 		</Routes>
 	
 

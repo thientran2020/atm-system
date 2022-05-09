@@ -3,22 +3,33 @@ import '../css/welcome.css'
 export default class Welcome extends Component {
 	state = {}
 
+	fetchData() {
+		return fetch('http://localhost:4040/user', 
+		{
+			method: 'GET',
+			headers: {
+				'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('accessToken'))
+			}
+		}).then(res => {
+			if (res.status >= 403) {
+				localStorage.clear()
+				window.location.reload()
+			}
+			return res.json()
+		}).then(data => {this.setState({ user: data.user })})
+	}
+
+	
 	componentDidMount() {
-		fetch('http://localhost:4040/user', {
-		method: 'GET',
-		headers: {
-			'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('accessToken'))
-		}})
-		.then(response => response.json())
-  		.then(data => {this.setState({ user: data.user })});
+		this.fetchData()
 	}
 
 	render() {
-	
+		const user = this.state.user
 		return (
 			
 			<div className="box">
-			<h1>Welcome </h1>
+			<h1> Virtual ATM</h1>
 			<div className="keys">
 			
 			<button type="button" ><a href="/account">Account</a></button>
