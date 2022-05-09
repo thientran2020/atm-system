@@ -40,3 +40,7 @@ Content-Type: application/json
 {
     "username": "peter"
 }
+
+
+###
+POST  http://localhost:4040/api/image

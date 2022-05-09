@@ -1,7 +1,9 @@
 const express = require('express')
 const cors = require('cors')
+const multer = require('multer')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const upload = multer({ dest: '.data/transactions/' })
 const fs = require('fs')
 const DAO = require('./dao')
 const UserRepository = require('./user_repository')
@@ -59,7 +61,8 @@ dao.run(`
         accountID INTEGER PRIMARY KEY,
         userID INT NOT NULL,
         accountType VARCHAR(255) NOT NULL,
-        balance DOUBLE NOT NULL
+        balance DOUBLE NOT NULL, 
+        status INT NOT NULL
     )
 `)
 
@@ -71,7 +74,8 @@ dao.run(`
         fromAccount VARCHAR(255) NOT NULL, 
         toAccount VARCHAR(255) NOT NULL,
         transactionType VARCHAR(255) NOT NULL,
-        transactionDate VARCHAR(255)
+        transactionDate VARCHAR(255),
+        transactionImage VARCHAR(255)
     );
 `)
 
@@ -160,9 +164,19 @@ app.get("/transaction", authenticateToken, (req, res) => {
 
 // Close existing account of authorized user
 app.post("/closeAccount", authenticateToken, async (req, res) => {
+    const sender = req.user.name
+    const receiver = req.user.name
     const accountID = req.body.accountID
-    await accountRepo.closeAccount(accountID)
-        .then(data => res.json(data))
+    
+    await accountRepo.getCurrentBalance(accountID)
+        .then(balance => {
+            if (balance > 0) {
+                transactionRepo.newTransaction(sender, receiver, accountID, accountID, "cashed out")
+                    .then(() => res.send({ message: "Success" }))
+            }
+            accountRepo.updateBalance(accountID, 0)
+            accountRepo.closeAccount(accountID).then(data => res.json(data))
+        })
 })
 
 // ************* User registration *************
@@ -236,6 +250,19 @@ function generateAccessToken(user) {
 }
 
 // ************* API for Bank functionalities *************
+app.post('/api/image', upload.single('image'), (req, res) => {
+    const imagePath = req.file.path
+    const transactionID = req.body.transactionID
+    transactionRepo.addTransactionImage(imagePath, transactionID)
+        .then(() => res.json({ message: "Success" }))
+})
+
+app.get('/image', (req, res) => {
+    const image = req.query.image
+    const readStream = fs.createReadStream(`.data/transactions/${image}`)
+    readStream.pipe(res)
+})
+
 app.post("/updateAccount", authenticateToken, async (req, res) => {
     const sender = req.user.name
     const receiver = req.user.name
@@ -249,7 +276,8 @@ app.post("/updateAccount", authenticateToken, async (req, res) => {
         .then(() => {
             accountRepo.updateBalance(fromAccount, fromAccountNewBalance)
             accountRepo.updateBalance(toAccount, toAccountNewBalance)
-            res.send({ message: "Success" })
+            transactionRepo.getLastTransactionID()
+                .then(id => res.json(id))
         })
 })
 

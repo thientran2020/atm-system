@@ -14,15 +14,17 @@ class AccountRepository {
     }
 
     addAccount(userID, accountType, balance) {
+        let status = 1
         let sql = `INSERT INTO accounts 
-            (userID, accountType, balance) 
-            VALUES (?, ?, ?)`
-        return this.dao.run(sql, [userID, accountType, balance])
+            (userID, accountType, balance, status) 
+            VALUES (?, ?, ?, ?)`
+        return this.dao.run(sql, [userID, accountType, balance, status])
     }
 
     closeAccount(accountID) {
-        let sql = `DELETE FROM accounts WHERE accountID = ?`
-        return this.dao.run(sql, [accountID])
+        let status = -1
+        let sql = `UPDATE accounts SET status = ? WHERE accountID = ?`
+        return this.dao.run(sql, [status, accountID])
     }
 
     updateBalance(accountID, newBalance) {

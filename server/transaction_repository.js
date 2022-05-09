@@ -24,6 +24,18 @@ class TransactionRepository {
             VALUES (?, ?, ?, ?, ?, ?)`
         return this.dao.run(sql, [sender, receiver, fromAccount, toAccount, transactionType, dateTime])
     }
+
+    addTransactionImage(imagePath, transactionID) {
+        let sql = `UPDATE transactions 
+            SET transactionImage = ? 
+            WHERE transactionID = ?`
+        return this.dao.run(sql, [imagePath, transactionID])
+    }
+
+    getLastTransactionID() {
+        let sql = `SELECT transactionID FROM transactions ORDER BY transactionID DESC LIMIT 1`
+        return this.dao.get(sql)
+    }
 }
 
 module.exports = TransactionRepository

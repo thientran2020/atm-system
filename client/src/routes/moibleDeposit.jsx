@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import '../css/transfer.css'
 
@@ -25,6 +26,7 @@ export default class MobileDeposit extends Component {
 		const action = document.querySelector('#action').value
 		const accountID = document.querySelector('#account-id').value
 		const amount = document.querySelector('#amount').value
+		const image = document.querySelector(`#img`).files[0]
 
 		if (isNaN(amount)) {
 			alert("Please enter a valid number for balance!")
@@ -42,6 +44,12 @@ export default class MobileDeposit extends Component {
 				alert(`Maximum amount can be withdrawn is ${balance}`)
 				return
 			}
+
+			if (!image) {
+				alert(`Please upload your check to deposit...!`)
+				return
+			}
+
 			let newBalance = action == 'Deposit' ? balance + parseFloat(amount) : balance - parseFloat(amount)
 			fetch('http://localhost:4040/updateAccount', {
 				method: 'POST',
@@ -56,10 +64,19 @@ export default class MobileDeposit extends Component {
 					"toAccountNewBalance": newBalance, 
 					"transactionType": action
 				})
-			}).then(() => {
-				if (!alert(`Thank you! ${action} successfully...!!!`)) {
-					window.location.reload()
-				}		
+			}).then(res => {
+				return res.json()	
+			}).then(data => {
+				const transactionID = data.transactionID
+				const formData = new FormData()
+				formData.append("image", image)
+				formData.append("transactionID", transactionID)
+				axios.post('http://localhost:4040/api/image', formData, { headers: {'Content-Type': 'multipart/form-data'}})
+				.then(() => {
+					if (!alert(`Thank you! ${action} successfully...!!!`)) {
+						window.location.reload()
+					}
+				})
 			})
 		}
 	}
