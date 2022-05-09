@@ -35,7 +35,7 @@ export default class MobileWindraw extends Component {
 		let balanceTo;
 		for (let index in this.state.account) {
 			if (this.state.account[index].accountID == amount)
-				balanceFrom = parseFloat(this.state.account[index].balance);
+				balanceTo = parseFloat(this.state.account[index].balance);
 
 			if (this.state.account[index].accountID == to)
 				balanceTo = parseFloat(this.state.account[index].balance);
@@ -59,11 +59,11 @@ export default class MobileWindraw extends Component {
 			
 			"toAccount": to,
 			"toAccountNewBalance": balanceTo,
-			"transactionType": "Windraw",
+			"transactionType": "Atm Windraw",
 		});
 
 		let arr = {method: "POST", headers: headers, body: body};
-		fetch("http://localhost:4040/depoAccount", arr).then(() => {
+		fetch("http://localhost:4040/winAccount", arr).then(() => {
 			if (!alert("Windraw successful."))
 				window.location.reload();
 		});

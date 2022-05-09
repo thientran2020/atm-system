@@ -30,6 +30,7 @@ export default class MobileDeposit extends Component {
 			return alert("Input must be a number.");
 		else if (parseFloat(amount) < 0)
 			return alert("Amount cannot be negative.");
+		
 
 		let balanceFrom;
 		let balanceTo;
