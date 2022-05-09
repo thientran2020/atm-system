@@ -171,7 +171,7 @@ app.post("/closeAccount", authenticateToken, async (req, res) => {
     await accountRepo.getCurrentBalance(accountID)
         .then(data => {
             if (data.balance > 0) {
-                transactionRepo.newTransaction(sender, receiver, accountID, accountID, "cashed out")
+                transactionRepo.newTransaction(sender, receiver, accountID, accountID, "Cashed Out")
                     .then(() => res.send({ message: "Success" }))
             }
             accountRepo.updateBalance(accountID, 0)
@@ -280,13 +280,6 @@ app.post("/updateAccount", authenticateToken, async (req, res) => {
                 .then(id => res.json(id))
         })
 })
-
-// showUserDatabase
-// getUsernameByID?id=2
-// insertUser?id=5&username=testuser5&password=password&firstName=user5&lastName=group&phoneNumber=8317779999
-// getAccountsData
-// getAccountByID?id=1
-// addAccount?id=4&accountType=Saving&balance=2900
 
 // Testing credentials
 // users = [

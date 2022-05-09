@@ -1,29 +1,27 @@
-
-
-.account-info, h3 {
-    text-align: left;
-    padding-left: 4%;
+.account-info h3 {
+    margin-bottom: 40px;
 }
 
-.account-info h4 {
-    color: blue;
-    text-decoration: underline;
-}
-
-.account-info p, .account-info label {
+.account-info label {
     display: flex;
     direction: column;
     margin-top: 10px;
 }
 
-.account-info p span {
-    width: 140px;
+.account-info label span {
+    margin-left: 4%;
+    text-align: left;
 }
 
-select {
-    float: left;
-    margin-left: 4%;
-    font-size: 14px;
+.account-info select {
+    font-size: 15px;
+    width: 140px;
+    color: blue;
+}
+
+.account-info input {
+    font-size: 15px;
+    width: 135px;
     color: blue;
 }
 
@@ -31,45 +29,18 @@ select {
     box-shadow: 0px 35px 50px rgba(0,0,0,0.2);
 }
 
-.fl-table {
-    border-radius: 5px;
-    font-size: 18px;
-    font-weight: normal;
-    border: none;
-    border-collapse: collapse ;
-    width: 100%;
-    max-width: 100%;
-    white-space: nowrap;
-}
-
-.fl-table td, .fl-table th {
-    text-align: center;
-    padding: 8px;
-}
-
-.fl-table td {
-    border-right: 1px solid #f8f8f8;
-    font-size: 18px;
-}
-
-.fl-table thead th {
-    color: #ffffff;
-    background: #4fc3a1;
-}
-
-.fl-table thead th:nth-child(odd) {
-    color: #ffffff;
-    background: #324690;
-}
-
-.fl-table tr:nth-child(even) {
-    background: #f8f8f8;
-}
-
-.div-container
- button {
+.div-container button {
     width: 100px;
-    margin-left: 20px;
-    position: relative;
+    border-radius: 0;
+    position: -99999;
+}
+
+#message {
+    background-color: lightgreen;
+    color: black;
+    width: 30%;
+    margin-left: 35%;
+    padding: 10px;
+    font-size: 20px;
 }
 

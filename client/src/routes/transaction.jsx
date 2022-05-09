@@ -39,22 +39,33 @@ export default class Transaction extends Component {
 			return (
 				<div className="div-container">
                     <h3>MY TRANSACTIONS</h3>
-                    {transaction.map((tran, i) => 
-                        <div className="transaction-info">
-                            <h4>Transaction #{i+1}</h4>
-                            <p><span>Transaction number:</span> {tran.transactionID}</p>
-                            <p><span>Sender:</span> {tran.sender}</p>
-                            <p><span>Receiver:</span> {tran.receiver}</p>
-                            <p><span>From Account :</span> {tran.fromAccount}</p>
-                            <p><span>To Account:</span> {tran.toAccount}</p>
-                            <p><span>Transaction Date:</span> {tran.transactionDate}</p>
-							<p><span>Transaction Type:</span> {tran.transactionType}</p>
-							<p>
-								<span>Transaction Image:</span> 
-								{ this.state.images[i] && <img src={this.state.images[i]}/> }
-							</p>
-                        </div>	
-                    )}
+					<table class="fl-table">
+						<thead>
+							<tr>
+								<th>Transaction #</th>
+								<th>Transaction ID</th>
+								<th>From Account</th>
+								<th>To Account</th>
+								<th>Transaction Date</th>
+								<th>Transaction Type</th>
+								<th>Transaction Image</th>
+							</tr>
+						</thead>
+						
+						<tbody>
+							{transaction.map((tran, i) => (
+							<tr>
+								<td>{i+1}</td>
+								<td>{tran.transactionID}</td>
+								<td>{tran.fromAccount}</td>
+								<td>{tran.toAccount}</td>
+								<td>{tran.transactionDate}</td>
+								<td>{tran.transactionType}</td>
+								<td>{ this.state.images[i] && <img src={this.state.images[i]}/> }</td>
+							</tr>
+							))}	
+						</tbody>
+					</table>
 				</div>
 			)
 		}

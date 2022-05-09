@@ -39,14 +39,27 @@ export default class Account extends Component {
 			return (
 				<div className="div-container">
 						{message}
-						{account.map((acc, i) => 
-							<div className="account-info">
-								<h4>Account #{i+1}</h4>
-								<p><span>Account Number:</span> {acc.accountID}</p>
-								<p><span>Account Type:</span> {acc.accountType}</p>
-								<p><span>Balance:</span> ${acc.balance}</p>
-							</div>	
-						)}
+						<table class="fl-table">
+							<thead>
+								<tr>
+									<th>Account #</th>
+									<th>Account ID</th>
+									<th>Account Type</th>
+									<th>Account Balance</th>
+								</tr>
+							</thead>
+							
+							<tbody>
+								{account.map((acc, i) => (
+								<tr>
+									<td>{i+1}</td>
+									<td>{acc.accountID}</td>
+									<td>{acc.accountType}</td>
+									<td>{acc.balance}</td>
+								</tr>
+								))}	
+							</tbody>
+						</table>
 				</div>
 			)
 		}

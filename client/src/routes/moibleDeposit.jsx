@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import '../css/transfer.css'
+import '../css/deposit.css'
 
 export default class MobileDeposit extends Component {
 	state = {}
@@ -28,6 +28,8 @@ export default class MobileDeposit extends Component {
 		const amount = document.querySelector('#amount').value
 		const image = document.querySelector(`#img`).files[0]
 
+		console.log(accountID)
+
 		if (isNaN(amount)) {
 			alert("Please enter a valid number for balance!")
 		} else if (parseFloat(amount) < 0) {
@@ -47,6 +49,11 @@ export default class MobileDeposit extends Component {
 
 			if (!image) {
 				alert(`Please upload your check to deposit...!`)
+				return
+			}
+
+			if (!accountID) {
+				alert(`Sorry you don't have any account to deposit...!`)
 				return
 			}
 
@@ -100,7 +107,6 @@ export default class MobileDeposit extends Component {
 					<div className='container'>
 						<select name="action" id="action">
 							<option value="Deposit">Deposit</option>
-							{/* <option value="Withdraw">Withdraw</option> */}
 						</select>
 						<select name="account-id" id="account-id">
 							{account.map((acc) => 
@@ -115,7 +121,7 @@ export default class MobileDeposit extends Component {
 					
 					<div className='container'>
 						<form>
-							<label for="img">Select image:</label>
+							<label for="img" id="upload-check">Upload check:</label>
 							<input type="file" id="img" name="img" accept="image/*"/>	
 						</form>
 					</div>
@@ -123,7 +129,7 @@ export default class MobileDeposit extends Component {
 						id="execute" 
 						type="submit" 
 						onClick={this.handleSubmit.bind(this)}>
-						EXECUTE
+						DEPOSIT
 					</button>
 				</div>
 			)

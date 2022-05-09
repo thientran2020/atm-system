@@ -112,9 +112,46 @@ input[type="submit"]:hover {
 
 #welcome-message {
   background-color: darkblue;
-  width: 40%;
+  width: 30%;
   margin: 0 auto;
   color: white;
   font-size: 27px;
+  padding: 5px;
   text-transform: uppercase;
+}
+
+.fl-table {
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: normal;
+  border: none;
+  border-collapse: collapse ;
+  width: 95%;
+  margin: 0 auto;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+.fl-table td, .fl-table th {
+  text-align: center;
+  padding: 8px;
+}
+
+.fl-table td {
+  border-right: 1px solid #f8f8f8;
+  font-size: 18px;
+}
+
+.fl-table thead th {
+  color: #ffffff;
+  background: #4fc3a1;
+}
+
+.fl-table thead th:nth-child(odd) {
+  color: #ffffff;
+  background: #324690;
+}
+
+.fl-table tr:nth-child(even) {
+  background: #f8f8f8;
 }

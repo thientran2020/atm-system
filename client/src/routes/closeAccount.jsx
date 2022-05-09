@@ -62,8 +62,8 @@ export default class CloseAccount extends Component {
 								<th>Action</th>
 							</tr>
 						</thead>
-						<tbody>
 						
+						<tbody>
 						{account.map((acc) => (
 						<tr>
 							<td>{acc.accountID}</td>
@@ -77,12 +77,10 @@ export default class CloseAccount extends Component {
 									CLOSE
 								</button>
 							</td>
-						
 						</tr>
 						))}	
 					</tbody>
 				</table>
-					
 				</div>
 			)
 		}
