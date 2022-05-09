@@ -21,8 +21,7 @@ export default class CloseAccount extends Component {
 		}).then(data => {this.setState({ account: data })})
 	}
 
-	handleSubmit() {
-		const accountID = document.querySelector('#account-id').value
+	handleSubmit(accountID) {
 		fetch('http://localhost:4040/closeAccount', {
 			method: 'POST',
 			headers: {
@@ -41,6 +40,7 @@ export default class CloseAccount extends Component {
 
 	componentDidMount() {
 		this.fetchData()
+		console.log(document.querySelectorAll('button'))
 	}
 
 	render() {
@@ -53,10 +53,7 @@ export default class CloseAccount extends Component {
 				message = <h3></h3>
 			}
 			return (
-			
 				<div className="div-container">
-				
-			
 					<table class="fl-table">
 						<thead>
 							<tr>
@@ -75,17 +72,15 @@ export default class CloseAccount extends Component {
 							<td>{acc.balance}</td>
 							<td>
 								<button 
-									id="close-account" 
-									type="submit" 
-									onClick={this.handleSubmit.bind(this)}>
+									id={"close-account" + acc.accountID}
+									type="submit"
+									onClick={e => this.handleSubmit(acc.accountID)}>
 									CLOSE
 								</button>
 							</td>
 						
 						</tr>
-						))}
-						
-						
+						))}	
 					</tbody>
 				</table>
 					

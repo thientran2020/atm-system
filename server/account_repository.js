@@ -9,7 +9,7 @@ class AccountRepository {
     }
 
     getAccountByID(userID) {
-        let sql = `SELECT * FROM accounts WHERE userID = ?`
+        let sql = `SELECT * FROM accounts WHERE userID = ? AND status = 1`
         return this.dao.all(sql, [userID])
     }
 

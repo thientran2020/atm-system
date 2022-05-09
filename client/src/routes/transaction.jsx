@@ -48,9 +48,10 @@ export default class Transaction extends Component {
                             <p><span>From Account :</span> {tran.fromAccount}</p>
                             <p><span>To Account:</span> {tran.toAccount}</p>
                             <p><span>Transaction Date:</span> {tran.transactionDate}</p>
+							<p><span>Transaction Type:</span> {tran.transactionType}</p>
 							<p>
 								<span>Transaction Image:</span> 
-								<img src={this.state.images[i]}/>
+								{ this.state.images[i] && <img src={this.state.images[i]}/> }
 							</p>
                         </div>	
                     )}

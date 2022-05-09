@@ -169,8 +169,8 @@ app.post("/closeAccount", authenticateToken, async (req, res) => {
     const accountID = req.body.accountID
     
     await accountRepo.getCurrentBalance(accountID)
-        .then(balance => {
-            if (balance > 0) {
+        .then(data => {
+            if (data.balance > 0) {
                 transactionRepo.newTransaction(sender, receiver, accountID, accountID, "cashed out")
                     .then(() => res.send({ message: "Success" }))
             }
