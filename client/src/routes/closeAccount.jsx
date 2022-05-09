@@ -40,7 +40,6 @@ export default class CloseAccount extends Component {
 
 	componentDidMount() {
 		this.fetchData()
-		console.log(document.querySelectorAll('button'))
 	}
 
 	render() {

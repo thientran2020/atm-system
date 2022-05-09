@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import logo from '../img/logo.png'
 import '../css/profile.css'
 
-export default class Profile extends Component {
-	state = {}
+export default class EditProfile extends Component {
+    state = {}
 
 	fetchData() {
 		return fetch('http://localhost:4040/user', 
@@ -39,7 +38,7 @@ export default class Profile extends Component {
 			},
 			body: JSON.stringify(user)
 		}).then(data => data.json())
-		window.location.reload()
+		window.location.href = '/profile'
 	}
 
 	componentDidMount() {
@@ -47,16 +46,45 @@ export default class Profile extends Component {
 	}
 
 	render() {
-		const user = this.state.user
+        const user = this.state.user
 		if (user) {
 			return (
 				<div className="div-container">
-					<div id="user-info">
-						<img src={logo} className='logo' alt='profile'/> 
+					<div id="update-info">
 						<h1>Hi {user.firstName} {user.lastName} !!!</h1>
-						<p><span>Username:</span> {user.username}</p>
-						<p><span>Address:</span> {user.address}, {user.state} {user.zipCode}</p>
-						<p><span>Phone Number:</span> {this.state.user.phoneNumber}</p>  
+						<form>
+							<label>
+								<span>Address</span>
+								<input type="text" 
+									onChange={e => this.state.user.address=e.target.value}/>
+							</label>
+							<label>
+								<span>City</span>
+								<input type="text"
+									onChange={e => this.state.user.city=e.target.value}/>
+							</label>
+							<label>
+								<span>State</span>
+								<input type="text"
+									onChange={e => this.state.user.state=e.target.value}/>
+							</label>
+							<label>
+								<span>Zip Code</span>
+								<input type="text"
+									onChange={e => this.state.user.zipCode=e.target.value}/>
+							</label>
+							<label>
+								<span>Phone Number</span>
+								<input type="text"
+									onChange={e => this.state.user.phoneNumber=e.target.value}/>
+							</label>
+						</form>
+						<button 
+							id="update-profile" 
+							type="submit" 
+							onClick={this.handleSubmit.bind(this)}>
+							Update
+						</button>
 					</div>
 				</div>
 			)

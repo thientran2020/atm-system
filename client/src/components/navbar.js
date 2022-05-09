@@ -1,15 +1,13 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 export default function NavBar() {
-	function handleOnClick() {
-		if (!document.getElementById('user-info')) {
-			window.location.href = "/profile"
-		}
-		document.getElementById('user-info').style.display = 'none'
-		document.getElementById('update-info').style.display = 'block'
-	}
-
+	// function handleOnClick() {
+	// 	if (!document.getElementById('user-info')) {
+	// 		window.location.href = "/profile"
+	// 	}
+	// 	document.getElementById('user-info').style.display = 'none'
+	// 	document.getElementById('update-info').style.display = 'block'
+	// }
     return (
       <nav id="navigation-bar">
 		<ul>
@@ -17,7 +15,7 @@ export default function NavBar() {
 			<li>
 				<a href="/profile">Profile</a>
 				<ul>
-					<li><a onClick={handleOnClick}>Update Profile</a></li>
+					<li><a href="/editProfile">Update Profile</a></li>
 					<li><a href="/transaction">Transactions</a></li>
 				</ul>
 			</li>

@@ -109,3 +109,12 @@ input[type="submit"]:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1.0);
   max-width: 300px;
 }
+
+#welcome-message {
+  background-color: darkblue;
+  width: 40%;
+  margin: 0 auto;
+  color: white;
+  font-size: 27px;
+  text-transform: uppercase;
+}
