@@ -1,7 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function NavBar() {
 	function handleOnClick() {
+		if (!document.getElementById('user-info')) {
+			window.location.href = "/profile"
+		}
 		document.getElementById('user-info').style.display = 'none'
 		document.getElementById('update-info').style.display = 'block'
 	}
