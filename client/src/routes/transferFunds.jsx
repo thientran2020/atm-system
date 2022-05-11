@@ -63,11 +63,12 @@ export default class TransferFunds extends Component {
 			"fromAccountNewBalance": balanceFrom,
 			"toAccountNewBalance": balanceTo,
 			"transactionType": "Transfer",
+			"transactionAmount": amount,
 		});
 
 		let arr = {method: "POST", headers: headers, body: body};
 		fetch("http://localhost:4040/updateAccount", arr).then(() => {
-			if (!alert("Transfer successful."))
+			if (!alert("Transfered successfully."))
 				window.location.reload();
 		});
 	}

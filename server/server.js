@@ -181,7 +181,7 @@ app.post("/closeAccount", authenticateToken, async (req, res) => {
     await accountRepo.getCurrentBalance(accountID)
         .then(data => {
             if (data.balance > 0) {
-                transactionRepo.newTransaction(sender, receiver, accountID, accountID, "Cashed Out")
+                transactionRepo.newTransaction(sender, receiver, accountID, accountID, "Cashed Out", data.balance)
                     .then(() => res.send({ message: "Success" }))
             }
             accountRepo.updateBalance(accountID, 0)
@@ -316,8 +316,6 @@ app.post('/atm/login', async (req, res) => {
 app.get('/atm/account', async(req, res) => {
     let username = req.query.username
     let pin = req.query.pin
-    console.log(req.query)
-    console.log(username, pin)
 
     userRepo.getIDByUsername(username).then(
         user => {

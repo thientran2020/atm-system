@@ -1,13 +1,13 @@
-import e from 'express'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 export default class Transaction extends Component {
 	state = {
-		images: []
+		images: [],
+		ids: []
 	}
 
-	fetchData() {
+	async fetchData() {
 		return fetch('http://localhost:4040/transaction', 
 		{
 			method: 'GET',
@@ -22,13 +22,14 @@ export default class Transaction extends Component {
 			return res.json()
 		}).then(data => {
 			this.setState({ transaction: data })
-			this.state.transaction.map((tran) => {
+			this.state.transaction.map(tran => {
 				if (tran.transactionImage) {
 					const imagePath = tran.transactionImage.split("/")[2]
 					fetch(`http://localhost:4040/image?image=${imagePath}`, {method: 'GET'})
-						.then(res => {this.setState({ images: [...this.state.images, res.url] })})
-				} else {
-					this.setState({ images: [...this.state.images, null] })
+						.then(res => {
+							this.setState({ images: [...this.state.images, res.url] })
+							this.setState({ ids: [...this.state.ids, tran.transactionID] })
+						})
 				}
 			})
 		})
@@ -66,7 +67,8 @@ export default class Transaction extends Component {
 								<td>{tran.toAccount}</td>
 								<td>{tran.transactionDate}</td>
 								<td>{tran.transactionType}</td>
-								<td>{ this.state.images[i] && <img src={this.state.images[i]}/> }</td>
+								<td>{ this.state.ids.includes(tran.transactionID) && 
+									<img src={this.state.images[this.state.ids.indexOf(tran.transactionID)]}/> }</td>
 							</tr>
 							))}	
 						</tbody>

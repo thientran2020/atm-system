@@ -3,7 +3,6 @@ import NumPad from 'react-numpad';
 import '../css/atm.css'
 
 export default class ATM extends Component {
-	// state = {user: {"username": "thientran", "pin": 1111}, action: "Deposit"}
     state = {}
 
     handleSubmit(e) {
@@ -76,7 +75,20 @@ export default class ATM extends Component {
                 "transactionAmount": amount
             })
         }).then(res => res.json())
-        .then(data => {console.log(data)})
+        .then(data => {
+            let message
+            if (this.state.action == "Deposit") {
+                message = "Deposit to"
+            } else {
+                message = "Withdraw from"
+            }
+
+            alert(`Printing statement...! \n
+                Your transaction ID is ${data.transactionID}.\n
+                ${message} account ID ${accountID}: $${amount}.
+                Date: ${new Date()}.\n
+                Thank you ^^`)
+        })
     }
 
 	render() {
