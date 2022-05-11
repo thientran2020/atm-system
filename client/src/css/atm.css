@@ -1,14 +1,22 @@
+body > #root > div {
+    height: 80vh;
+}
+
 .atm {
     margin: 0 auto;
+    margin-top: 8vh;
     color: white;
     width: 80%;
     text-align: center;
     background-color: #282c34;
+    height: 80vh;
 }
 
 .atm h1 {
     padding-top: 40px;
+    padding-bottom: 40px;
     color: yellow;
+    font-size: 45px;
 }
 
 .MuiButton-label {
