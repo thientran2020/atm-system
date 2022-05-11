@@ -45,14 +45,9 @@ export default class CloseAccount extends Component {
 	render() {
 		const account = this.state.account
 		if (account) {
-			let message
-			if (account.length == 0) {
-				message = <h3>You don't have any account yet...!!!</h3>
-			} else {
-				message = <h3></h3>
-			}
 			return (
 				<div className="div-container">
+					<p></p>
 					<table class="fl-table">
 						<thead>
 							<tr>

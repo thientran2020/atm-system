@@ -35,10 +35,10 @@ export default class TransferFunds extends Component {
 		let balanceFrom;
 		let balanceTo;
 		for (let index in this.state.account) {
-			if (this.state.account[index].accountID == from)
+			if (this.state.account[index].accountID === from)
 				balanceFrom = parseFloat(this.state.account[index].balance);
 
-			if (this.state.account[index].accountID == to)
+			if (this.state.account[index].accountID === to)
 				balanceTo = parseFloat(this.state.account[index].balance);
 
 			if (balanceFrom && balanceTo)
@@ -95,41 +95,42 @@ export default class TransferFunds extends Component {
 							<div class="left"><span class="category">TRANSFER FROM</span></div>
 							<div style={{"min-width":"14px"}}></div>
 							<select class="category" id="fromAccount"> {
-									account.map(acc =>
-										<option value={acc.accountID}>
-											{acc.accountType} | {acc.accountID} | ${acc.balance}
-										</option>
-									)
-							} </select>
-						</div>
-					</div>
-					<div class="flex">
-	          <div class="row">
-	            <div class="left"><span class="category">TRANSFER TO</span></div>
-	            <div style={{"min-width":"14px"}}></div>
-	            <select class="category" id="toAccount"> {
 								account.map(acc =>
 									<option value={acc.accountID}>
 										{acc.accountType} | {acc.accountID} | ${acc.balance}
 									</option>
 								)
 							} </select>
-	          </div>
-	        </div>
+						</div>
+					</div>
 					<div class="flex">
-	          <div class="row">
-	            <div class="left"><span class="category">AMOUNT</span></div>
+	          	<div class="row">
+	            
+				<div class="left"><span class="category">TRANSFER TO</span></div>
 	            <div style={{"min-width":"14px"}}></div>
-	            <input class="right" type="number" id="amount"></input>
-	          </div>
-	        </div>
+	            <select class="category" id="toAccount"> {
+						account.map(acc =>
+							<option value={acc.accountID}>
+								{acc.accountType} | {acc.accountID} | ${acc.balance}
+							</option>
+						)
+					} </select>
+	          		</div>
+				</div>
+					<div class="flex">
+				<div class="row">
+					<div class="left"><span class="category">AMOUNT</span></div>
+					<div style={{"min-width":"14px"}}></div>
+					<input class="right" type="number" id="amount"></input>
+				</div>
+	        	</div>
 					<div class="flex">
 	          <div class="row">
 	            <button class="category">CANCEL</button>
 	            <div style={{"min-width":"14px"}}></div>
 	            <button class="category" id="transfer" type="submit" onClick={this.handleSubmit.bind(this)}>
-								CONFIRM
-							</button>
+						CONFIRM
+						</button>
 	          </div>
 	        </div>
 				</div>

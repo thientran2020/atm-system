@@ -35,12 +35,12 @@ export default class MobileDeposit extends Component {
 		} else {
 			let balance
 			for (let index in this.state.account) {
-				if (this.state.account[index].accountID == accountID) {
+				if (this.state.account[index].accountID === accountID) {
 					balance = parseFloat(this.state.account[index].balance)
 					break
 				}
 			}
-			if (action == 'Withdraw' && balance < amount) {
+			if (action === 'Withdraw' && balance < amount) {
 				alert(`Maximum amount can be withdrawn is ${balance}`)
 				return
 			}
@@ -55,7 +55,7 @@ export default class MobileDeposit extends Component {
 				return
 			}
 
-			let newBalance = action == 'Deposit' ? balance + parseFloat(amount) : balance - parseFloat(amount)
+			let newBalance = action === 'Deposit' ? balance + parseFloat(amount) : balance - parseFloat(amount)
 			fetch('http://localhost:4040/updateAccount', {
 				method: 'POST',
 				headers: {
@@ -95,7 +95,7 @@ export default class MobileDeposit extends Component {
 		const account = this.state.account
 		if (account) {
 			let message
-			if (account.length == 0) {
+			if (account.length === 0) {
 				message = <h3>You don't have any account yet...!!!</h3>
 			} else {
 				message = <h3>Choose account to deposit or withdraw...!!!</h3>

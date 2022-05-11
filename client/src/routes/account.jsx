@@ -29,9 +29,9 @@ export default class Account extends Component {
 		const account = this.state.account
 		if (account) {
 			let message
-			if (account.length == 0) {
+			if (account.length === 0) {
 				message = <p id='message'>You don't have any account yet...!!!</p>
-			} else if (account.length == 1) {
+			} else if (account.length === 1) {
 				message = <p id='message'>You have 1 account...!!!</p>
 			} else {
 				message = <p id='message'>You have {account.length} accounts...!!!</p>
