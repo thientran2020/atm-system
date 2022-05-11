@@ -53,7 +53,7 @@ export default function Registration() {
 	return (
 	<>
 		<header className="app-header">
-			<h1> WELCOME TO MY ATM SYSTEM </h1>
+			<h1> WELCOME TO SJSU ONLINE BANKING </h1>
 		</header>
 
 		<div className="div-container">
