@@ -31,7 +31,7 @@ export default function NavBar() {
 			<li>
 				<a href="#">Services</a>
 				<ul>
-					<li><a href="#0">Statement</a></li>
+					<li><a href="/AtmWelcome">Statement</a></li>
 					<li><a href="/aboutUs">Contact Us</a></li>
 				</ul>
 			</li>

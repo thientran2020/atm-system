@@ -17,6 +17,21 @@ import useToken from './helper/helper.js';
 import './css/App.css';
 import './css/navbar.css';
 
+import AtmAboutUs from './atmRoutes/atmRbout.jsx';
+import AtmAccount from './atmRoutes/atmAccount.jsx';
+import AtmDeposit from './atmRoutes/atmDeposit.jsx';
+import AtmWindraw from './atmRoutes/atmWindraw.jsx';
+import AtmContactUs from './atmRoutes/atmContactUs.jsx';
+import AtmProfile from './atmRoutes/atmProfile.jsx';
+import AtmTrasnferFunds from  './atmRoutes/atmTransferFunds.jsx';
+import AtmWelcome from  './atmRoutes/atmWelcome.jsx';
+import AtmTransaction from  './atmRoutes/atmTransaction.jsx';
+
+
+
+
+
+
 function App() {
 	const { token, setToken } = useToken();
 	if (!token) {
@@ -39,6 +54,18 @@ function App() {
 			<Route path="/transaction" element={<Transaction />}/>
 			<Route path="/mobileDeposit" element={<MoibleDeposit />}/>
 			<Route path="/transferFunds" element={<TrasnferFunds />}/>
+
+			<Route path="/atmAccount" element={<AtmAccount />}/>
+			<Route path="/atmAboutUs" element={<AtmAboutUs />}/>
+			<Route path="/atmProfile" element={<AtmProfile />}/>
+			<Route path="/AtmTransaction" element={<AtmTransaction />}/>
+			<Route path="/AtmDeposit" element={<AtmDeposit />}/>
+			<Route path="/AtmWindraw" element={<AtmWindraw />}/>
+			<Route path="/AtmTransferFunds" element={<AtmTrasnferFunds />}/>
+			<Route path="/AtmWelcome" element={<AtmWelcome />}/>
+			<Route path="/AtmContactUs" element={<AtmContactUs/>}/>
+
+
 		</Routes>
 		<footer id="app-footer">
 			<Footer />
