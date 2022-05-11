@@ -57,7 +57,6 @@ dao.run(`
     );
 `)
 
-// dao.run(`DROP TABLE accounts`)
 dao.run(`
     CREATE TABLE IF NOT EXISTS accounts (
         accountID INTEGER PRIMARY KEY,
@@ -68,7 +67,6 @@ dao.run(`
     )
 `)
 
-// dao.run(`DROP TABLE transactions`)
 dao.run(`
     CREATE TABLE IF NOT EXISTS transactions (
         transactionID INTEGER PRIMARY KEY,
@@ -344,23 +342,3 @@ app.post('/atm/updateAccount', async(req, res) => {
                 .then(id => res.json(id))
         })
 })
-
-// Testing credentials
-// users = [
-//     {
-//         "username": "thientran",
-//         "password": "999999",
-//          "pin": 1111
-//     }, 
-//     {
-//         "username": "peterpan", 
-//         "password": "abc123"
-//          "pin": 2222
-//     }
-//
-//     {
-//         "username": "hello", 
-//         "password": "000000"
-//          "pin": 3333
-//     }
-//

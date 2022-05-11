@@ -1,82 +1,92 @@
-import React, {Component} from "react";
-import {Link} from "react-router-dom";
-import "../css/transfer.css";
+import React, {Component} from "react"
+import {Link} from "react-router-dom"
+import "../css/transfer.css"
 
 export default class TransferFunds extends Component {
-	state = {};
-	componentDidMount() {this.fetchData();}
-	fetchData() {
-		let token = localStorage.getItem("accessToken");
-		let headers = {"Authorization": "Bearer " + JSON.parse(token)};
-		let arr = {method: "GET", headers: headers}
-		let value = fetch("http://localhost:4040/account", arr).then(res => {
-			if (res.status >= 403) {
-				localStorage.clear();
-				window.location.reload();
-			}
+	state = {}
 
-			return res.json();
-		}).then(data => {this.setState({account: data})});
+ 	fetchData() {
+ 		return fetch('http://localhost:4040/account', 
+ 		{
+ 			method: 'GET',
+ 			headers: {
+ 				'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('accessToken')),
+ 			}
+ 		}).then(res => {
+ 			if (res.status >= 403) {
+ 				localStorage.clear()
+ 				window.location.reload()
+ 			}
+ 			return res.json()
+ 		}).then(data => {this.setState({ account: data })})
+ 	}
 
-		return value;
-	}
+ 	handleSubmit() {
+ 		const fromAccount = document.querySelector('#fromAccount').value
+ 		const toAccount = document.querySelector('#toAccount').value
+ 		const amount = document.querySelector('#amount').value
 
-	handleSubmit() {
-		const from = document.querySelector("#fromAccount").value;
-		const to = document.querySelector("#toAccount").value;
-		const amount = document.querySelector("#amount").value;
-		if (from === to)
-			return alert("Cannot transfer to the same account.");
-		else if (isNaN(amount) || !amount)
-			return alert("Input must be a number.");
-		else if (parseFloat(amount) < 0)
-			return alert("Amount cannot be negative.");
+ 		// Data validation
+ 		if (fromAccount === toAccount) {
+ 			return alert('You cannot transfer money from an account to itself...!')
+ 		}
+ 		if (isNaN(amount) || (!amount)) {
+ 			return alert("Please enter a valid number for balance!")
+ 		}
+ 		if (parseFloat(amount) < 0) {
+ 			return alert(`Transfer amount must be positive!`)
+ 		}
 
-		let balanceFrom;
-		let balanceTo;
-		for (let index in this.state.account) {
-			if (this.state.account[index].accountID === from)
-				balanceFrom = parseFloat(this.state.account[index].balance);
+ 		let fromAccountBalance
+ 		let toAccountBalance
+ 		for (let index in this.state.account) {
+ 			if (this.state.account[index].accountID == fromAccount) {
+ 				fromAccountBalance = parseFloat(this.state.account[index].balance)
+ 			}
+ 			if (this.state.account[index].accountID == toAccount) {
+ 				toAccountBalance = parseFloat(this.state.account[index].balance)
+ 			}
+ 			if (fromAccountBalance && toAccountBalance) {
+ 				break
+ 			}
+ 		}
+		
+		console.log(fromAccountBalance)
+		console.log(toAccountBalance)
+		console.log(amount)
 
-			if (this.state.account[index].accountID === to)
-				balanceTo = parseFloat(this.state.account[index].balance);
+ 		if (fromAccountBalance < amount) {
+ 			return alert(`Insufficient funds. Maximum amount is ${amount}!`)
+ 		}
 
-			if (balanceFrom && balanceTo)
-				if (balanceFrom < amount)
-					return alert("Insufficient funds.");
-				else
-					break;
-		}
+ 		fromAccountBalance = fromAccountBalance - parseFloat(amount)
+ 		toAccountBalance = toAccountBalance + parseFloat(amount)
 
-		balanceFrom -= parseFloat(amount);
-		balanceTo += parseFloat(amount);
+ 		fetch('http://localhost:4040/updateAccount', {
+ 			method: 'POST',
+ 			headers: {
+ 				'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('accessToken')),
+ 				'Content-Type': 'application/json'
+ 			},
+ 			body: JSON.stringify({
+ 				"fromAccount": fromAccount,
+ 				"toAccount": toAccount,
+ 				"fromAccountNewBalance": fromAccountBalance,
+ 				"toAccountNewBalance": toAccountBalance, 
+ 				"transactionType": "Transfer",
+				"transactionAmount": amount
+ 			})
+ 		}).then(() => {
+ 			if (!alert(`Thank you! Transfered successfully...!!!`)) {
+ 				window.location.reload()
+ 			}		
+ 		})
+ 	}
 
-		let token = localStorage.getItem("accessToken");
-		let headers = {
-			"Authorization": "Bearer " + JSON.parse(token),
-			"Content-Type": "application/json",
-		};
+ 	componentDidMount() {
+ 		this.fetchData()
+ 	}
 
-		let body = JSON.stringify({
-			"fromAccount": from,
-			"toAccount": to,
-			"fromAccountNewBalance": balanceFrom,
-			"toAccountNewBalance": balanceTo,
-			"transactionType": "Transfer",
-			"transactionAmount": amount,
-		});
-
-		let arr = {method: "POST", headers: headers, body: body};
-		fetch("http://localhost:4040/updateAccount", arr).then(() => {
-			if (!alert("Transfered successfully."))
-				window.location.reload();
-		});
-	}
-
-	// TO DO:
-	// rework page for when a user has less than two accounts
-	// make the cancel button actually work
-	// fancy cash formatting
 	render() {
 		const account = this.state.account;
 		if (account) {
