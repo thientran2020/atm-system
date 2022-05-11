@@ -115,7 +115,15 @@ input[type="submit"]:hover {
 }
 
 .div-container ul {
-  margin-top: 40px;
+  margin-top: 40px
+}
+
+.div-container ul li {
+  margin: 0 auto;
+}
+
+.div-container ul li:hover {
+  color: white;
 }
 
 #welcome-message {
