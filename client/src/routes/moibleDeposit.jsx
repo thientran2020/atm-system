@@ -44,12 +44,10 @@ export default class MobileDeposit extends Component {
 				alert(`Maximum amount can be withdrawn is ${balance}`)
 				return
 			}
-
 			if (!image) {
 				alert(`Please upload your check to deposit...!`)
 				return
 			}
-
 			if (!accountID) {
 				alert(`Sorry you don't have any account to deposit...!`)
 				return

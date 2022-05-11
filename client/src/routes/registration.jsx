@@ -32,7 +32,7 @@ export default function Registration() {
 			alert("Passwords don't match. Please try again")
 		} else if (!checked) {
 			alert("Please check the box for terms and condition agreements!!!")
-		} else if (isNaN(pin) || parseFloat(pin) < 0) {
+		} else if (isNaN(pin) || parseFloat(pin) < 0 || pin.includes('.')) {
 			alert("PIN must be non-negative number string!")
 		} else {
 			const user = {

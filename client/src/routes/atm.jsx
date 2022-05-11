@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import '../css/atm.css'
 
 export default class ATM extends Component {
-    state = {}
+    state = {
+        username: localStorage.getItem("username"),
+        pin: localStorage.getItem("pin"),
+    }
 
     handleSubmit(e) {
         e.preventDefault();
@@ -62,6 +65,12 @@ export default class ATM extends Component {
         }
 
         let newBalance = action == 'Deposit' ? balance + parseFloat(amount) : balance - parseFloat(amount)
+        this.setState(prevState => ({
+            account: prevState.account.map(
+            acc => (acc.accountID == accountID ? Object.assign(acc, { balance: newBalance }) : acc)
+          )
+        }));
+
         fetch('http://localhost:4040/atm/updateAccount', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -83,12 +92,12 @@ export default class ATM extends Component {
                 message = "Withdraw from"
             }
 
-            alert(`Printing statement...! \n
+            if(!alert(`Printing statement...! \n
                 Your transaction ID is ${data.transactionID}.\n
                 ${message} account ID ${accountID}: $${amount}.
                 Date: ${new Date()}.\n
-                Thank you ^^`)
-            document.querySelector('#amount').value = ""
+                Thank you ^^`)) {
+            }
         })
     }
 
