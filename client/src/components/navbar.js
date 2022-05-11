@@ -22,11 +22,7 @@ export default function NavBar() {
 				</ul>
 			</li>
 			<li>
-				<a href="#">Services</a>
-				<ul>
-					<li><a href="#0">Statement</a></li>
-					<li><a href="/aboutUs">Contact Us</a></li>
-				</ul>
+				<a href="/aboutUs">Contact Us</a>
 			</li>
 			<li id="sign-out">
 				<a href="/" onClick={() => {

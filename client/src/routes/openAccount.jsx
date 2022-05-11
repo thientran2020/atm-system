@@ -17,8 +17,10 @@ export default class OpenAccount extends Component {
 		}
 		if (isNaN(account.balance)) {
 			alert("Please enter a valid number for balance!")
-		} else if (parseFloat(account.balance) < 0) {
+		} else if (parseFloat(account.balance) <= 0) {
 			alert("Balance must not be negative..!")
+		} else if (parseFloat(account.balance) < 500) {
+			alert("We're sorry! Minimum balance to open a new account is $500..!")
 		} else {
 			fetch('http://localhost:4040/addAccount', {
 				method: 'POST',

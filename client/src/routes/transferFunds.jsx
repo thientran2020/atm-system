@@ -33,7 +33,7 @@ export default class TransferFunds extends Component {
  		if (isNaN(amount) || (!amount)) {
  			return alert("Please enter a valid number for balance!")
  		}
- 		if (parseFloat(amount) < 0) {
+ 		if (parseFloat(amount) <= 0) {
  			return alert(`Transfer amount must be positive!`)
  		}
 

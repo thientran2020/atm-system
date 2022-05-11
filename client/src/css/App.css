@@ -110,6 +110,14 @@ input[type="submit"]:hover {
   max-width: 300px;
 }
 
+.div-container #group {
+  margin: 4% 0 0 0;
+}
+
+.div-container ul {
+  margin-top: 40px;
+}
+
 #welcome-message {
   background-color: darkblue;
   width: 30%;
