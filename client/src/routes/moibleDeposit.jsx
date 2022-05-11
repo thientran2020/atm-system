@@ -28,8 +28,6 @@ export default class MobileDeposit extends Component {
 		const amount = document.querySelector('#amount').value
 		const image = document.querySelector(`#img`).files[0]
 
-		console.log(accountID)
-
 		if (isNaN(amount)) {
 			alert("Please enter a valid number for balance!")
 		} else if (parseFloat(amount) < 0) {
@@ -69,7 +67,8 @@ export default class MobileDeposit extends Component {
 					"toAccount": accountID,
 					"fromAccountNewBalance": newBalance,
 					"toAccountNewBalance": newBalance, 
-					"transactionType": action
+					"transactionType": action,
+					"transactionAmount": amount
 				})
 			}).then(res => {
 				return res.json()	
@@ -116,7 +115,7 @@ export default class MobileDeposit extends Component {
 					</div>
 					<div className='container'>
 						<span>Deposit amount</span>
-						<input type="text" id="amount"/>
+						<input type="number" id="amount"/>
 					</div>
 					
 					<div className='container'>

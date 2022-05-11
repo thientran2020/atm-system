@@ -32,17 +32,13 @@ class AccountRepository {
         return this.dao.run(sql, [newBalance, accountID])
     }
 
-    transfer(fromAccountID, toAccountID, amount) {
-
-    }
-
     getCurrentBalance(accountID) {
         let sql = `SELECT balance FROM accounts WHERE accountID = ?`
         return this.dao.get(sql, [accountID])
     }
 
-    getTotalNumberOfAccounts() {
-        let sql = `SELECT COUNT(*) FROM accounts`
+    getLasAccountID() {
+        let sql = `SELECT accountID FROM accounts ORDER BY accountID DESC LIMIT 1`
         return this.dao.get(sql)
     }
 }

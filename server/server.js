@@ -52,10 +52,12 @@ dao.run(`
         city VARCHAR(255),
         state VARCHAR(255),
         zipCode INT, 
-        phoneNumber VARCHAR(255) 
+        phoneNumber VARCHAR(255),
+        pin INTEGER NOT NULL
     );
 `)
 
+// dao.run(`DROP TABLE accounts`)
 dao.run(`
     CREATE TABLE IF NOT EXISTS accounts (
         accountID INTEGER PRIMARY KEY,
@@ -66,6 +68,7 @@ dao.run(`
     )
 `)
 
+// dao.run(`DROP TABLE transactions`)
 dao.run(`
     CREATE TABLE IF NOT EXISTS transactions (
         transactionID INTEGER PRIMARY KEY,
@@ -75,7 +78,8 @@ dao.run(`
         toAccount VARCHAR(255) NOT NULL,
         transactionType VARCHAR(255) NOT NULL,
         transactionDate VARCHAR(255),
-        transactionImage VARCHAR(255)
+        transactionImage VARCHAR(255),
+        transactionAmount DOUBLE NOT NULL
     );
 `)
 
@@ -149,9 +153,15 @@ app.post("/addAccount", authenticateToken, async (req, res) => {
 
     await userRepo.getIDByUsername(username).then(
         user => {
-            accountRepo.addAccount(user.userID, accountType, balance).then(
-                data => res.json(data)
-            )
+            accountRepo.addAccount(user.userID, accountType, balance)
+                .then(() => {
+                    accountRepo.getLasAccountID()
+                        .then(data => {
+                            transactionRepo.newTransaction(username, username, data.accountID, data.accountID, "Newly created", balance)    
+                            .then(() => res.json({ message: "Successfully added" }))
+                        })
+                })
+
         }
     )
 })
@@ -187,6 +197,7 @@ app.post('/register', async (req, res) => {
         let firstName = req.body.firstName
         let lastName = req.body.lastName
         let phoneNumber = req.body.phoneNumber
+        let pin = req.body.pin
 
         userRepo.getUserByUsername(username)
             .then(user => {
@@ -194,8 +205,8 @@ app.post('/register', async (req, res) => {
                     console.log(user)
                     return res.send({ message: "Username already exists...!" })
                 }
-                userRepo.insertUser(username, hashedPassword, firstName, lastName, phoneNumber)
-                .then(data => res.send({ message: "Success" }))
+                userRepo.insertUser(username, hashedPassword, firstName, lastName, phoneNumber, pin)
+                .then(() => res.send({ message: "You are successfully registed ^^" }))
             })
     } catch {
         res.sendStatus(500)
@@ -271,8 +282,63 @@ app.post("/updateAccount", authenticateToken, async (req, res) => {
     const fromAccountNewBalance = req.body.fromAccountNewBalance
     const toAccountNewBalance = req.body.toAccountNewBalance
     const transactionType = req.body.transactionType
+    const transactionAmount = req.body.transactionAmount
 
-    await transactionRepo.newTransaction(sender, receiver, fromAccount, toAccount, transactionType)
+    await transactionRepo.newTransaction(sender, receiver, fromAccount, toAccount, transactionType, transactionAmount)
+        .then(() => {
+            accountRepo.updateBalance(fromAccount, fromAccountNewBalance)
+            accountRepo.updateBalance(toAccount, toAccountNewBalance)
+            transactionRepo.getLastTransactionID()
+                .then(id => res.json(id))
+        })
+})
+
+// ************* API for ATM MACHINE VERSION *************
+app.post('/atm/login', async (req, res) => {
+    let username = req.body.username
+    let pin = req.body.pin
+    let isAuthorizedUser = false
+
+    await userRepo.getPinFromUsername(username)
+        .then(data => {
+            if (data != null)
+                isAuthorizedUser = data.pin == pin
+        })
+
+    if (!isAuthorizedUser) {
+        return res.status(401).send({ message: 'Incorrect username or PIN' })
+    }
+    
+    await userRepo.getUserByUsername(username)
+        .then(data => res.json({ user: data }))
+})
+
+app.get('/atm/account', async(req, res) => {
+    let username = req.query.username
+    let pin = req.query.pin
+    console.log(req.query)
+    console.log(username, pin)
+
+    userRepo.getIDByUsername(username).then(
+        user => {
+            accountRepo.getAccountByID(user.userID).then(
+                data => res.json(data)
+            )
+        }
+    )
+})
+
+app.post('/atm/updateAccount', async(req, res) => {
+    const sender = req.body.username
+    const receiver = req.body.username
+    const fromAccount = req.body.fromAccount
+    const toAccount = req.body.toAccount
+    const fromAccountNewBalance = req.body.fromAccountNewBalance
+    const toAccountNewBalance = req.body.toAccountNewBalance
+    const transactionType = req.body.transactionType
+    const transactionAmount = req.body.transactionAmount
+
+    await transactionRepo.newTransaction(sender, receiver, fromAccount, toAccount, transactionType, transactionAmount)
         .then(() => {
             accountRepo.updateBalance(fromAccount, fromAccountNewBalance)
             accountRepo.updateBalance(toAccount, toAccountNewBalance)
@@ -285,15 +351,18 @@ app.post("/updateAccount", authenticateToken, async (req, res) => {
 // users = [
 //     {
 //         "username": "thientran",
-//         "password": "999999"
+//         "password": "999999",
+//          "pin": 1111
 //     }, 
 //     {
-//         "username": "peter", 
+//         "username": "peterpan", 
 //         "password": "abc123"
+//          "pin": 2222
 //     }
 //
 //     {
 //         "username": "hello", 
 //         "password": "000000"
+//          "pin": 3333
 //     }
 //

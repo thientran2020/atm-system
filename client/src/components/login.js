@@ -33,7 +33,6 @@ export default function Login({ setToken }) {
             localStorage.setItem('username', username);
             window.location.reload()
         }
-        // handle errors messages without alerting
     }
 
     return(

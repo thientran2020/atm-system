@@ -1,3 +1,4 @@
+import e from 'express'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -22,9 +23,13 @@ export default class Transaction extends Component {
 		}).then(data => {
 			this.setState({ transaction: data })
 			this.state.transaction.map((tran) => {
-				const imagePath = tran.transactionImage.split("/")[2]
-				fetch(`http://localhost:4040/image?image=${imagePath}`, {method: 'GET'})
-					.then(res => {this.setState({ images: [...this.state.images, res.url] })})
+				if (tran.transactionImage) {
+					const imagePath = tran.transactionImage.split("/")[2]
+					fetch(`http://localhost:4040/image?image=${imagePath}`, {method: 'GET'})
+						.then(res => {this.setState({ images: [...this.state.images, res.url] })})
+				} else {
+					this.setState({ images: [...this.state.images, null] })
+				}
 			})
 		})
 	}
@@ -42,8 +47,8 @@ export default class Transaction extends Component {
 					<table class="fl-table">
 						<thead>
 							<tr>
-								<th>Transaction #</th>
 								<th>Transaction ID</th>
+								<th>Transaction Amount</th>
 								<th>From Account</th>
 								<th>To Account</th>
 								<th>Transaction Date</th>
@@ -55,8 +60,8 @@ export default class Transaction extends Component {
 						<tbody>
 							{transaction.map((tran, i) => (
 							<tr>
-								<td>{i+1}</td>
 								<td>{tran.transactionID}</td>
+								<td>{tran.transactionAmount}</td>
 								<td>{tran.fromAccount}</td>
 								<td>{tran.toAccount}</td>
 								<td>{tran.transactionDate}</td>

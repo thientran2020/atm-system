@@ -18,15 +18,20 @@ class UserRepository {
         return this.dao.get(sql, [username])
     }
 
-    insertUser(username, password, firstName, lastName, phoneNumber) {
+    insertUser(username, password, firstName, lastName, phoneNumber, pin) {
         let sql = `INSERT INTO users 
-            (username, password, firstName, lastName, phoneNumber) 
-            VALUES (?, ?, ?, ?, ?)`
-        return this.dao.run(sql, [username, password, firstName, lastName, phoneNumber])
+            (username, password, firstName, lastName, phoneNumber, pin) 
+            VALUES (?, ?, ?, ?, ?, ?)`
+        return this.dao.run(sql, [username, password, firstName, lastName, phoneNumber, pin])
     }
 
     getPasswordFromUsername(username) {
         let sql = `SELECT password FROM users WHERE username = ? LIMIT 1`
+        return this.dao.get(sql, [username])
+    }
+
+    getPinFromUsername(username) {
+        let sql = `SELECT pin FROM users WHERE username = ? LIMIT 1`
         return this.dao.get(sql, [username])
     }
 

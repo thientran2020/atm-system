@@ -1,0 +1,71 @@
+.atm {
+    margin: 0 auto;
+    color: white;
+    width: 80%;
+    text-align: center;
+    background-color: #282c34;
+}
+
+.atm h1 {
+    padding-top: 40px;
+    color: yellow;
+}
+
+.MuiButton-label {
+    color: white;
+}
+
+.atm button {
+    margin-top: 40px;
+}
+
+.atm p {
+    margin: 2%;
+    padding: 10px;
+}
+
+.atm label {
+    margin-left: 35%;
+    float: left;
+    width: 9%;
+    background-color: red;
+    font-size: 17px;
+}
+
+.atm input {
+    margin-right: 35%;
+    width: 18%;
+    font-size: 17px;
+}
+
+.atm .button-board {
+    display: flex;
+    margin: 0 auto;
+    width: 90%;
+    justify-content: space-evenly;
+    padding-bottom: 80px;
+}
+
+.atm .button-board button {
+    width: 145px;
+    height: 90px;
+}
+
+.atm .deposit-withdraw .container {
+    margin-left: 15%;
+}
+
+.atm .deposit-withdraw button {
+    border-radius: 0;
+    width: 140px;
+    background: yellow;
+    color: black;
+    font-style: italic;
+    margin-left: 16%;
+    float: left;
+}
+
+.atm p, .atm .container span {
+    font-size: 18px;
+}
+
