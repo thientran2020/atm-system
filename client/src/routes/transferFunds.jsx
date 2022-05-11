@@ -27,7 +27,7 @@ export default class TransferFunds extends Component {
  		const amount = document.querySelector('#amount').value
 
  		// Data validation
- 		if (fromAccount === toAccount) {
+ 		if (fromAccount == toAccount) {
  			return alert('You cannot transfer money from an account to itself...!')
  		}
  		if (isNaN(amount) || (!amount)) {

@@ -38,17 +38,18 @@ export default class ATM extends Component {
     handleExecute(e) {
         e.preventDefault();
         const action = this.state.action
-		const accountID = document.querySelector('#account-id').value
+		const accountID = document.querySelector("#account-id").value
 		const amount = document.querySelector('#amount').value
 
         let balance
         for (let index in this.state.account) {
-            if (this.state.account[index].accountID === accountID) {
+            if (this.state.account[index].accountID == accountID) {
                 balance = parseFloat(this.state.account[index].balance)
                 break
             }
         }
-        if (action === 'Withdraw' && balance < amount) {
+        console.log(balance)
+        if (action == 'Withdraw' && balance < amount) {
             alert(`Maximum amount can be withdrawn is ${balance}`)
             return
         }
@@ -61,7 +62,7 @@ export default class ATM extends Component {
             return
         }
 
-        let newBalance = action === 'Deposit' ? balance + parseFloat(amount) : balance - parseFloat(amount)
+        let newBalance = action == 'Deposit' ? balance + parseFloat(amount) : balance - parseFloat(amount)
         fetch('http://localhost:4040/atm/updateAccount', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -77,7 +78,7 @@ export default class ATM extends Component {
         }).then(res => res.json())
         .then(data => {
             let message
-            if (this.state.action === "Deposit") {
+            if (this.state.action == "Deposit") {
                 message = "Deposit to"
             } else {
                 message = "Withdraw from"
@@ -145,7 +146,7 @@ export default class ATM extends Component {
                     <div className="deposit-withdraw">
                         <div className='container'>
                             <span>
-                                {this.state.action === "Deposit" ? "Deposit to" : "Withdraw from"}
+                                {this.state.action == "Deposit" ? "Deposit to" : "Withdraw from"}
                             </span>
                         <select name="account-id" id="account-id">
                             {this.state.account.map((acc) => 
