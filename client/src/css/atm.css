@@ -33,7 +33,7 @@ body > #root > div {
 }
 
 .atm label {
-    margin-left: 35%;
+    margin-left: 28%;
     float: left;
     width: 9%;
     background-color: red;
@@ -41,8 +41,8 @@ body > #root > div {
 }
 
 .atm input {
-    margin-right: 35%;
-    width: 18%;
+    margin-right: 30%;
+    width: 24%;
     font-size: 17px;
 }
 

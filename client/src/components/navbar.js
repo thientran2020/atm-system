@@ -1,13 +1,6 @@
 import React from 'react'
 
 export default function NavBar() {
-	// function handleOnClick() {
-	// 	if (!document.getElementById('user-info')) {
-	// 		window.location.href = "/profile"
-	// 	}
-	// 	document.getElementById('user-info').style.display = 'none'
-	// 	document.getElementById('update-info').style.display = 'block'
-	// }
     return (
       <nav id="navigation-bar">
 		<ul>

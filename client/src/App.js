@@ -25,7 +25,7 @@ function App() {
 	return (
 		<div className="main">
 		<header className="app-header">
-			<h1> ATM SYSTEM PROJECT </h1>
+			<h1> SJSU ONLINE BANKING </h1>
 			<NavBar/>
 		</header>
 		<Routes>

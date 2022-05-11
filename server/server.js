@@ -53,7 +53,7 @@ dao.run(`
         state VARCHAR(255),
         zipCode INT, 
         phoneNumber VARCHAR(255),
-        pin INTEGER NOT NULL
+        pin VARCHAR(9) NOT NULL
     );
 `)
 

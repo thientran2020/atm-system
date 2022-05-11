@@ -38,7 +38,7 @@ export default function Login({ setToken }) {
     return(
         <div className="login-container">
             <div className="app-header">
-                <h1>Welcome to SJSU ONLINE BANKING</h1>
+                <h1>SJSU ONLINE BANKING</h1>
             </div>
             <div className="div-container">
                 <form onSubmit={handleSubmit}>

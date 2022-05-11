@@ -7,8 +7,8 @@ export default class ATM extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        if (this.state.pin < 0) {
-            alert("PIN must be positive number...!")
+        if (isNaN(this.state.pin) || parseFloat(this.state.pin) < 0) {
+            return alert("PIN must be positive number string...!")
         }
 
         fetch('http://localhost:4040/atm/login', {
@@ -108,14 +108,12 @@ export default class ATM extends Component {
                                 onChange={e => this.setState({ username: e.target.value })}/>
                         </p>
                         <p>
-                            <NumPad.Number
-                                label={'PIN'}
-                                placeholder={'Enter your PIN'}
-                                onChange={value => this.setState({ pin: value })}
+                            <label>PIN</label>
+                            <input 
+                                type="text" 
                                 id="pin"
-                                value={this.state.pin}
-                                decimal={false}
-                                negative={false}/>
+                                placeholder={'Enter your PIN'}
+                                onChange={e => this.setState({ pin: e.target.value })}/>
                         </p>
                         <button onClick={e => this.handleSubmit(e)}>ENTER BANK</button>
                     </form>     
@@ -125,8 +123,8 @@ export default class ATM extends Component {
 
         return (
             <div className="atm">
-                <h1>Hello, {user.firstName} {user.lastName} ^^</h1>
-                <p>What would you like to do today?</p>
+                <h1>SJSU ATM MACHINE</h1>
+                <p>Hey {user.firstName}, what would you like to do today?</p>
                 <div className="button-board">
                     <button 
                         value="Deposit"

@@ -32,8 +32,8 @@ export default function Registration() {
 			alert("Passwords don't match. Please try again")
 		} else if (!checked) {
 			alert("Please check the box for terms and condition agreements!!!")
-		} else if (pin < 0) {
-			alert("PIN must be postive number")
+		} else if (isNaN(pin) || parseFloat(pin) < 0) {
+			alert("PIN must be non-negative number string!")
 		} else {
 			const user = {
 				"username": username,
@@ -45,7 +45,7 @@ export default function Registration() {
 			}	
 			const response = await registerUser(user)
 			if (!alert(response.message)) {
-				window.location.reload()
+				window.location.href = "/"
 			}		
 		}
 	}
@@ -53,52 +53,52 @@ export default function Registration() {
 	return (
 	<>
 		<header className="app-header">
-		<h1> WELCOME TO MY ATM SYSTEM </h1>
+			<h1> WELCOME TO MY ATM SYSTEM </h1>
 		</header>
 
 		<div className="div-container">
-		<h2>REGISTER</h2>
+			<h2>REGISTER</h2>
 
-		<div class ="signup-box">
-			<form class="fill-box" onSubmit={handleOnSubmit}>
-				<label>Username</label>
-				<input type="text" required ="required"
-					onChange={e => setUserName(e.target.value)} />
-				
-				<label>Password</label>
-				<input class ="password" type="password" required ="required"
-					onChange={e => setPassword(e.target.value)} />
-				
-				<label>Confirm Password</label>
-				<input class ="confirmPassword" type="password" required ="required"
-					onChange={e => setConfirmPassword(e.target.value)} />
-				
-				<label>First Name</label>
-				<input type="text" required ="required"
-					onChange={e => setFirstName(e.target.value)} />
+			<div class ="signup-box">
+				<form class="fill-box" onSubmit={handleOnSubmit}>
+					<label>Username</label>
+					<input type="text" required ="required"
+						onChange={e => setUserName(e.target.value)} />
+					
+					<label>Password</label>
+					<input class ="password" type="password" required ="required"
+						onChange={e => setPassword(e.target.value)} />
+					
+					<label>Confirm Password</label>
+					<input class ="confirmPassword" type="password" required ="required"
+						onChange={e => setConfirmPassword(e.target.value)} />
+					
+					<label>First Name</label>
+					<input type="text" required ="required"
+						onChange={e => setFirstName(e.target.value)} />
 
-				<label>Last Name</label>
-				<input type="text" required ="required"
-					onChange={e => setLastName(e.target.value)} />
+					<label>Last Name</label>
+					<input type="text" required ="required"
+						onChange={e => setLastName(e.target.value)} />
 
-				<label>Phone Number</label>
-				<input type="text" required ="required"
-					onChange={e => setPhoneNumber(e.target.value)} />
+					<label>Phone Number</label>
+					<input type="text" required ="required"
+						onChange={e => setPhoneNumber(e.target.value)} />
 
-				<label>PIN</label>
-				<input type="number" required ="required"
-					onChange={e => setPin(e.target.value)} />
+					<label>PIN</label>
+					<input type="text" required ="required"
+						onChange={e => setPin(e.target.value)} />
 
-				<label id="checkbox">
-					<input type="checkbox" name="remember"
-						defaultChecked={checked}
-						onChange={() => setChecked(!checked) } />
-					I agree the terms and conditions
-				</label>
-				<button class="button" type="submit">SUBMIT</button>
-			</form>
-			<p> Already have an account? <a href="/">Login here</a></p>
-		</div>
+					<label id="checkbox">
+						<input type="checkbox" name="remember"
+							defaultChecked={checked}
+							onChange={() => setChecked(!checked) } />
+						I agree the terms and conditions
+					</label>
+					<button class="button" type="submit">SUBMIT</button>
+				</form>
+				<p> Already have an account? <a href="/">Login here</a></p>
+			</div>
 		</div>
 	</>
 	)
