@@ -50,13 +50,9 @@ export default class TransferFunds extends Component {
  				break
  			}
  		}
-		
-		console.log(fromAccountBalance)
-		console.log(toAccountBalance)
-		console.log(amount)
 
  		if (fromAccountBalance < amount) {
- 			return alert(`Insufficient funds. Maximum amount is ${amount}!`)
+ 			return alert(`Insufficient funds. Maximum amount is ${fromAccountBalance}!`)
  		}
 
  		fromAccountBalance = fromAccountBalance - parseFloat(amount)
