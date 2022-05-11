@@ -61,41 +61,41 @@ export default function Registration() {
 
 		<div class ="signup-box">
 			<form class="fill-box" onSubmit={handleOnSubmit}>
-			<label>Username</label>
-			<input type="text" required ="required"
-				onChange={e => setUserName(e.target.value)} />
-			
-			<label>Password</label>
-			<input class ="password" type="password" required ="required"
-				onChange={e => setPassword(e.target.value)} />
-			
-			<label>Confirm Password</label>
-			<input class ="confirmPassword" type="password" required ="required"
-				onChange={e => setConfirmPassword(e.target.value)} />
-			
-			<label>First Name</label>
-			<input type="text" required ="required"
-				onChange={e => setFirstName(e.target.value)} />
+				<label>Username</label>
+				<input type="text" required ="required"
+					onChange={e => setUserName(e.target.value)} />
+				
+				<label>Password</label>
+				<input class ="password" type="password" required ="required"
+					onChange={e => setPassword(e.target.value)} />
+				
+				<label>Confirm Password</label>
+				<input class ="confirmPassword" type="password" required ="required"
+					onChange={e => setConfirmPassword(e.target.value)} />
+				
+				<label>First Name</label>
+				<input type="text" required ="required"
+					onChange={e => setFirstName(e.target.value)} />
 
-			<label>Last Name</label>
-			<input type="text" required ="required"
-				onChange={e => setLastName(e.target.value)} />
+				<label>Last Name</label>
+				<input type="text" required ="required"
+					onChange={e => setLastName(e.target.value)} />
 
-			<label>Phone Number</label>
-			<input type="text" required ="required"
-				onChange={e => setPhoneNumber(e.target.value)} />
+				<label>Phone Number</label>
+				<input type="text" required ="required"
+					onChange={e => setPhoneNumber(e.target.value)} />
 
-			<label>PIN</label>
-			<input type="number" required ="required"
-				onChange={e => setPin(e.target.value)} />
+				<label>PIN</label>
+				<input type="number" required ="required"
+					onChange={e => setPin(e.target.value)} />
 
-			<label id="checkbox">
-				<input type="checkbox" name="remember"
-					defaultChecked={checked}
-					onChange={() => setChecked(!checked) } />
-				I agree the terms and conditions
-			</label>
-			<button class="button" type="submit">SUBMIT</button>
+				<label id="checkbox">
+					<input type="checkbox" name="remember"
+						defaultChecked={checked}
+						onChange={() => setChecked(!checked) } />
+					I agree the terms and conditions
+				</label>
+				<button class="button" type="submit">SUBMIT</button>
 			</form>
 			<p> Already have an account? <a href="/">Login here</a></p>
 		</div>
