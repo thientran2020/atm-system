@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import NumPad from 'react-numpad';
 import '../css/atm.css'
 
 export default class ATM extends Component {
@@ -48,7 +47,7 @@ export default class ATM extends Component {
                 break
             }
         }
-        console.log(balance)
+        
         if (action == 'Withdraw' && balance < amount) {
             alert(`Maximum amount can be withdrawn is ${balance}`)
             return
@@ -89,6 +88,7 @@ export default class ATM extends Component {
                 ${message} account ID ${accountID}: $${amount}.
                 Date: ${new Date()}.\n
                 Thank you ^^`)
+            document.querySelector('#amount').value = ""
         })
     }
 
