@@ -30,7 +30,7 @@ export default class MobileDeposit extends Component {
 
 		if (isNaN(amount)) {
 			alert("Please enter a valid number for balance!")
-		} else if (parseFloat(amount) < 0) {
+		} else if (parseFloat(amount) <= 0) {
 			alert(`${action} amount must not be negative..!`)
 		} else {
 			let balance
