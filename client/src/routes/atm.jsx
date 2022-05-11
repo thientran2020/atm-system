@@ -125,7 +125,7 @@ export default class ATM extends Component {
 
         return (
             <div className="atm">
-                <h1>Hello, Thien Tran ^^</h1>
+                <h1>Hello, {user.firstName} {user.lastName} ^^</h1>
                 <p>What would you like to do today?</p>
                 <div className="button-board">
                     <button 
@@ -163,7 +163,6 @@ export default class ATM extends Component {
                         <button onClick={e => this.handleExecute(e)}>Execute</button>
                     </div>
                 }
-                
             </div>
         )
 	}
