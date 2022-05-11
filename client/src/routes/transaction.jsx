@@ -73,6 +73,7 @@ export default class Transaction extends Component {
 							))}	
 						</tbody>
 					</table>
+					<p>________________________________</p>
 				</div>
 			)
 		}
