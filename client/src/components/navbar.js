@@ -1,11 +1,13 @@
 import React from 'react'
 
 export default function NavBar() {
-	function handleOnClick() {
-		document.getElementById('user-info').style.display = 'none'
-		document.getElementById('update-info').style.display = 'block'
-	}
-
+	// function handleOnClick() {
+	// 	if (!document.getElementById('user-info')) {
+	// 		window.location.href = "/profile"
+	// 	}
+	// 	document.getElementById('user-info').style.display = 'none'
+	// 	document.getElementById('update-info').style.display = 'block'
+	// }
     return (
       <nav id="navigation-bar">
 		<ul>
@@ -13,11 +15,12 @@ export default function NavBar() {
 			<li>
 				<a href="/profile">Profile</a>
 				<ul>
-					<li><a onClick={handleOnClick}>Update Profile</a></li>
+					<li><a href="/editProfile">Update Profile</a></li>
+					<li><a href="/transaction">Transactions</a></li>
 				</ul>
 			</li>
 			<li>
-				<a href="/account">Account</a>
+				<a href="/account">My Account</a>
 				<ul>
 					<li><a href="/openAccount">Open New Account</a></li>
 					<li><a href="/closeAccount">Close Existing Account</a></li>
@@ -34,7 +37,7 @@ export default function NavBar() {
 			</li>
 			<li id="sign-out">
 				<a href="/" onClick={() => {
-					sessionStorage.clear()
+					localStorage.clear()
 					window.location.reload()
 				}}>Sign Out</a>
 			</li>

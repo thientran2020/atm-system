@@ -1,11 +1,14 @@
 const express = require('express')
 const cors = require('cors')
+const multer = require('multer')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const upload = multer({ dest: '.data/transactions/' })
 const fs = require('fs')
 const DAO = require('./dao')
 const UserRepository = require('./user_repository')
 const AccountRepository = require('./account_repository')
+const TransactionRepository = require('./transaction_repository')
 require('dotenv').config()
 
 // Initialize app server
@@ -36,6 +39,7 @@ if (!exists) {
 const dao = new DAO(dbFile)
 const userRepo = new UserRepository(dao)        // users table
 const accountRepo = new AccountRepository(dao)  // accounts table
+const transactionRepo = new TransactionRepository(dao) // transactions table
 
 dao.run(`
     CREATE TABLE IF NOT EXISTS users (
@@ -57,24 +61,27 @@ dao.run(`
         accountID INTEGER PRIMARY KEY,
         userID INT NOT NULL,
         accountType VARCHAR(255) NOT NULL,
-        balance DOUBLE NOT NULL
+        balance DOUBLE NOT NULL, 
+        status INT NOT NULL
     )
 `)
 
 dao.run(`
     CREATE TABLE IF NOT EXISTS transactions (
-        transactionID INT NOT NULL,
+        transactionID INTEGER PRIMARY KEY,
         sender VARCHAR(255) NOT NULL,
         receiver VARCHAR(255) NOT NULL,
         fromAccount VARCHAR(255) NOT NULL, 
         toAccount VARCHAR(255) NOT NULL,
-        lastTransactionDate VARCHAR(255)
+        transactionType VARCHAR(255) NOT NULL,
+        transactionDate VARCHAR(255),
+        transactionImage VARCHAR(255)
     );
 `)
 
-// GET API for data retrieval 
-// Users' data
-app.get("/showUserDatabase", (req, res) => {
+// **************** API for data retrieval (development purpose) *************
+// Get all users' data
+app.get("/getUsersData", (req, res) => {
     userRepo.getUsersData().then(data => {
         res.json(data)
     })
@@ -87,13 +94,42 @@ app.get("/getUsernameByID", (req, res) => {
     })
 })
 
-// Accounts' data
+// Get all accounts' data
 app.get("/getAccountsData", (req, res) => {
     accountRepo.getAccountsData().then(data => {
         res.json(data)
     })
 })
 
+// Get all transactions' data
+app.get("/getTransactionsData", (req, res) => {
+    transactionRepo.getTransactionsData().then(data => {
+        res.json(data)
+    })
+})
+
+
+// *********** API for frontend fetch ************
+// Get user data by username
+app.get('/user', authenticateToken, async (req, res) => {
+    const username = req.user.name
+    await userRepo.getUserByUsername(username)
+            .then(data => res.json({ "user": data }))
+})
+
+// Update user profile
+app.post('/user/update', authenticateToken, async (req, res) => {
+    const username = req.body.username
+    const address = req.body.address
+    const city = req.body.city
+    const state = req.body.state
+    const zipCode = req.body.zipCode
+    const phoneNumber = req.body.phoneNumber
+    await userRepo.updateUserData(username, address, city, state, zipCode, phoneNumber)
+        .then(() => res.json({ "messgge": "Successfully updated...!"}))
+})
+
+// Get account data of authorized user
 app.get("/account", authenticateToken, (req, res) => {
     const username = req.user.name
     userRepo.getIDByUsername(username).then(
@@ -105,6 +141,7 @@ app.get("/account", authenticateToken, (req, res) => {
     )
 })
 
+// Add new account for authorized user
 app.post("/addAccount", authenticateToken, async (req, res) => {
     const username = req.user.name
     const accountType = req.body.accountType
@@ -119,13 +156,30 @@ app.post("/addAccount", authenticateToken, async (req, res) => {
     )
 })
 
-app.post("/closeAccount", authenticateToken, async (req, res) => {
-    const accountID = req.body.accountID
-    await accountRepo.closeAccount(accountID)
-        .then(data => res.json(data))
+// Get account data of authorized user
+app.get("/transaction", authenticateToken, (req, res) => {
+    transactionRepo.getTransactionsByUsername(req.user.name)
+    .then(data => res.json(data))
 })
 
-// User registration
+// Close existing account of authorized user
+app.post("/closeAccount", authenticateToken, async (req, res) => {
+    const sender = req.user.name
+    const receiver = req.user.name
+    const accountID = req.body.accountID
+    
+    await accountRepo.getCurrentBalance(accountID)
+        .then(data => {
+            if (data.balance > 0) {
+                transactionRepo.newTransaction(sender, receiver, accountID, accountID, "Cashed Out")
+                    .then(() => res.send({ message: "Success" }))
+            }
+            accountRepo.updateBalance(accountID, 0)
+            accountRepo.closeAccount(accountID).then(data => res.json(data))
+        })
+})
+
+// ************* User registration *************
 app.post('/register', async (req, res) => {
     try {
         let hashedPassword = await bcrypt.hash(req.body.password, 10)
@@ -148,26 +202,7 @@ app.post('/register', async (req, res) => {
     }
 })
 
-// Get user data by username
-app.get('/user', authenticateToken, async (req, res) => {
-    const username = req.user.name
-    await userRepo.getUserByUsername(username)
-            .then(data => res.json({ "user": data }))
-})
-
-// Update user profile
-app.post('/user/update', authenticateToken, async (req, res) => {
-    const username = req.body.username
-    const address = req.body.address
-    const city = req.body.city
-    const state = req.body.state
-    const zipCode = req.body.zipCode
-    const phoneNumber = req.body.phoneNumber
-    await userRepo.updateUserData(username, address, city, state, zipCode, phoneNumber)
-        .then(data => res.json({ "messgge": "Successfully updated...!"}))
-})
-
-// User authentication & authorization
+// ************* User Login - authentication & authorization *************
 app.post('/login', async (req, res) => {
     let username = req.body.username
     let user = { name: username }
@@ -209,25 +244,42 @@ function authenticateToken(req, res, next) {
     })
 }
 
+// Generate access token when user logs in - default expiration time is 1 hour
 function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5h' })
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '24h' })
 }
 
-function generateAccountID() {
-    
-}
+// ************* API for Bank functionalities *************
+app.post('/api/image', upload.single('image'), (req, res) => {
+    const imagePath = req.file.path
+    const transactionID = req.body.transactionID
+    transactionRepo.addTransactionImage(imagePath, transactionID)
+        .then(() => res.json({ message: "Success" }))
+})
 
-// showUserDatabase
-// getUsernameByID?id=2
-// insertUser?id=5&username=testuser5&password=password&firstName=user5&lastName=group&phoneNumber=8317779999
-// getAccountsData
-// getAccountByID?id=1
-// addAccount?id=4&accountType=Saving&balance=2900
+app.get('/image', (req, res) => {
+    const image = req.query.image
+    const readStream = fs.createReadStream(`.data/transactions/${image}`)
+    readStream.pipe(res)
+})
 
-// let today = new Date();
-// let date = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
-// let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-// let dateTime = date + ' ' + time;
+app.post("/updateAccount", authenticateToken, async (req, res) => {
+    const sender = req.user.name
+    const receiver = req.user.name
+    const fromAccount = req.body.fromAccount
+    const toAccount = req.body.toAccount
+    const fromAccountNewBalance = req.body.fromAccountNewBalance
+    const toAccountNewBalance = req.body.toAccountNewBalance
+    const transactionType = req.body.transactionType
+
+    await transactionRepo.newTransaction(sender, receiver, fromAccount, toAccount, transactionType)
+        .then(() => {
+            accountRepo.updateBalance(fromAccount, fromAccountNewBalance)
+            accountRepo.updateBalance(toAccount, toAccountNewBalance)
+            transactionRepo.getLastTransactionID()
+                .then(id => res.json(id))
+        })
+})
 
 // Testing credentials
 // users = [
@@ -239,4 +291,9 @@ function generateAccountID() {
 //         "username": "peter", 
 //         "password": "abc123"
 //     }
-// ]
+//
+//     {
+//         "username": "hello", 
+//         "password": "000000"
+//     }
+//

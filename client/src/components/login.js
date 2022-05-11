@@ -30,7 +30,7 @@ export default function Login({ setToken }) {
 
         if (response.accessToken) {
             setToken(response.accessToken)
-            sessionStorage.setItem('username', username);
+            localStorage.setItem('username', username);
             window.location.reload()
         }
         // handle errors messages without alerting

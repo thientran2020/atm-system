@@ -2,7 +2,8 @@ body > #root > div {
   height: 100vh;
 }
 
-body { 
+body {
+  margin: auto;
   background-color: gold;
 }
 
@@ -80,7 +81,7 @@ input[type="submit"]:hover {
   padding: 8px;
 }
 
-/*  footer css style */ 
+/*  footer css style */
 #footer {
   position: fixed;
   bottom: 0;
@@ -95,15 +96,62 @@ input[type="submit"]:hover {
   border-top: 4px solid;
   margin-top: 1rem;
   padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
   color: black;
   background-color:white;
   text-align: center;
-  width: 100%; 
+  width: 100%;
   font-size: 18px;
-  height: 90%;
+  min-height: 100%;
 }
 
 .div-container img {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1.0);
   max-width: 300px;
+}
+
+#welcome-message {
+  background-color: darkblue;
+  width: 30%;
+  margin: 0 auto;
+  color: white;
+  font-size: 27px;
+  padding: 5px;
+  text-transform: uppercase;
+}
+
+.fl-table {
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: normal;
+  border: none;
+  border-collapse: collapse ;
+  width: 95%;
+  margin: 0 auto;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+.fl-table td, .fl-table th {
+  text-align: center;
+  padding: 8px;
+}
+
+.fl-table td {
+  border-right: 1px solid #f8f8f8;
+  font-size: 18px;
+}
+
+.fl-table thead th {
+  color: #ffffff;
+  background: #4fc3a1;
+}
+
+.fl-table thead th:nth-child(odd) {
+  color: #ffffff;
+  background: #324690;
+}
+
+.fl-table tr:nth-child(even) {
+  background: #f8f8f8;
 }
