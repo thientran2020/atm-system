@@ -16,9 +16,9 @@ export default class OpenAccount extends Component {
 			"balance": this.state.account.balance
 		}
 		if (isNaN(account.balance)) {
-			alert("Please enter a valid number for balance!")
+			alert("Please enter a valid number for the balance!")
 		} else if (parseFloat(account.balance) < 0) {
-			alert("Balance must not be negative..!")
+			alert("Please enter a positive number for the balance!")
 		} else {
 			fetch('http://localhost:4040/addAccount', {
 				method: 'POST',
@@ -28,7 +28,7 @@ export default class OpenAccount extends Component {
 				},
 				body: JSON.stringify(account)
 			}).then(data => {
-				if (!alert("Thank you! Your account has been successfully created...!!!")) {
+				if (!alert("The account has been successfully created.")) {
 					window.location.reload()
 				}		
 			})
@@ -44,7 +44,7 @@ export default class OpenAccount extends Component {
 			return (
 				<div className="div-container">
 					<div className="account-info">
-						<h3>Please fill in below information to open new account!!!</h3>
+						<h3>Fill in the information below to open an account:</h3>
 						<form onSubmit={this.handleSubmit.bind(this)}>
 							<label>
 								<span>Account Type</span>

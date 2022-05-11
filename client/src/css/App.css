@@ -115,9 +115,8 @@ input[type="submit"]:hover {
   width: 30%;
   margin: 0 auto;
   color: white;
-  font-size: 27px;
+  font-size: 18px;
   padding: 5px;
-  text-transform: uppercase;
 }
 
 .fl-table {

@@ -7,14 +7,14 @@
  }
 
 .container span {
-    width: 160px;;
+    width: 200px;
 }
 
 .container select {
     margin-left: 0;
     margin-right: 20px;
     font-size: 15px;
-    width: 145px;
+    width: 180px;
     color: blue;
 }
 
@@ -25,8 +25,12 @@
 .container form input {
     padding: 10px;
     margin-left: 55px;
-    width: 280px;
+    width: 250px;
 } 
+
+.container form label {
+    width: 155px;
+}
 
 #upload-check {
     text-decoration: underline;

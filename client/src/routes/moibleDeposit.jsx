@@ -80,7 +80,7 @@ export default class MobileDeposit extends Component {
 				formData.append("transactionID", transactionID)
 				axios.post('http://localhost:4040/api/image', formData, { headers: {'Content-Type': 'multipart/form-data'}})
 				.then(() => {
-					if (!alert(`Thank you! ${action} successfully...!!!`)) {
+					if (!alert(`The ${action} was successful.`)) {
 						window.location.reload()
 					}
 				})
@@ -97,16 +97,16 @@ export default class MobileDeposit extends Component {
 		if (account) {
 			let message
 			if (account.length == 0) {
-				message = <h3>You don't have any account yet...!!!</h3>
+				message = <h3>You do not have any open accounts. Please open one before depositing a check.</h3>
 			} else {
-				message = <h3>Choose account to deposit or withdraw...!!!</h3>
+				message = <h3>Fill out the information below to deposit a check:</h3>
 			}
 			return (
 				<div className="div-container">
 					{message}
 					<div className='container'>
 						<select name="action" id="action">
-							<option value="Deposit">Deposit</option>
+							<option value="Deposit">Choose Deposit Account:</option>
 						</select>
 						<select name="account-id" id="account-id">
 							{account.map((acc) => 
@@ -115,7 +115,7 @@ export default class MobileDeposit extends Component {
 						</select>
 					</div>
 					<div className='container'>
-						<span>Deposit amount</span>
+						<span>Enter Deposit Amount:</span>
 						<input type="text" id="amount"/>
 					</div>
 					
@@ -129,7 +129,7 @@ export default class MobileDeposit extends Component {
 						id="execute" 
 						type="submit" 
 						onClick={this.handleSubmit.bind(this)}>
-						DEPOSIT
+						Deposit
 					</button>
 				</div>
 			)

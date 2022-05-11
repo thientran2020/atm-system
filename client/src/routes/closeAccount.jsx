@@ -30,7 +30,7 @@ export default class CloseAccount extends Component {
 			},
 			body: JSON.stringify({ "accountID": accountID })
 		}).then(data => {
-			if (!alert("Thank you! Your account has been successfully closed...!!!")) {
+			if (!alert("The selected account has been successfully closed.")) {
 				window.location.reload()
 			}		
 		}).catch(err => {
@@ -47,9 +47,9 @@ export default class CloseAccount extends Component {
 		if (account) {
 			let message
 			if (account.length == 0) {
-				message = <h3>You don't have any account yet...!!!</h3>
+				message = <h3>You do not have any open accounts.</h3>
 			} else {
-				message = <h3></h3>
+				message = <h3>Choose an account to close below:</h3>
 			}
 			return (
 				<div className="div-container">
@@ -68,7 +68,7 @@ export default class CloseAccount extends Component {
 						<tr>
 							<td>{acc.accountID}</td>
 							<td>{acc.accountType}</td>
-							<td>{acc.balance}</td>
+								<td>${acc.balance.toFixed(2)}</td>
 							<td>
 								<button 
 									id={"close-account" + acc.accountID}

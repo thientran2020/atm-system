@@ -96,7 +96,7 @@ export default class TransferFunds extends Component {
 							<select class="category" id="fromAccount"> {
 									account.map(acc =>
 										<option value={acc.accountID}>
-											{acc.accountType} | {acc.accountID} | ${acc.balance}
+											{acc.accountType} | {acc.accountID} | ${acc.balance.toFixed(2)}
 										</option>
 									)
 							} </select>
@@ -109,7 +109,7 @@ export default class TransferFunds extends Component {
 	            <select class="category" id="toAccount"> {
 								account.map(acc =>
 									<option value={acc.accountID}>
-										{acc.accountType} | {acc.accountID} | ${acc.balance}
+										{acc.accountType} | {acc.accountID} | ${acc.balance.toFixed(2)}
 									</option>
 								)
 							} </select>
