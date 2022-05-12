@@ -2,11 +2,25 @@ import React, {Component} from "react"
 import {Link} from "react-router-dom"
 import "../css/transfer.css"
 
+function format(value) {
+	let list = value.toFixed(2).toString().split(".") // separate value into an integer and a fractional component
+	let str = ""
+	for (let i = 0; i < list[0].length; i++) {
+		str += list[0].charAt(i)
+		let u = (list[0].length - 1) - i
+		if (u % 3 == 0 && 0 < u) {
+			str += "," // insert a comma every three digits, except at the least significant digit
+		}
+	}
+
+	return str + "." + list[1] // add back the fractional part
+}
+
 export default class TransferFunds extends Component {
 	state = {}
 
  	fetchData() {
- 		return fetch('http://localhost:4040/account', 
+ 		return fetch('http://localhost:4040/account',
  		{
  			method: 'GET',
  			headers: {
@@ -68,14 +82,14 @@ export default class TransferFunds extends Component {
  				"fromAccount": fromAccount,
  				"toAccount": toAccount,
  				"fromAccountNewBalance": fromAccountBalance,
- 				"toAccountNewBalance": toAccountBalance, 
+ 				"toAccountNewBalance": toAccountBalance,
  				"transactionType": "Transfer",
 				"transactionAmount": amount
  			})
  		}).then(() => {
  			if (!alert(`Thank you! Transfered successfully!`)) {
  				window.location.reload()
- 			}		
+ 			}
  		})
  	}
 
@@ -103,7 +117,7 @@ export default class TransferFunds extends Component {
 							<select class="category" id="fromAccount"> {
 								account.map(acc =>
 									<option value={acc.accountID}>
-										{acc.accountType} | {acc.accountID} | ${acc.balance.toFixed(2)}
+										ID: {acc.accountID} | {acc.accountType} | ${format(acc.balance)}
 									</option>
 								)
 							} </select>
@@ -116,7 +130,7 @@ export default class TransferFunds extends Component {
 							<select class="category" id="toAccount"> {
 									account.map(acc =>
 										<option value={acc.accountID}>
-											{acc.accountType} | {acc.accountID} | ${acc.balance}
+											ID: {acc.accountID} | {acc.accountType} | ${format(acc.balance)}
 										</option>
 									)
 							} </select>
@@ -130,10 +144,10 @@ export default class TransferFunds extends Component {
 							<input class="right" type="number" id="amount"></input>
 						</div>
 	        		</div>
-					
+
 					<div class="flex">
 	          			<div class="row">
-							<button class="category">CANCEL</button>
+							<button class="category"><a class="cancel" href="/">CANCEL</a></button>
 							<div style={{"min-width":"14px"}}></div>
 							<button class="category" id="transfer" type="submit" onClick={this.handleSubmit.bind(this)}>
 								CONFIRM
