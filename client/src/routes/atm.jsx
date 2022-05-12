@@ -98,6 +98,7 @@ export default class ATM extends Component {
                 Date: ${new Date()}.\n
                 Thank you ^^`)) {
             }
+            document.querySelector('#amount').value = ""
         })
     }
 

@@ -100,6 +100,7 @@ app.get("/getUsernameByID", (req, res) => {
     userRepo.getUsernameByID(id).then(data => {
         res.json(data)
     })
+    return res.status(201)
 })
 
 // Get all accounts' data
@@ -107,6 +108,7 @@ app.get("/getAccountsData", (req, res) => {
     accountRepo.getAccountsData().then(data => {
         res.json(data)
     })
+    return res.status(201)
 })
 
 // Get all transactions' data
@@ -114,6 +116,7 @@ app.get("/getTransactionsData", (req, res) => {
     transactionRepo.getTransactionsData().then(data => {
         res.json(data)
     })
+    return res.status(201)
 })
 
 
@@ -123,6 +126,7 @@ app.get('/user', authenticateToken, async (req, res) => {
     const username = req.user.name
     await userRepo.getUserByUsername(username)
             .then(data => res.json({ "user": data }))
+    return res.status(201)
 })
 
 // Update user profile
@@ -135,6 +139,7 @@ app.post('/user/update', authenticateToken, async (req, res) => {
     const phoneNumber = req.body.phoneNumber
     await userRepo.updateUserData(username, address, city, state, zipCode, phoneNumber)
         .then(() => res.json({ "messgge": "Successfully updated...!"}))
+    return res.status(201)
 })
 
 // Get account data of authorized user
@@ -147,6 +152,7 @@ app.get("/account", authenticateToken, (req, res) => {
             )
         }
     )
+    return res.status(201)
 })
 
 // Add new account for authorized user
@@ -168,12 +174,14 @@ app.post("/addAccount", authenticateToken, async (req, res) => {
 
         }
     )
+    return res.status(201)
 })
 
 // Get account data of authorized user
 app.get("/transaction", authenticateToken, (req, res) => {
     transactionRepo.getTransactionsByUsername(req.user.name)
     .then(data => res.json(data))
+    return res.status(201)
 })
 
 // Close existing account of authorized user
