@@ -4,12 +4,12 @@ body > #root > div {
 
 .atm {
     margin: 0 auto;
-    margin-top: 8vh;
+    margin-top: 4vh;
     color: white;
     width: 80%;
     text-align: center;
     background-color: #282c34;
-    height: 80vh;
+    height: 90vh;
 }
 
 .atm h1 {
@@ -28,8 +28,7 @@ body > #root > div {
 }
 
 .atm p {
-    margin: 2%;
-    padding: 10px;
+    margin: 1%;
 }
 
 .atm label {
@@ -51,7 +50,7 @@ body > #root > div {
     margin: 0 auto;
     width: 90%;
     justify-content: space-evenly;
-    padding-bottom: 80px;
+    padding-bottom: 30px;
 }
 
 .atm .button-board button {

@@ -9,7 +9,7 @@ export default class ATM extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        if (isNaN(this.state.pin) || parseFloat(this.state.pin) <= 0) {
+        if (isNaN(this.state.pin) || parseFloat(this.state.pin) < 0) {
             return alert("PIN must be positive number string...!")
         }
 

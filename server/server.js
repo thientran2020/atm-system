@@ -253,9 +253,9 @@ function authenticateToken(req, res, next) {
     })
 }
 
-// Generate access token when user logs in - default expiration time is 1 hour
+// Generate access token when user logs in - default expiration time is 4 hour
 function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '24h' })
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '4h' })
 }
 
 // ************* API for Bank functionalities *************
