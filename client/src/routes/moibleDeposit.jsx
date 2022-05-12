@@ -31,7 +31,7 @@ export default class MobileDeposit extends Component {
 		if (isNaN(amount)) {
 			alert("Please enter a valid number for balance!")
 		} else if (parseFloat(amount) <= 0) {
-			alert(`${action} amount must not be negative..!`)
+			alert(`Please enter a positive ${action.toLowerCase()} amount!`)
 		} else {
 			let balance
 			for (let index in this.state.account) {
@@ -41,15 +41,15 @@ export default class MobileDeposit extends Component {
 				}
 			}
 			if (action == 'Withdraw' && balance < amount) {
-				alert(`Maximum amount can be withdrawn is ${balance}`)
+				alert(`Our apologies. The maximum amount that can be withdrawn is ${balance}`)
 				return
 			}
 			if (!image) {
-				alert(`Please upload your check to deposit...!`)
+				alert(`Please upload a photo of the check you would like to deposit!`)
 				return
 			}
 			if (!accountID) {
-				alert(`Sorry you don't have any account to deposit...!`)
+				alert(`You don't have any open accounts yet. Please open one before making a deposit!`)
 				return
 			}
 
@@ -77,7 +77,7 @@ export default class MobileDeposit extends Component {
 				formData.append("transactionID", transactionID)
 				axios.post('http://localhost:4040/api/image', formData, { headers: {'Content-Type': 'multipart/form-data'}})
 				.then(() => {
-					if (!alert(`Thank you! ${action} successfully...!!!`)) {
+					if (!alert(`${action} successfully!!!`)) {
 						window.location.reload()
 					}
 				})
@@ -94,9 +94,9 @@ export default class MobileDeposit extends Component {
 		if (account) {
 			let message
 			if (account.length == 0) {
-				message = <h3>You don't have any account yet...!!!</h3>
+				message = <h3>You do not have any open accounts!!!</h3>
 			} else {
-				message = <h3>Choose account to deposit or withdraw...!!!</h3>
+				message = <h3>Fill out the information below to deposit a check:</h3>
 			}
 			return (
 				<div className="div-container">
@@ -112,7 +112,7 @@ export default class MobileDeposit extends Component {
 						</select>
 					</div>
 					<div className='container'>
-						<span>Deposit amount</span>
+						<span>Deposit amount:</span>
 						<input type="number" id="amount"/>
 					</div>
 					

@@ -4,7 +4,7 @@ export default function NavBar() {
     return (
       <nav id="navigation-bar">
 		<ul>
-			<li><a href="/">Home</a></li>
+			<li><a href="/">Welcome</a></li>
 			<li>
 				<a href="/profile">Profile</a>
 				<ul>

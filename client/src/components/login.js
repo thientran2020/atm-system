@@ -56,7 +56,7 @@ export default function Login({ setToken }) {
                         <button id="login_button" type="submit">LOG IN</button>
                     </div>
                 </form>
-                <p><a href="/registration">Not registered yet? REGISTER!!!</a></p>
+                <p><a href="/registration">Not registered yet? Register here!</a></p>
             </div>
         </div>
     )

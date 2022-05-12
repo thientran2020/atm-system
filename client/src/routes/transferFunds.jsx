@@ -28,13 +28,13 @@ export default class TransferFunds extends Component {
 
  		// Data validation
  		if (fromAccount == toAccount) {
- 			return alert('You cannot transfer money from an account to itself...!')
+ 			return alert('You cannot transfer money to the same account!')
  		}
  		if (isNaN(amount) || (!amount)) {
- 			return alert("Please enter a valid number for balance!")
+ 			return alert("Please enter a valid number for the amount!")
  		}
  		if (parseFloat(amount) <= 0) {
- 			return alert(`Transfer amount must be positive!`)
+ 			return alert(`The transfer amount must be positive!`)
  		}
 
  		let fromAccountBalance
@@ -52,7 +52,7 @@ export default class TransferFunds extends Component {
  		}
 
  		if (fromAccountBalance < amount) {
- 			return alert(`Insufficient funds. Maximum amount is ${fromAccountBalance}!`)
+ 			return alert(`Insufficient funds. The maximum amount that can be transferred is ${fromAccountBalance}!`)
  		}
 
  		fromAccountBalance = fromAccountBalance - parseFloat(amount)
@@ -73,7 +73,7 @@ export default class TransferFunds extends Component {
 				"transactionAmount": amount
  			})
  		}).then(() => {
- 			if (!alert(`Thank you! Transfered successfully...!!!`)) {
+ 			if (!alert(`Thank you! Transfered successfully!`)) {
  				window.location.reload()
  			}		
  		})
@@ -89,7 +89,7 @@ export default class TransferFunds extends Component {
 			if (account.length < 2) {
 				return (
 					<div class="div-container">
-						<h3>You need at least 2 accounts to transfer money...!</h3>
+						<h3>You must have 2 open accounts to transfer funds!</h3>
 					</div>
 				);
 			}
@@ -103,46 +103,46 @@ export default class TransferFunds extends Component {
 							<select class="category" id="fromAccount"> {
 								account.map(acc =>
 									<option value={acc.accountID}>
-										{acc.accountType} | {acc.accountID} | ${acc.balance}
+										{acc.accountType} | {acc.accountID} | ${acc.balance.toFixed(2)}
 									</option>
 								)
 							} </select>
 						</div>
 					</div>
 					<div class="flex">
-	          	<div class="row">
-	            
-				<div class="left"><span class="category">TRANSFER TO</span></div>
-	            <div style={{"min-width":"14px"}}></div>
-	            <select class="category" id="toAccount"> {
-						account.map(acc =>
-							<option value={acc.accountID}>
-								{acc.accountType} | {acc.accountID} | ${acc.balance}
-							</option>
-						)
-					} </select>
-	          		</div>
-				</div>
+	          			<div class="row">
+							<div class="left"><span class="category">TRANSFER TO</span></div>
+							<div style={{"min-width":"14px"}}></div>
+							<select class="category" id="toAccount"> {
+									account.map(acc =>
+										<option value={acc.accountID}>
+											{acc.accountType} | {acc.accountID} | ${acc.balance}
+										</option>
+									)
+							} </select>
+	          			</div>
+					</div>
+
 					<div class="flex">
-				<div class="row">
-					<div class="left"><span class="category">AMOUNT</span></div>
-					<div style={{"min-width":"14px"}}></div>
-					<input class="right" type="number" id="amount"></input>
-				</div>
-	        	</div>
+						<div class="row">
+							<div class="left"><span class="category">AMOUNT</span></div>
+							<div style={{"min-width":"14px"}}></div>
+							<input class="right" type="number" id="amount"></input>
+						</div>
+	        		</div>
+					
 					<div class="flex">
-	          <div class="row">
-	            <button class="category">CANCEL</button>
-	            <div style={{"min-width":"14px"}}></div>
-	            <button class="category" id="transfer" type="submit" onClick={this.handleSubmit.bind(this)}>
-						CONFIRM
-						</button>
-	          </div>
-	        </div>
+	          			<div class="row">
+							<button class="category">CANCEL</button>
+							<div style={{"min-width":"14px"}}></div>
+							<button class="category" id="transfer" type="submit" onClick={this.handleSubmit.bind(this)}>
+								CONFIRM
+								</button>
+	          			</div>
+	        		</div>
 				</div>
 			)
 		}
-
 		return (<Link to="/"/>);
 	}
 }

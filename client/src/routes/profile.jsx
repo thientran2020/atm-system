@@ -53,7 +53,7 @@ export default class Profile extends Component {
 				<div className="div-container">
 					<div id="user-info">
 						<img src={logo} className='logo' alt='profile'/> 
-						<h1>Hi {user.firstName} {user.lastName} !!!</h1>
+						<h1>Hi {user.firstName} !!!</h1>
 						<p><span>Username:</span> {user.username}</p>
 						<p><span>Address:</span> {user.address}, {user.city} {user.state} {user.zipCode}</p>
 						<p><span>Phone Number:</span> {this.state.user.phoneNumber}</p>  

@@ -44,7 +44,7 @@ const transactionRepo = new TransactionRepository(dao) // transactions table
 // Comment out lines 46-48 - Save. Run server!
 // Next, comment out them again. Save. Rerun server!
 // dao.run(`DROP TABLE users`)
-// dao.run(`DROP TABLE accoutns`)
+// dao.run(`DROP TABLE accounts`)
 // dao.run(`DROP TABLE transactions`)
 
 dao.run(`

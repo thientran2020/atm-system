@@ -25,15 +25,15 @@ export default function Registration() {
 	const handleOnSubmit = async e => {
 		e.preventDefault();
 		if (!validator.isMobilePhone(phoneNumber)) {
-			alert("Phone number is not valid. Please check!!!")
+			alert("Invalid phone. Please check and re-enter!")
 		} else if (password.length < 6) {
-			alert("Password must have at least 6 characters. Please try a new one!!!")
+			alert("Password must be at least 6 characters. Please enter a new one and try again!")
 		} else if (password !== confirmPassword) {
-			alert("Passwords don't match. Please try again")
+			alert("The passwords do not match. Please try again!")
 		} else if (!checked) {
-			alert("Please check the box for terms and condition agreements!!!")
+			alert("Terms and condition must be agreed!")
 		} else if (isNaN(pin) || parseFloat(pin) < 0 || pin.includes('.')) {
-			alert("PIN must be non-negative number string!")
+			alert("PIN must be positive number string!")
 		} else {
 			const user = {
 				"username": username,
@@ -93,7 +93,7 @@ export default function Registration() {
 						<input type="checkbox" name="remember"
 							defaultChecked={checked}
 							onChange={() => setChecked(!checked) } />
-						I agree the terms and conditions
+						I agree the Terms and Conditions
 					</label>
 					<button class="button" type="submit">SUBMIT</button>
 				</form>

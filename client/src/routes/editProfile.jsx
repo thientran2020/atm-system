@@ -51,7 +51,7 @@ export default class EditProfile extends Component {
 			return (
 				<div className="div-container">
 					<div id="update-info">
-						<h1>Please update us your new information ...</h1>
+						<h1>Update your personal information below: </h1>
 						<form>
 							<label>
 								<span>Address</span>
