@@ -41,6 +41,12 @@ const userRepo = new UserRepository(dao)        // users table
 const accountRepo = new AccountRepository(dao)  // accounts table
 const transactionRepo = new TransactionRepository(dao) // transactions table
 
+// Comment out lines 46-48 - Save. Run server!
+// Next, comment out them again. Save. Rerun server!
+// dao.run(`DROP TABLE users`)
+// dao.run(`DROP TABLE accoutns`)
+// dao.run(`DROP TABLE transactions`)
+
 dao.run(`
     CREATE TABLE IF NOT EXISTS users (
         userID INTEGER PRIMARY KEY,
@@ -200,7 +206,6 @@ app.post('/register', async (req, res) => {
         userRepo.getUserByUsername(username)
             .then(user => {
                 if (user) {
-                    console.log(user)
                     return res.send({ message: "Username already exists...!" })
                 }
                 userRepo.insertUser(username, hashedPassword, firstName, lastName, phoneNumber, pin)
