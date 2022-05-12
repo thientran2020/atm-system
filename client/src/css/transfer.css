@@ -29,6 +29,7 @@ div.left {
 
 select.category {
   all: unset;
+  cursor: pointer;
   background-color: #F9F8FD;
   border: none;
   padding: 14px;
@@ -53,6 +54,7 @@ input.right {
 
 button.category {
   all: unset;
+  cursor: pointer;
   background-color: #FFD700;
   border: none;
   padding: 14px;
@@ -63,4 +65,8 @@ button.category {
   color: #282C34;
   box-sizing: border-box;
   width: 50%;
+}
+
+a.cancel {
+  all: unset;
 }
