@@ -30,11 +30,11 @@ export default class Account extends Component {
 		if (account) {
 			let message
 			if (account.length == 0) {
-				message = <p id='message'>You don't have any account yet...!!!</p>
+				message = <p id='message'>You don't have any open accounts yet.</p>
 			} else if (account.length == 1) {
-				message = <p id='message'>You have 1 account...!!!</p>
+				message = <p id='message'>You have 1 open account:</p>
 			} else {
-				message = <p id='message'>You have {account.length} accounts...!!!</p>
+				message = <p id='message'>You have {account.length} open accounts:</p>
 			}
 			return (
 				<div className="div-container">
@@ -55,7 +55,7 @@ export default class Account extends Component {
 									<td>{i+1}</td>
 									<td>{acc.accountID}</td>
 									<td>{acc.accountType}</td>
-									<td>{acc.balance}</td>
+									<td>${acc.balance.toFixed(2)}</td>
 								</tr>
 								))}	
 							</tbody>

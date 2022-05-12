@@ -25,15 +25,15 @@ export default function Registration() {
 	const handleOnSubmit = async e => {
 		e.preventDefault();
 		if (!validator.isMobilePhone(phoneNumber)) {
-			alert("Phone number is not valid. Please check!!!")
+			alert("Invalid phone number. Please check if it is correct.")
 		} else if (password.length < 6) {
-			alert("Password must have at least 6 characters. Please try a new one!!!")
+			alert("Password must have be least 6 characters. Please enter a new one and try again.")
 		} else if (password !== confirmPassword) {
-			alert("Passwords don't match. Please try again")
+			alert("The passwords do not match. Please try again.")
 		} else if (!checked) {
-			alert("Please check the box for terms and condition agreements!!!")
+			alert("The terms and conditions must be agreed to.")
 		} else if (isNaN(pin) || parseFloat(pin) < 0 || pin.includes('.')) {
-			alert("PIN must be non-negative number string!")
+			alert("PIN must be a 4-digit positive number!")
 		} else {
 			const user = {
 				"username": username,
@@ -57,7 +57,7 @@ export default function Registration() {
 		</header>
 
 		<div className="div-container">
-			<h2>REGISTER</h2>
+			<h2>Register Account</h2>
 
 			<div class ="signup-box">
 				<form class="fill-box" onSubmit={handleOnSubmit}>
@@ -92,10 +92,10 @@ export default function Registration() {
 					<label id="checkbox">
 						<input type="checkbox" name="remember"
 							defaultChecked={checked}
-							onChange={() => setChecked(!checked) } />
-						I agree the terms and conditions
+							onChange={() => setChecked(!checked)} />
+							I Agree to the Terms and Conditions
 					</label>
-					<button class="button" type="submit">SUBMIT</button>
+					<button class="button" type="submit">Submit</button>
 				</form>
 				<p> Already have an account? <a href="/">Login here</a></p>
 			</div>

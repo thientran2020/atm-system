@@ -17,9 +17,9 @@ export default class Welcome extends Component {
 		if (this.state.user) {
 			return (
 				<div className="div-container">
-					<h1>Hey, {this.state.user.firstName} {this.state.user.lastName} !!!</h1>
-					<p>Thank you for being our valued customer</p>
-					<p id="welcome-message">Have a nice day ^^</p>
+					<h1>Hey, {this.state.user.firstName}</h1>
+					<p>Thank you for being our valued customer!</p>
+					<p id="welcome-message">Navigate to My Account to View Account Balances</p>
 				</div>
 			)
 		}

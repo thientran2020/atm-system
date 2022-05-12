@@ -4,25 +4,25 @@ export default function NavBar() {
     return (
       <nav id="navigation-bar">
 		<ul>
-			<li><a href="/">Home</a></li>
+			<li><a href="/">Welcome</a></li>
 			<li>
-				<a href="/profile">Profile</a>
+				<a href="/profile">User Profile</a>
 				<ul>
-					<li><a href="/editProfile">Update Profile</a></li>
-					<li><a href="/transaction">Transactions</a></li>
+					<li><a href="/editProfile">Update User Info</a></li>
+					<li><a href="/transaction">My Transactions</a></li>
 				</ul>
 			</li>
 			<li>
-				<a href="/account">My Account</a>
+				<a href="/account">My Accounts</a>
 				<ul>
 					<li><a href="/openAccount">Open New Account</a></li>
 					<li><a href="/closeAccount">Close Existing Account</a></li>
-					<li><a href="/mobileDeposit">Mobile Deposit</a></li>
-					<li><a href="/transferFunds">Pay &amp; Transfer</a></li>
+					<li><a href="/mobileDeposit">Mobile Check Deposit</a></li>
+					<li><a href="/transferFunds">Make A Transfer</a></li>
 				</ul>
 			</li>
 			<li>
-				<a href="/aboutUs">Contact Us</a>
+				<a href="/aboutUs">About Us</a>
 			</li>
 			<li id="sign-out">
 				<a href="/" onClick={() => {
