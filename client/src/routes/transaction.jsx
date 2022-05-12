@@ -62,7 +62,7 @@ export default class Transaction extends Component {
 							{transaction.map((tran, i) => (
 							<tr>
 								<td>{tran.transactionID}</td>
-								<td>{tran.transactionAmount}</td>
+								<td>$ {tran.transactionAmount}</td>
 								<td>{tran.fromAccount}</td>
 								<td>{tran.toAccount}</td>
 								<td>{tran.transactionDate}</td>

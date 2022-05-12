@@ -19,6 +19,7 @@ export default class CloseAccount extends Component {
 			}
 			return res.json()
 		}).then(data => {this.setState({ account: data })})
+		.catch(e => console.log(e))
 	}
 
 	handleSubmit(accountID) {
@@ -30,7 +31,7 @@ export default class CloseAccount extends Component {
 			},
 			body: JSON.stringify({ "accountID": accountID })
 		}).then(data => {
-			if (!alert("Success! Your account has been successfully closed!")) {
+			if (!alert("Success! Your account has been successfully closed! A check will be sent to your home address with the remaining balance in your closed account!")) {
 				window.location.reload()
 			}		
 		}).catch(err => {
@@ -63,7 +64,7 @@ export default class CloseAccount extends Component {
 						<tr>
 							<td>{acc.accountID}</td>
 							<td>{acc.accountType}</td>
-							<td>{acc.balance.toFixed(2)}</td>
+							<td>$ {acc.balance.toFixed(2)}</td>
 							<td>
 								<button 
 									id={"close-account" + acc.accountID}

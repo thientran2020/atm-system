@@ -112,7 +112,7 @@ export default class MobileDeposit extends Component {
 						</select>
 					</div>
 					<div className='container'>
-						<span>Deposit amount:</span>
+						<span>Deposit amount ($):</span>
 						<input type="number" id="amount"/>
 					</div>
 					

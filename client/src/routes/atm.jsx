@@ -155,7 +155,7 @@ export default class ATM extends Component {
                     <div className="deposit-withdraw">
                         <div className='container'>
                             <span>
-                                {this.state.action == "Deposit" ? "Deposit to" : "Withdraw from"}
+                                {this.state.action == "Deposit" ? "Deposit to:" : "Withdraw from:"}
                             </span>
                         <select name="account-id" id="account-id">
                             {this.state.account.map((acc) => 
@@ -165,7 +165,7 @@ export default class ATM extends Component {
                         </div>
 
                         <div className='container'>
-                            <span>{this.state.action} amount</span>
+                            <span>{this.state.action} amount: </span>
                             <input type="number" id="amount"/>
                         </div>
                         <button onClick={e => this.handleExecute(e)}>Execute</button>

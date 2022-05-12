@@ -55,7 +55,7 @@ export default class Account extends Component {
 									<td>{i+1}</td>
 									<td>{acc.accountID}</td>
 									<td>{acc.accountType}</td>
-									<td>{acc.balance.toFixed(2)}</td>
+									<td>$ {acc.balance.toFixed(2)}</td>
 								</tr>
 								))}	
 							</tbody>

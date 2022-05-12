@@ -189,8 +189,9 @@ app.post("/closeAccount", authenticateToken, async (req, res) => {
                     .then(() => res.send({ message: "Success" }))
             }
             accountRepo.updateBalance(accountID, 0)
-            accountRepo.closeAccount(accountID).then(data => res.json(data))
+            accountRepo.closeAccount(accountID).catch(e => console.log(e))
         })
+    return res.status(201)
 })
 
 // ************* User registration *************
@@ -269,12 +270,14 @@ app.post('/api/image', upload.single('image'), (req, res) => {
     const transactionID = req.body.transactionID
     transactionRepo.addTransactionImage(imagePath, transactionID)
         .then(() => res.json({ message: "Success" }))
+    return res.status(201)
 })
 
 app.get('/image', (req, res) => {
     const image = req.query.image
     const readStream = fs.createReadStream(`.data/transactions/${image}`)
     readStream.pipe(res)
+    return res.status(201)
 })
 
 app.post("/updateAccount", authenticateToken, async (req, res) => {
@@ -294,6 +297,7 @@ app.post("/updateAccount", authenticateToken, async (req, res) => {
             transactionRepo.getLastTransactionID()
                 .then(id => res.json(id))
         })
+    return res.status(201)
 })
 
 // ************* API for ATM MACHINE VERSION *************
@@ -314,6 +318,7 @@ app.post('/atm/login', async (req, res) => {
     
     await userRepo.getUserByUsername(username)
         .then(data => res.json({ user: data }))
+    return res.status(201)
 })
 
 app.get('/atm/account', async(req, res) => {
@@ -327,6 +332,7 @@ app.get('/atm/account', async(req, res) => {
             )
         }
     )
+    return res.status(201)
 })
 
 app.post('/atm/updateAccount', async(req, res) => {
@@ -346,4 +352,5 @@ app.post('/atm/updateAccount', async(req, res) => {
             transactionRepo.getLastTransactionID()
                 .then(id => res.json(id))
         })
+    return res.status(201)
 })
